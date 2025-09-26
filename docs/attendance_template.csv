@@ -1,0 +1,6 @@
+Subject,Subject Code,Class Name,Section,Semester,Academic Year,Date,Start Time,End Time,Teacher ID,Teacher Name,Student ID,Student Name,Roll Number,Status,Remarks
+Computer Science,CS101,CSE-A,A,3,2024-2025,2024-09-19,09:00,10:00,TEACH001,Dr. Smith,STU001,John Doe,CS21001,Present,
+Computer Science,CS101,CSE-A,A,3,2024-2025,2024-09-19,09:00,10:00,TEACH001,Dr. Smith,STU002,Jane Smith,CS21002,Absent,Sick leave
+Computer Science,CS101,CSE-A,A,3,2024-2025,2024-09-19,09:00,10:00,TEACH001,Dr. Smith,STU003,Bob Johnson,CS21003,Present,
+Computer Science,CS101,CSE-A,A,3,2024-2025,2024-09-19,09:00,10:00,TEACH001,Dr. Smith,STU004,Alice Brown,CS21004,Late,Arrived 10 minutes late
+Computer Science,CS101,CSE-A,A,3,2024-2025,2024-09-19,09:00,10:00,TEACH001,Dr. Smith,STU005,Charlie Wilson,CS21005,Excused,Official duty

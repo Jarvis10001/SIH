@@ -1,0 +1,14 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "Clerk",
+  "type": "object",
+  "required": ["employeeId","personalInfo","professionalInfo","password"],
+  "properties": {
+    "employeeId": { "type": "string" },
+    "personalInfo": { "type": "object", "properties": { "fullName": {"type":"string"}, "email": {"type":"string","format":"email"}, "phone": {"type":"string"}, "dateOfBirth": {"type":"string","format":"date"}, "gender": {"type":"string"}, "address": {"type":"object"}, "emergencyContact": {"type":"object"} } },
+    "professionalInfo": { "type": "object" },
+    "systemAccess": { "type": "object" },
+    "password": { "type": "string", "minLength": 6 },
+    "isActive": { "type": "boolean" }
+  }
+}

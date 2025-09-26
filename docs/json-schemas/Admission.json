@@ -1,0 +1,14 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "Admission",
+  "type": "object",
+  "required": ["studentName","program","admissionDate","status"],
+  "properties": {
+    "studentName": { "type": "string" },
+    "studentEmail": { "type": "string", "format": "email" },
+    "program": { "type": "string" },
+    "admissionDate": { "type": "string", "format": "date" },
+    "status": { "type": "string", "enum": ["applied","accepted","rejected","enrolled"] },
+    "documents": { "type": "array", "items": { "type": "object" } }
+  }
+}

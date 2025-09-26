@@ -1,0 +1,25 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "Student",
+  "type": "object",
+  "required": ["name","email","studentId","year","branch","semester","password"],
+  "properties": {
+    "name": { "type": "object", "properties": { "firstName": {"type":"string"}, "middleName": {"type":"string"}, "lastName": {"type":"string"} } },
+    "email": { "type": "string", "format": "email" },
+    "studentId": { "type": "string" },
+    "year": { "type": "integer", "minimum": 1, "maximum": 6 },
+    "branch": { "type": "string" },
+    "semester": { "type": "integer", "minimum": 1, "maximum": 12 },
+    "password": { "type": "string", "minLength": 6 },
+    "personalInfo": { "type": "object", "properties": { "dateOfBirth": {"type":"string","format":"date"}, "gender": {"type":"string"}, "bloodGroup": {"type":"string"}, "nationality": {"type":"string"}, "religion": {"type":"string"}, "category": {"type":"string"} } },
+    "contact": { "type": "object" },
+    "guardian": { "type": "object" },
+    "academics": { "type": "object" },
+    "status": { "type": "object" },
+    "security": { "type": "object" },
+    "documents": { "type": "object" },
+    "fees": { "type": "object" },
+    "hostel": { "type": "object" },
+    "transport": { "type": "object" }
+  }
+}

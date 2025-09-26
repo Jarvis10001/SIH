@@ -1,0 +1,14 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "Attendance",
+  "type": "object",
+  "required": ["classInfo","date","timeSlot","teacherInfo","studentAttendance"],
+  "properties": {
+    "classInfo": { "type": "object", "properties": { "subject": {"type":"string"}, "subjectCode": {"type":"string"}, "className": {"type":"string"}, "section": {"type":"string"}, "semester": {"type":"integer"}, "academicYear": {"type":"string"} } },
+    "date": { "type": "string", "format": "date-time" },
+    "timeSlot": { "type": "object", "properties": { "startTime": {"type":"string"}, "endTime": {"type":"string"} } },
+    "teacherInfo": { "type": "object", "properties": { "teacherId": {"type":"string"}, "teacherName": {"type":"string"} } },
+    "studentAttendance": { "type": "array", "items": { "type": "object", "properties": { "studentId": {"type":"string"}, "studentName": {"type":"string"}, "rollNumber": {"type":"string"}, "status": {"type":"string"}, "remarks": {"type":"string"} } } },
+    "statistics": { "type": "object" }
+  }
+}

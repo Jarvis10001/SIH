@@ -1,0 +1,39 @@
+{
+  "personalInfo": {
+    "fullName": "Sarah Manager",
+    "email": "sarah.manager@sih.edu",
+    "phone": "9876543322",
+    "dateOfBirth": "1985-03-20",
+    "gender": "Female",
+    "address": {
+      "street": "456 Business Ave",
+      "city": "Delhi",
+      "state": "Delhi",
+      "pincode": "110001",
+      "country": "India"
+    },
+    "emergencyContact": {
+      "name": "Mike Manager",
+      "relationship": "Spouse",
+      "phone": "9876543333"
+    }
+  },
+  "professionalInfo": {
+    "employeeId": "CLK002",
+    "designation": "Senior Clerk",
+    "department": "Accounts",
+    "joiningDate": "2023-06-01",
+    "experience": 5,
+    "reportingTo": "ADM001",
+    "workShift": "Morning",
+    "salary": {
+      "basic": 35000,
+      "allowances": 8000
+    }
+  },
+  "systemAccess": {
+    "modules": ["student_management", "fee_management", "examination"],
+    "accessLevel": "write"
+  },
+  "password": "TempPass123"
+}

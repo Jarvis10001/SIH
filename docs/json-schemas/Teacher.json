@@ -1,0 +1,66 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "Teacher",
+  "type": "object",
+  "required": ["teacherId", "password", "personalInfo", "professionalInfo"],
+  "properties": {
+    "teacherId": { "type": "string" },
+    "password": { "type": "string", "minLength": 6 },
+    "personalInfo": {
+      "type": "object",
+      "required": ["firstName", "lastName", "email", "phone", "dateOfBirth", "gender"],
+      "properties": {
+        "firstName": { "type": "string" },
+        "lastName": { "type": "string" },
+        "email": { "type": "string", "format": "email" },
+        "phone": { "type": "string" },
+        "alternatePhone": { "type": "string" },
+        "dateOfBirth": { "type": "string", "format": "date" },
+        "gender": { "type": "string", "enum": ["Male","Female","Other"] },
+        "bloodGroup": { "type": "string" },
+        "aadharNumber": { "type": "string" },
+        "panNumber": { "type": "string" }
+      }
+    },
+    "address": {
+      "type": "object",
+      "properties": {
+        "currentAddress": {
+          "type": "object",
+          "properties": {"street": {"type":"string"}, "city": {"type":"string"}, "state": {"type":"string"}, "pincode": {"type":"string"}, "country": {"type":"string"}}
+        },
+        "permanentAddress": {"type":"object","properties": {"street": {"type":"string"}, "city": {"type":"string"}, "state": {"type":"string"}, "pincode": {"type":"string"}, "country": {"type":"string"}}},
+        "isSameAddress": { "type": "boolean" }
+      }
+    },
+    "professionalInfo": {
+      "type": "object",
+      "required": ["designation","department","specialization","qualification","experience","joiningDate","employmentType"],
+      "properties": {
+        "employeeId": { "type": "string" },
+        "designation": { "type": "string" },
+        "department": { "type": "string" },
+        "specialization": { "type": "string" },
+        "qualification": { "type": "string" },
+        "experience": { "type": "number", "minimum": 0 },
+        "joiningDate": { "type": "string", "format": "date" },
+        "employmentType": { "type": "string" },
+        "salary": {
+          "type": "object",
+          "properties": { "basic": {"type":"number"}, "allowances": {"type":"number"}, "total": {"type":"number"} }
+        }
+      }
+    },
+    "academicInfo": {
+      "type": "object",
+      "properties": {
+        "subjects": { "type": "array", "items": { "type": "object", "properties": {"name":{"type":"string"},"code":{"type":"string"},"semester":{"type":"number"},"branch":{"type":"string"},"credits":{"type":"number"}} } },
+        "researchAreas": { "type": "array", "items": {"type":"string"} },
+        "publications": { "type": "array", "items": {"type":"object"} },
+        "projects": { "type": "array", "items": {"type":"object"} }
+      }
+    },
+    "systemInfo": { "type": "object" },
+    "documents": { "type": "object" }
+  }
+}
