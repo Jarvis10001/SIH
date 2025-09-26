@@ -1,0 +1,40 @@
+{
+  "employeeId": "CLK001",
+  "personalInfo": {
+    "fullName": "John Clerk",
+    "email": "john.clerk@sih.edu",
+    "phone": "9876543210",
+    "dateOfBirth": "1990-05-15",
+    "gender": "Male",
+    "address": {
+      "street": "123 Admin Street",
+      "city": "Mumbai",
+      "state": "Maharashtra",
+      "pincode": "400001",
+      "country": "India"
+    },
+    "emergencyContact": {
+      "name": "Jane Clerk",
+      "relationship": "Spouse",
+      "phone": "9876543211"
+    }
+  },
+  "professionalInfo": {
+    "designation": "Office Clerk",
+    "department": "Administration",
+    "joiningDate": "2024-01-15",
+    "experience": "2",
+    "reportingTo": "ADM001",
+    "workShift": "Morning",
+    "salary": {
+      "basic": "25000",
+      "allowances": "5000",
+      "total": "30000"
+    }
+  },
+  "systemAccess": {
+    "modules": ["student_management", "admission_processing"],
+    "accessLevel": "read"
+  },
+  "password": "clerk123"
+}
