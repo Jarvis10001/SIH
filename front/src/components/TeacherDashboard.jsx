@@ -15,6 +15,7 @@ import TeacherSchedule from './teacher/pages/TeacherSchedule';
 import TeacherResources from './teacher/pages/TeacherResources';
 import TeacherReports from './teacher/pages/TeacherReports';
 import TeacherSettings from './teacher/pages/TeacherSettings';
+import { themeClasses } from '../styles/theme';
 import axios from 'axios';
 
 // Create a wrapper component to use the context
@@ -79,13 +80,13 @@ const TeacherDashboardContent = () => {
   }
 
   return (
-    <div className="flex min-h-screen bg-gray-50">
+    <div className={themeClasses.dashboardLayout}>
       <TeacherSidebar />
-      <div className={`flex-1 transition-all duration-300 ${
+      <div className={`flex-1 transition-all duration-300 md:duration-700 ml-0 ${
         isOpen ? 'md:ml-72' : 'md:ml-20'
       }`}>
         <TeacherTopNav />
-        <main className="p-6">
+        <main className="px-4 py-6 md:p-6">
           <Routes>
             <Route path="/" element={<TeacherDashboardHome />} />
             <Route path="/profile" element={<TeacherProfile />} />

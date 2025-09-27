@@ -130,13 +130,13 @@ const TopNav = () => {
 
     return (
         <div className="sticky top-0 left-0 z-30">
-            <div className="bg-white backdrop-blur-md shadow-sm px-6 py-3 border-b border-gray-200">
+            <div className="bg-gray-800/95 backdrop-blur-md shadow-sm px-6 py-3 border-b border-slate-700/30">
                 <div className="flex items-center justify-between">
                     {/* Left Section */}
                     <div className="flex items-center gap-4">
                         <button 
                             onClick={toggleSidebar}
-                            className="p-2 rounded-xl hover:bg-[#3B82F6]/10 text-[#3B82F6] transition-all duration-300"
+                            className="p-2 rounded-xl hover:bg-indigo-500/20 text-indigo-400 transition-all duration-300"
                         >
                             <motion.i 
                                 animate={{ rotate: isOpen ? 180 : 0 }}
@@ -148,11 +148,11 @@ const TopNav = () => {
                             <motion.h1 
                                 initial={{ y: -20, opacity: 0 }}
                                 animate={{ y: 0, opacity: 1 }}
-                                className="text-xl font-bold text-[#3B82F6]"
+                                className="text-xl font-bold text-white"
                             >
                                 {getPageTitle()}
                             </motion.h1>
-                            <p className="text-sm text-[#06B6D4] hidden md:block">
+                            <p className="text-sm text-slate-400 hidden md:block">
                                 {new Date().toLocaleDateString('en-US', { 
                                     weekday: 'long', 
                                     year: 'numeric', 
@@ -168,12 +168,12 @@ const TopNav = () => {
                         {/* Notifications */}
                         <div className="relative">
                             <button 
-                                className="relative p-2 rounded-xl hover:bg-[#3B82F6]/10 text-[#3B82F6] transition-all duration-300"
+                                className="relative p-2 rounded-xl hover:bg-indigo-500/20 text-indigo-400 transition-all duration-300"
                                 onClick={() => setShowNotifications(!showNotifications)}
                             >
                                 <i className="ri-notification-3-line text-xl" />
                                 {unreadNotifications > 0 && (
-                                    <span className="absolute -top-1 -right-1 w-5 h-5 bg-red-500 text-white text-xs rounded-full flex items-center justify-center">
+                                    <span className="absolute -top-1 -right-1 w-5 h-5 bg-amber-500 text-white text-xs rounded-full flex items-center justify-center">
                                         {unreadNotifications > 9 ? '9+' : unreadNotifications}
                                     </span>
                                 )}
@@ -185,41 +185,41 @@ const TopNav = () => {
                                         initial={{ opacity: 0, y: 10 }}
                                         animate={{ opacity: 1, y: 0 }}
                                         exit={{ opacity: 0, y: 10 }}
-                                        className="absolute right-0 mt-2 w-80 bg-white rounded-xl shadow-lg py-2 z-50 max-h-96 overflow-y-auto"
+                                        className="absolute right-0 mt-2 w-80 bg-gray-800 rounded-xl shadow-lg border border-slate-700/50 py-2 z-50 max-h-96 overflow-y-auto"
                                     >
-                                        <div className="px-4 py-2 border-b border-gray-200">
-                                            <h3 className="font-semibold text-gray-800">Notifications</h3>
+                                        <div className="px-4 py-2 border-b border-slate-700/50">
+                                            <h3 className="font-semibold text-white">Notifications</h3>
                                         </div>
                                         {notifications.length > 0 ? (
                                             notifications.map((notification) => (
                                                 <button
                                                     key={notification.id}
                                                     onClick={() => handleNotificationClick(notification)}
-                                                    className={`w-full px-4 py-3 text-left hover:bg-gray-50 border-b border-gray-100 last:border-b-0 ${
-                                                        !notification.read ? 'bg-blue-50' : ''
+                                                    className={`w-full px-4 py-3 text-left hover:bg-gray-700/50 border-b border-slate-700/30 last:border-b-0 ${
+                                                        !notification.read ? 'bg-indigo-500/10' : ''
                                                     }`}
                                                 >
                                                     <div className="flex items-start gap-3">
-                                                        <i className={`${getNotificationIcon(notification.type)} text-[#3B82F6] mt-1`} />
+                                                        <i className={`${getNotificationIcon(notification.type)} text-indigo-400 mt-1`} />
                                                         <div className="flex-1 min-w-0">
-                                                            <p className="font-medium text-gray-800 text-sm">
+                                                            <p className="font-medium text-white text-sm">
                                                                 {notification.title}
                                                             </p>
-                                                            <p className="text-gray-600 text-xs mt-1">
+                                                            <p className="text-slate-300 text-xs mt-1">
                                                                 {notification.message}
                                                             </p>
-                                                            <p className="text-gray-400 text-xs mt-1">
+                                                            <p className="text-slate-500 text-xs mt-1">
                                                                 {getRelativeTime(notification.time)}
                                                             </p>
                                                         </div>
                                                         {!notification.read && (
-                                                            <div className="w-2 h-2 bg-blue-500 rounded-full mt-2" />
+                                                            <div className="w-2 h-2 bg-indigo-400 rounded-full mt-2" />
                                                         )}
                                                     </div>
                                                 </button>
                                             ))
                                         ) : (
-                                            <div className="px-4 py-8 text-center text-gray-500">
+                                            <div className="px-4 py-8 text-center text-slate-400">
                                                 <i className="ri-notification-off-line text-2xl mb-2" />
                                                 <p>No notifications</p>
                                             </div>
@@ -232,21 +232,21 @@ const TopNav = () => {
                         {/* Profile Dropdown */}
                         <div className="relative">
                             <button 
-                                className="flex items-center gap-2.5 p-2 rounded-xl hover:bg-[#3B82F6]/10 transition-all duration-300"
+                                className="flex items-center gap-2.5 p-2 rounded-xl hover:bg-slate-600/20 transition-all duration-300"
                                 onClick={() => setShowProfileMenu(!showProfileMenu)}
                             >
-                                <div className="w-8 h-8 rounded-full bg-[#3B82F6]/10 flex items-center justify-center text-[#3B82F6] font-semibold">
+                                <div className="w-8 h-8 rounded-full bg-indigo-500/20 flex items-center justify-center text-indigo-400 font-semibold">
                                     {userData?.name ? userData.name.charAt(0).toUpperCase() : 'U'}
                                 </div>
                                 <div className="hidden md:block text-left">
-                                    <p className="text-sm font-semibold text-[#3B82F6]">
+                                    <p className="text-sm font-semibold text-white">
                                         {userData?.name || 'User'}
                                     </p>
-                                    <p className="text-xs text-[#06B6D4]">
+                                    <p className="text-xs text-slate-400">
                                         {userData?.role || 'Student'}
                                     </p>
                                 </div>
-                                <i className={`ri-arrow-down-s-line text-[#3B82F6] transition-transform duration-300 ${
+                                <i className={`ri-arrow-down-s-line text-slate-400 transition-transform duration-300 ${
                                     showProfileMenu ? 'rotate-180' : ''
                                 }`} />
                             </button>
@@ -257,14 +257,14 @@ const TopNav = () => {
                                         initial={{ opacity: 0, y: 10 }}
                                         animate={{ opacity: 1, y: 0 }}
                                         exit={{ opacity: 0, y: 10 }}
-                                        className="absolute right-0 mt-2 w-48 bg-white rounded-xl shadow-lg py-2 z-50"
+                                        className="absolute right-0 mt-2 w-48 bg-gray-800 border border-slate-700/50 rounded-xl shadow-lg py-2 z-50"
                                     >
                                         <button 
                                             onClick={() => {
                                                 setShowProfileMenu(false);
                                                 navigate('/dashboard/profile');
                                             }}
-                                            className="w-full flex items-center px-4 py-2 text-sm text-[#4CAF50] hover:bg-[#4CAF50]/10"
+                                            className="w-full flex items-center px-4 py-2 text-sm text-emerald-400 hover:bg-emerald-500/10"
                                         >
                                             <i className="ri-user-line w-4 h-4 mr-2" />
                                             View Profile
@@ -274,15 +274,15 @@ const TopNav = () => {
                                                 setShowProfileMenu(false);
                                                 navigate('/dashboard/settings');
                                             }}
-                                            className="w-full flex items-center px-4 py-2 text-sm text-[#4CAF50] hover:bg-[#4CAF50]/10"
+                                            className="w-full flex items-center px-4 py-2 text-sm text-emerald-400 hover:bg-emerald-500/10"
                                         >
                                             <i className="ri-settings-line w-4 h-4 mr-2" />
                                             Settings
                                         </button>
-                                        <div className="h-px bg-gray-200 my-2" />
+                                        <div className="h-px bg-slate-700/50 my-2" />
                                         <button 
                                             onClick={handleLogout}
-                                            className="w-full flex items-center px-4 py-2 text-sm text-red-600 hover:bg-red-50"
+                                            className="w-full flex items-center px-4 py-2 text-sm text-red-400 hover:bg-red-500/10"
                                         >
                                             <i className="ri-logout-box-line w-4 h-4 mr-2" />
                                             Sign out

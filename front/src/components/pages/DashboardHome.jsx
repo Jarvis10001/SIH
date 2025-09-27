@@ -5,10 +5,10 @@ const DashboardHome = () => {
   const userData = JSON.parse(localStorage.getItem('user') || '{}');
 
   const stats = [
-    { title: 'Total Students', value: '1,234', icon: 'ri-user-3-line', color: 'bg-blue-500' },
-    { title: 'Active Courses', value: '56', icon: 'ri-book-line', color: 'bg-blue-600' },
-    { title: 'Faculty Members', value: '89', icon: 'ri-group-line', color: 'bg-cyan-500' },
-    { title: 'Pending Assignments', value: '23', icon: 'ri-file-list-3-line', color: 'bg-cyan-600' }
+    { title: 'Total Students', value: '1,234', icon: 'ri-user-3-line', color: 'bg-indigo-500' },
+    { title: 'Active Courses', value: '56', icon: 'ri-book-line', color: 'bg-indigo-600' },
+    { title: 'Faculty Members', value: '89', icon: 'ri-group-line', color: 'bg-emerald-500' },
+    { title: 'Pending Assignments', value: '23', icon: 'ri-file-list-3-line', color: 'bg-amber-500' }
   ];
 
   const recentActivities = [
@@ -24,12 +24,12 @@ const DashboardHome = () => {
       <motion.div
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
-        className="bg-gradient-to-r from-[#3B82F6] to-[#06B6D4] rounded-2xl p-6 text-white"
+        className="bg-gradient-to-r from-indigo-600 to-indigo-700 rounded-2xl p-6 text-white"
       >
         <h1 className="text-2xl font-bold mb-2">
           Welcome back, {userData?.name || 'User'}!
         </h1>
-        <p className="text-blue-100">
+        <p className="text-indigo-200">
           Here's what's happening at the college today.
         </p>
       </motion.div>
@@ -42,12 +42,12 @@ const DashboardHome = () => {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: index * 0.1 }}
-            className="bg-white rounded-xl p-6 shadow-sm border border-gray-200"
+            className="bg-gray-800 border border-slate-700 rounded-xl p-6 shadow-sm"
           >
             <div className="flex items-center justify-between">
               <div>
-                <p className="text-gray-600 text-sm">{stat.title}</p>
-                <p className="text-2xl font-bold text-gray-800">{stat.value}</p>
+                <p className="text-slate-400 text-sm">{stat.title}</p>
+                <p className="text-2xl font-bold text-white">{stat.value}</p>
               </div>
               <div className={`w-12 h-12 rounded-xl ${stat.color} flex items-center justify-center`}>
                 <i className={`${stat.icon} text-white text-xl`} />
@@ -62,18 +62,18 @@ const DashboardHome = () => {
         <motion.div
           initial={{ opacity: 0, x: -20 }}
           animate={{ opacity: 1, x: 0 }}
-          className="bg-white rounded-xl p-6 shadow-sm border border-gray-200"
+          className="bg-gray-800 border border-slate-700 rounded-xl p-6 shadow-sm"
         >
-          <h2 className="text-lg font-semibold text-gray-800 mb-4">Recent Activities</h2>
+          <h2 className="text-lg font-semibold text-white mb-4">Recent Activities</h2>
           <div className="space-y-4">
             {recentActivities.map((activity, index) => (
               <div key={index} className="flex items-center gap-4">
-                <div className="w-10 h-10 rounded-full bg-gradient-to-br from-[#3B82F6]/20 to-[#06B6D4]/20 flex items-center justify-center">
-                  <i className={`${activity.icon} text-[#3B82F6]`} />
+                <div className="w-10 h-10 rounded-full bg-indigo-500/20 flex items-center justify-center">
+                  <i className={`${activity.icon} text-indigo-400`} />
                 </div>
                 <div className="flex-1 min-w-0">
-                  <p className="text-sm font-medium text-gray-800">{activity.action}</p>
-                  <p className="text-xs text-gray-600">{activity.user} • {activity.time}</p>
+                  <p className="text-sm font-medium text-white">{activity.action}</p>
+                  <p className="text-xs text-slate-400">{activity.user} • {activity.time}</p>
                 </div>
               </div>
             ))}
@@ -83,25 +83,25 @@ const DashboardHome = () => {
         <motion.div
           initial={{ opacity: 0, x: 20 }}
           animate={{ opacity: 1, x: 0 }}
-          className="bg-white rounded-xl p-6 shadow-sm border border-gray-200"
+          className="bg-gray-800 border border-slate-700 rounded-xl p-6 shadow-sm"
         >
-          <h2 className="text-lg font-semibold text-gray-800 mb-4">Quick Actions</h2>
+          <h2 className="text-lg font-semibold text-white mb-4">Quick Actions</h2>
           <div className="grid grid-cols-2 gap-3">
-            <button className="p-4 rounded-xl bg-gradient-to-br from-blue-50 to-blue-100 hover:from-blue-100 hover:to-blue-200 transition-all duration-300 text-center">
-              <i className="ri-user-add-line text-[#3B82F6] text-2xl mb-2 block" />
-              <span className="text-sm font-medium text-[#3B82F6]">Add Student</span>
+            <button className="p-4 rounded-xl bg-gradient-to-br from-indigo-500/20 to-indigo-600/20 hover:from-indigo-500/30 hover:to-indigo-600/30 transition-all duration-300 text-center border border-indigo-500/30">
+              <i className="ri-user-add-line text-indigo-400 text-2xl mb-2 block" />
+              <span className="text-sm font-medium text-indigo-400">Add Student</span>
             </button>
-            <button className="p-4 rounded-xl bg-gradient-to-br from-cyan-50 to-cyan-100 hover:from-cyan-100 hover:to-cyan-200 transition-all duration-300 text-center">
-              <i className="ri-book-line text-[#06B6D4] text-2xl mb-2 block" />
-              <span className="text-sm font-medium text-[#06B6D4]">New Course</span>
+            <button className="p-4 rounded-xl bg-gradient-to-br from-emerald-500/20 to-emerald-600/20 hover:from-emerald-500/30 hover:to-emerald-600/30 transition-all duration-300 text-center border border-emerald-500/30">
+              <i className="ri-book-line text-emerald-400 text-2xl mb-2 block" />
+              <span className="text-sm font-medium text-emerald-400">New Course</span>
             </button>
-            <button className="p-4 rounded-xl bg-gradient-to-br from-blue-50 to-cyan-50 hover:from-blue-100 hover:to-cyan-100 transition-all duration-300 text-center">
-              <i className="ri-file-list-3-line text-blue-600 text-2xl mb-2 block" />
-              <span className="text-sm font-medium text-blue-600">Assignment</span>
+            <button className="p-4 rounded-xl bg-gradient-to-br from-amber-500/20 to-amber-600/20 hover:from-amber-500/30 hover:to-amber-600/30 transition-all duration-300 text-center border border-amber-500/30">
+              <i className="ri-file-list-3-line text-amber-400 text-2xl mb-2 block" />
+              <span className="text-sm font-medium text-amber-400">Assignment</span>
             </button>
-            <button className="p-4 rounded-xl bg-gradient-to-br from-cyan-50 to-blue-50 hover:from-cyan-100 hover:to-blue-100 transition-all duration-300 text-center">
-              <i className="ri-calendar-event-line text-cyan-600 text-2xl mb-2 block" />
-              <span className="text-sm font-medium text-cyan-600">Schedule Event</span>
+            <button className="p-4 rounded-xl bg-gradient-to-br from-slate-500/20 to-slate-600/20 hover:from-slate-500/30 hover:to-slate-600/30 transition-all duration-300 text-center border border-slate-500/30">
+              <i className="ri-calendar-event-line text-slate-400 text-2xl mb-2 block" />
+              <span className="text-sm font-medium text-slate-400">Schedule Event</span>
             </button>
           </div>
         </motion.div>

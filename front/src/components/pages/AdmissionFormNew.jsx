@@ -2,25 +2,26 @@ import React, { useState, useEffect } from "react";
 import { motion } from "framer-motion";
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
+import { themeClasses, iconClasses } from '../../styles/theme';
 
 const AdmissionForm = () => {
     const navigate = useNavigate();
     const inputClasses = `
         w-full p-3 rounded-xl 
-        bg-[#F8F9F4] border-2 border-transparent
-        focus:border-[#3B82F6]
-        focus:ring-4 focus:ring-[#3B82F6]/10 
-        focus:bg-white
-        hover:border-[#3B82F6]/30
+        bg-gray-700 border-2 border-slate-600
+        focus:border-indigo-500
+        focus:ring-4 focus:ring-indigo-500/10 
+        focus:bg-gray-600
+        hover:border-indigo-500/30
         transition-all duration-300 ease-in-out
-        text-[#333333] placeholder-[#6C757D]/60
-        focus:placeholder-[#3B82F6]/50
-        focus:shadow-lg focus:shadow-[#3B82F6]/5
+        text-white placeholder-slate-400
+        focus:placeholder-indigo-400/70
+        focus:shadow-lg focus:shadow-indigo-500/5
         outline-none
     `;
 
     const selectClasses = inputClasses + ` appearance-none bg-[url('data:image/svg+xml;charset=US-ASCII,${encodeURIComponent(
-        `<svg width="20" height="20" fill="none" stroke="%233B82F6" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>`
+        `<svg width="20" height="20" fill="none" stroke="%236366f1" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>`
     )}')] bg-[length:20px_20px] bg-no-repeat bg-[center_right_1rem] pr-12`;
 
     const [documents, setDocuments] = useState({
@@ -442,35 +443,35 @@ const AdmissionForm = () => {
 
     if (submitted) {
         return (
-            <div className="min-h-screen bg-gray-50 py-8">
+            <div className={`${themeClasses.pageBackground} py-10`}>
                 <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
                     <motion.div
                         initial={{ opacity: 0, y: 20 }}
                         animate={{ opacity: 1, y: 0 }}
-                        className="bg-white rounded-xl shadow-lg overflow-hidden"
+                        className={`${themeClasses.primaryCard} overflow-hidden`}
                     >
                         {/* Header */}
-                        <div className="bg-gradient-to-r from-[#3B82F6] to-[#06B6D4] px-8 py-6">
+                        <div className="bg-gradient-to-r from-indigo-600 to-indigo-700 px-8 py-6">
                             <h1 className="text-3xl font-bold text-white">Admission Status</h1>
-                            <p className="text-green-100 mt-2">Your admission form has been processed</p>
+                            <p className="text-indigo-100 mt-2">Your admission form has been processed</p>
                         </div>
 
                         <div className="p-8">
                             <div className="text-center">
-                                <div className="w-20 h-20 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-6">
-                                    <i className="ri-check-line text-3xl text-green-600"></i>
+                                <div className="w-20 h-20 bg-emerald-500/20 rounded-full flex items-center justify-center mx-auto mb-6 border border-emerald-500/30">
+                                    <i className={`ri-check-line text-3xl ${iconClasses.success}`}></i>
                                 </div>
                                 
-                                <h2 className="text-2xl font-bold text-gray-800 mb-4">
+                                <h2 className="text-2xl font-bold text-white mb-4">
                                     Admission Form Already Submitted!
                                 </h2>
                                 
-                                <div className="bg-green-50 border border-green-200 rounded-lg p-6 mb-6">
-                                    <p className="text-green-800 mb-4">
+                                <div className="bg-emerald-500/10 border border-emerald-500/30 rounded-xl p-6 mb-6">
+                                    <p className="text-emerald-300 mb-4">
                                         <i className="ri-information-line mr-2"></i>
                                         Your admission form has been successfully submitted and is being processed by our admissions team.
                                     </p>
-                                    <div className="text-sm text-green-700">
+                                    <div className="text-sm text-emerald-200">
                                         <p className="mb-2">
                                             <strong>Next Steps:</strong>
                                         </p>
@@ -485,7 +486,7 @@ const AdmissionForm = () => {
                                 <div className="flex flex-col sm:flex-row gap-4 justify-center">
                                     <button
                                         onClick={() => navigate('/dashboard/payment')}
-                                        className="px-6 py-3 bg-[#3B82F6] text-white rounded-lg hover:bg-[#2563EB] transition-colors font-medium"
+                                        className={themeClasses.primaryButton}
                                     >
                                         <i className="ri-bank-card-line mr-2"></i>
                                         Proceed to Payment
@@ -493,17 +494,17 @@ const AdmissionForm = () => {
                                     
                                     <button
                                         onClick={() => navigate('/dashboard')}
-                                        className="px-6 py-3 bg-gray-100 text-gray-700 rounded-lg hover:bg-gray-200 transition-colors font-medium"
+                                        className={themeClasses.secondaryButton}
                                     >
                                         <i className="ri-dashboard-line mr-2"></i>
                                         Back to Dashboard
                                     </button>
                                 </div>
 
-                                <div className="mt-8 pt-6 border-t border-gray-200">
-                                    <p className="text-sm text-gray-600">
+                                <div className="mt-8 pt-6 border-t border-slate-700/30">
+                                    <p className="text-sm text-slate-300">
                                         Need help? Contact our admissions office at 
-                                        <a href="mailto:admissions@college.edu" className="text-[#3B82F6] hover:text-[#2563EB] ml-1">
+                                        <a href="mailto:admissions@college.edu" className="text-indigo-400 hover:text-indigo-300 underline ml-1">
                                             admissions@college.edu
                                         </a>
                                     </p>
@@ -517,55 +518,56 @@ const AdmissionForm = () => {
     }
 
     return (
-        <div className="max-w-7xl mx-auto my-10 px-4">
-            {/* Notification banner */}
-            <div className="mb-6 bg-[#3B82F6]/10 border border-[#3B82F6]/20 rounded-xl p-4 shadow-sm">
-                <div className="flex items-center gap-3">
-                    <div className="flex-shrink-0">
-                        <i className="ri-information-line text-xl text-[#3B82F6]"></i>
-                    </div>
-                    <div>
-                        <h4 className="text-[#333333] font-medium">College Admission Form</h4>
-                        <p className="text-[#6C757D] text-sm">
-                            Please complete this admission form with accurate information. This form will be submitted only once.
-                        </p>
-                    </div>
-                </div>
-            </div>
-
-            <div className="bg-white/70 backdrop-blur-lg rounded-2xl shadow-xl border border-gray-100 overflow-hidden">
-                {/* Header */}
-                <div className="relative h-32 bg-gradient-to-r from-[#3B82F6]/20 to-[#06B6D4]/20">
-                    <div className="absolute inset-0 px-8 py-6">
-                        <div className="flex justify-between items-center">
-                            <div>
-                                <h2 className="text-2xl font-bold text-[#333333] mb-1">
-                                    Admission Form
-                                </h2>
-                                <p className="text-[#6C757D] text-sm">
-                                    Please fill in all the required information carefully
-                                </p>
-                            </div>
-                            <div className="h-12 w-12 bg-white/20 backdrop-blur-md rounded-xl flex items-center justify-center">
-                                <i className="ri-graduation-cap-line text-2xl text-white"></i>
-                            </div>
+        <div className={`${themeClasses.pageBackground} min-h-screen py-10`}>
+            <div className="max-w-7xl mx-auto px-4">
+                {/* Notification banner */}
+                <div className="mb-6 bg-indigo-500/20 border border-indigo-500/30 rounded-xl p-4 shadow-sm">
+                    <div className="flex items-center gap-3">
+                        <div className="flex-shrink-0">
+                            <i className={`ri-information-line text-xl ${iconClasses.primary}`}></i>
+                        </div>
+                        <div>
+                            <h4 className="text-white font-medium">College Admission Form</h4>
+                            <p className="text-slate-300 text-sm">
+                                Please complete this admission form with accurate information. This form will be submitted only once.
+                            </p>
                         </div>
                     </div>
                 </div>
 
-                <div className="p-6">
-                    {/* Form Heading */}
-                    <div className="text-center mb-6">
-                        <h3 className="text-lg font-bold text-[#333333]">COLLEGE ADMISSION APPLICATION</h3>
-                        <p className="text-sm text-[#6C757D] mt-1">
-                            Application ID: ADM-{new Date().getFullYear()}-{Math.random().toString(36).substr(2, 9).toUpperCase()}
-                        </p>
+                <div className="bg-gray-800/90 backdrop-blur-lg rounded-2xl shadow-xl border border-slate-700/30 overflow-hidden">
+                    {/* Header */}
+                    <div className="relative h-32 bg-gradient-to-r from-indigo-600/30 to-indigo-700/30">
+                        <div className="absolute inset-0 px-8 py-6">
+                            <div className="flex justify-between items-center">
+                                <div>
+                                    <h2 className="text-2xl font-bold text-white mb-1">
+                                        Admission Form
+                                    </h2>
+                                    <p className="text-slate-300 text-sm">
+                                        Please fill in all the required information carefully
+                                    </p>
+                                </div>
+                                <div className="h-12 w-12 bg-indigo-500/20 backdrop-blur-md rounded-xl flex items-center justify-center">
+                                    <i className={`ri-graduation-cap-line text-2xl ${iconClasses.primary}`}></i>
+                                </div>
+                            </div>
+                        </div>
                     </div>
 
-                    {/* Form */}
-                    <form onSubmit={handleSubmit} encType="multipart/form-data">
-                        <div className="space-y-8">
-                            {/* Personal Information */}
+                    <div className="p-6">
+                        {/* Form Heading */}
+                        <div className="text-center mb-6">
+                            <h3 className="text-lg font-bold text-white">COLLEGE ADMISSION APPLICATION</h3>
+                            <p className="text-sm text-slate-400 mt-1">
+                                Application ID: ADM-{new Date().getFullYear()}-{Math.random().toString(36).substr(2, 9).toUpperCase()}
+                            </p>
+                        </div>
+
+                        {/* Form */}
+                        <form onSubmit={handleSubmit} encType="multipart/form-data">
+                            <div className="space-y-8">
+                                {/* Personal Information */}
                             <FormSection
                                 icon="ri-user-line"
                                 title="Personal Information"
@@ -992,13 +994,13 @@ const AdmissionForm = () => {
                             />
 
                             {/* Submit Button */}
-                            <div className="pt-8 border-t border-gray-100">
+                            <div className="pt-8 border-t border-slate-700/30">
                                 <motion.button
                                     whileHover={{ scale: 1.01 }}
                                     whileTap={{ scale: 0.99 }}
                                     type="submit"
                                     disabled={isUploading}
-                                    className={`w-full p-4 bg-gradient-to-r from-[#3B82F6] to-[#06B6D4] text-white rounded-xl font-semibold shadow-lg hover:shadow-xl hover:shadow-[#3B82F6]/20 transition-all duration-300 ${isUploading ? 'opacity-50 cursor-not-allowed' : ''}`}
+                                    className={`${themeClasses.primaryButton} w-full p-4 rounded-xl ${isUploading ? 'opacity-50 cursor-not-allowed' : ''}`}
                                 >
                                     <span className="flex items-center justify-center gap-2">
                                         {isUploading ? (
@@ -1014,9 +1016,9 @@ const AdmissionForm = () => {
                                         )}
                                     </span>
                                 </motion.button>
-                                <p className="text-center mt-4 text-sm text-[#6C757D]">
+                                <p className="text-center mt-4 text-sm text-slate-400">
                                     By submitting this form, you agree to our{' '}
-                                    <a href="#" className="text-[#3B82F6] hover:text-[#2563EB] underline">
+                                    <a href="#" className="text-indigo-400 hover:text-indigo-300 underline">
                                         Terms and Conditions
                                     </a>
                                 </p>
@@ -1026,21 +1028,22 @@ const AdmissionForm = () => {
                 </div>
             </div>
         </div>
+        </div>
     );
-};
+}
 
 // Form Section Component
 const FormSection = ({ icon, title, content }) => (
     <motion.div
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
-        className="bg-white/50 rounded-xl p-6 backdrop-blur-sm border border-gray-100 shadow-sm"
+        className="bg-gray-700/50 rounded-xl p-6 backdrop-blur-sm border border-slate-600/30 shadow-sm"
     >
         <div className="flex items-center gap-4 mb-6">
-            <div className="h-10 w-10 rounded-xl bg-[#3B82F6]/10 flex items-center justify-center">
-                <i className={`${icon} text-xl text-[#3B82F6]`}></i>
+            <div className="h-10 w-10 rounded-xl bg-indigo-500/20 flex items-center justify-center">
+                <i className={`${icon} text-xl ${iconClasses.primary}`}></i>
             </div>
-            <h3 className="text-xl font-bold text-[#333333]">{title}</h3>
+            <h3 className="text-xl font-bold text-white">{title}</h3>
         </div>
         {content}
     </motion.div>
@@ -1049,7 +1052,7 @@ const FormSection = ({ icon, title, content }) => (
 // FormField Component
 const FormField = ({ label, type, name, placeholder, pattern, className, required, defaultValue, min, max, step }) => (
     <div className="space-y-2">
-        <label className="text-[#333333] font-medium block">
+        <label className="text-slate-300 font-medium block">
             {label}
         </label>
         <input
@@ -1090,15 +1093,15 @@ const DocumentUpload = ({
 
     return (
         <div className="space-y-2">
-            <label className="text-[#333333] font-medium block">
+            <label className="text-slate-300 font-medium block">
                 {label}
             </label>
             <div className="flex flex-col gap-4">
                 <div className="flex items-center justify-center w-full">
                     <label 
-                        className={`flex flex-col w-full h-32 border-2 border-dashed rounded-lg cursor-pointer 
-                            ${file ? 'border-[#3B82F6] bg-[#3B82F6]/5' : 'border-gray-300 bg-[#F8F9F4]'} 
-                            hover:bg-[#F1F3F1] transition-colors duration-300`}
+                        className={`flex flex-col w-full h-32 border-2 border-dashed rounded-xl cursor-pointer 
+                            ${file ? 'border-indigo-500 bg-indigo-500/10' : 'border-slate-600 bg-gray-700/50'} 
+                            hover:bg-gray-700/30 hover:border-indigo-500/50 transition-all duration-300`}
                         onDragOver={onDragOver}
                         onDragLeave={onDragLeave}
                         onDrop={onDrop}
@@ -1106,16 +1109,16 @@ const DocumentUpload = ({
                         <div className="flex flex-col items-center justify-center pt-5 pb-6">
                             {!file ? (
                                 <>
-                                    <svg className="w-8 h-8 mb-4 text-[#3B82F6]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <svg className={`w-8 h-8 mb-4 ${iconClasses.primary}`} fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12" />
                                     </svg>
-                                    <p className="mb-2 text-sm text-[#6C757D]">
+                                    <p className="mb-2 text-sm text-slate-300">
                                         <span className="font-semibold">Click to upload</span> or drag and drop
                                     </p>
-                                    <p className="text-xs text-[#6C757D]">JPG, PNG, PDF (Max 5MB)</p>
+                                    <p className="text-xs text-slate-400">JPG, PNG, PDF (Max 5MB)</p>
                                 </>
                             ) : (
-                                <div className="flex items-center gap-2 text-[#4CAF50]">
+                                <div className={`flex items-center gap-2 ${iconClasses.success}`}>
                                     <i className="ri-check-line text-xl"></i>
                                     <span className="text-sm font-medium">{file.name}</span>
                                 </div>
@@ -1134,33 +1137,33 @@ const DocumentUpload = ({
 
                 {/* File Preview */}
                 {file && (
-                    <div className="relative bg-white p-4 rounded-xl border border-gray-100">
+                    <div className="relative bg-gray-700/50 p-4 rounded-xl border border-slate-600/30">
                         <div className="flex items-center gap-4">
                             {preview === 'pdf' ? (
-                                <div className="w-12 h-12 bg-[#4CAF50]/10 rounded-lg flex items-center justify-center">
-                                    <i className="ri-file-pdf-line text-2xl text-[#4CAF50]"></i>
+                                <div className="w-12 h-12 bg-emerald-500/20 rounded-lg flex items-center justify-center border border-emerald-500/30">
+                                    <i className={`ri-file-pdf-line text-2xl ${iconClasses.success}`}></i>
                                 </div>
                             ) : preview ? (
                                 <img 
                                     src={preview} 
                                     alt="Preview" 
-                                    className="w-20 h-20 object-cover rounded-lg"
+                                    className="w-20 h-20 object-cover rounded-lg border border-slate-600"
                                 />
                             ) : (
-                                <div className="w-12 h-12 bg-[#4CAF50]/10 rounded-lg flex items-center justify-center">
-                                    <i className="ri-file-line text-2xl text-[#4CAF50]"></i>
+                                <div className="w-12 h-12 bg-emerald-500/20 rounded-lg flex items-center justify-center border border-emerald-500/30">
+                                    <i className={`ri-file-line text-2xl ${iconClasses.success}`}></i>
                                 </div>
                             )}
                             <div className="flex-1">
-                                <p className="text-sm font-medium text-[#333333]">{file.name}</p>
-                                <p className="text-xs text-[#6C757D]">
+                                <p className="text-sm font-medium text-white">{file.name}</p>
+                                <p className="text-xs text-slate-400">
                                     {(file.size / 1024).toFixed(2)} KB
                                 </p>
                             </div>
                             <button
                                 type="button"
                                 onClick={removeFile}
-                                className="p-2 hover:bg-red-50 rounded-full text-red-500 transition-colors"
+                                className="p-2 hover:bg-red-500/20 rounded-full text-red-400 hover:text-red-300 transition-colors"
                             >
                                 <i className="ri-close-line"></i>
                             </button>
@@ -1169,7 +1172,7 @@ const DocumentUpload = ({
                 )}
 
                 {/* Error message */}
-                {error && <p className="text-red-500 text-sm">{error}</p>}
+                {error && <p className="text-red-400 text-sm">{error}</p>}
             </div>
         </div>
     );

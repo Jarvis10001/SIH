@@ -7,6 +7,7 @@ import ClerkForm from './ClerkForm';
 import AdminSidebar from './AdminSidebar';
 import AdminTopNav from './AdminTopNav';
 import { validateAdminToken, getAdminTokenInfo } from '../../utils/tokenUtils';
+import { themeClasses, iconClasses } from '../../styles/theme';
 
 const AdminDashboard = () => {
     const navigate = useNavigate();
@@ -563,15 +564,15 @@ const AdminDashboard = () => {
             <motion.div
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
-                className="bg-white rounded-2xl p-6 shadow-lg border border-gray-100"
+                className={themeClasses.primaryCard}
             >
                 <div className="flex items-center justify-between">
                     <div>
-                        <p className="text-sm font-medium text-gray-600">Total Teachers</p>
-                        <p className="text-3xl font-bold text-gray-900">{teachers.length}</p>
+                        <p className={`text-sm font-medium ${themeClasses.mutedText}`}>Total Teachers</p>
+                        <p className="text-3xl font-bold text-white">{teachers.length}</p>
                     </div>
-                    <div className="w-12 h-12 bg-blue-100 rounded-xl flex items-center justify-center">
-                        <i className="ri-team-line text-blue-600 text-xl"></i>
+                    <div className="w-12 h-12 bg-indigo-500/20 border border-indigo-500/30 rounded-xl flex items-center justify-center">
+                        <i className={`ri-team-line ${iconClasses.primary} text-xl`}></i>
                     </div>
                 </div>
             </motion.div>
@@ -580,15 +581,15 @@ const AdminDashboard = () => {
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: 0.1 }}
-                className="bg-white rounded-2xl p-6 shadow-lg border border-gray-100"
+                className={themeClasses.primaryCard}
             >
                 <div className="flex items-center justify-between">
                     <div>
-                        <p className="text-sm font-medium text-gray-600">Total Clerks</p>
-                        <p className="text-3xl font-bold text-gray-900">{clerks.length}</p>
+                        <p className={`text-sm font-medium ${themeClasses.mutedText}`}>Total Clerks</p>
+                        <p className="text-3xl font-bold text-white">{clerks.length}</p>
                     </div>
-                    <div className="w-12 h-12 bg-green-100 rounded-xl flex items-center justify-center">
-                        <i className="ri-user-settings-line text-green-600 text-xl"></i>
+                    <div className="w-12 h-12 bg-emerald-500/20 border border-emerald-500/30 rounded-xl flex items-center justify-center">
+                        <i className={`ri-user-settings-line ${iconClasses.success} text-xl`}></i>
                     </div>
                 </div>
             </motion.div>
@@ -597,17 +598,17 @@ const AdminDashboard = () => {
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: 0.2 }}
-                className="bg-white rounded-2xl p-6 shadow-lg border border-gray-100"
+                className={themeClasses.primaryCard}
             >
                 <div className="flex items-center justify-between">
                     <div>
-                        <p className="text-sm font-medium text-gray-600">Active Staff</p>
-                        <p className="text-3xl font-bold text-gray-900">
+                        <p className={`text-sm font-medium ${themeClasses.mutedText}`}>Active Staff</p>
+                        <p className="text-3xl font-bold text-white">
                             {teachers.filter(t => t.status === 'active').length + clerks.filter(c => c.isActive).length}
                         </p>
                     </div>
-                    <div className="w-12 h-12 bg-purple-100 rounded-xl flex items-center justify-center">
-                        <i className="ri-user-star-line text-purple-600 text-xl"></i>
+                    <div className="w-12 h-12 bg-purple-500/20 border border-purple-500/30 rounded-xl flex items-center justify-center">
+                        <i className="ri-user-star-line text-purple-400 text-xl"></i>
                     </div>
                 </div>
             </motion.div>
@@ -616,20 +617,20 @@ const AdminDashboard = () => {
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: 0.3 }}
-                className="bg-white rounded-2xl p-6 shadow-lg border border-gray-100"
+                className={themeClasses.primaryCard}
             >
                 <div className="flex items-center justify-between">
                     <div>
-                        <p className="text-sm font-medium text-gray-600">Departments</p>
-                        <p className="text-3xl font-bold text-gray-900">
+                        <p className={`text-sm font-medium ${themeClasses.mutedText}`}>Departments</p>
+                        <p className="text-3xl font-bold text-white">
                             {new Set([
                                 ...teachers.map(t => t.department).filter(Boolean),
                                 ...clerks.map(c => c.professionalInfo?.department).filter(Boolean)
                             ]).size}
                         </p>
                     </div>
-                    <div className="w-12 h-12 bg-orange-100 rounded-xl flex items-center justify-center">
-                        <i className="ri-building-line text-orange-600 text-xl"></i>
+                    <div className="w-12 h-12 bg-amber-500/20 border border-amber-500/30 rounded-xl flex items-center justify-center">
+                        <i className={`ri-building-line ${iconClasses.warning} text-xl`}></i>
                     </div>
                 </div>
             </motion.div>
@@ -973,7 +974,7 @@ const AdminDashboard = () => {
     );
 
     return (
-        <div className="min-h-screen bg-gray-50 flex">
+        <div className={themeClasses.dashboardLayout}>
             {/* Admin Sidebar */}
             <AdminSidebar 
                 activeTab={activeTab}
@@ -983,7 +984,7 @@ const AdminDashboard = () => {
             />
 
             {/* Main Content Area */}
-            <div className="flex-1 flex flex-col min-w-0">
+            <div className={`flex-1 flex flex-col min-w-0 overflow-hidden transition-all md:duration-700 ${sidebarOpen ? 'md:ml-72' : 'md:ml-20'}`}>
                 {/* Top Navigation */}
                 <AdminTopNav 
                     activeTab={activeTab}
@@ -992,12 +993,12 @@ const AdminDashboard = () => {
                 />
 
                 {/* Main Content */}
-                <main className="flex-1 p-6">
+                <main className="flex-1 px-4 py-6 md:p-6">
                     {error && (
                         <motion.div
                             initial={{ opacity: 0, y: -10 }}
                             animate={{ opacity: 1, y: 0 }}
-                            className="bg-red-50 border border-red-200 text-red-700 px-4 py-3 rounded-xl mb-6"
+                            className="bg-red-500/10 border border-red-500/30 text-red-400 px-4 py-3 rounded-xl mb-6"
                         >
                             <div className="flex items-center gap-2">
                                 <i className="ri-error-warning-line"></i>

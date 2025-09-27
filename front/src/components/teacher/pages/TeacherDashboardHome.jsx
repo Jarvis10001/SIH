@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import { Link } from 'react-router-dom';
+import { themeClasses, iconClasses } from '../../../styles/theme';
 
 const TeacherDashboardHome = () => {
   const [teacherData, setTeacherData] = useState({});
@@ -125,14 +126,14 @@ const TeacherDashboardHome = () => {
     <motion.div
       initial={{ opacity: 0, y: 20 }}
       animate={{ opacity: 1, y: 0 }}
-      className="bg-white rounded-xl p-6 shadow-sm border border-gray-200"
+      className={themeClasses.primaryCard}
     >
       <div className="flex items-center justify-between">
         <div>
-          <p className="text-gray-600 text-sm">{title}</p>
-          <p className="text-2xl font-bold text-gray-800 mt-2">{value}</p>
+          <p className={`${themeClasses.mutedText} text-sm`}>{title}</p>
+          <p className="text-2xl font-bold text-white mt-2">{value}</p>
         </div>
-        <div className={`w-12 h-12 rounded-xl ${color} flex items-center justify-center`}>
+        <div className={`w-12 h-12 rounded-xl ${color} flex items-center justify-center border border-indigo-500/30`}>
           <i className={`${icon} text-white text-xl`}></i>
         </div>
       </div>
@@ -145,17 +146,17 @@ const TeacherDashboardHome = () => {
       <motion.div
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
-        className="bg-gradient-to-r from-[#3B82F6] to-[#06B6D4] rounded-2xl p-6 text-white"
+        className={`${themeClasses.welcomeCard} shadow-xl`}
       >
         <div className="flex items-center justify-between">
           <div>
             <h1 className="text-2xl font-bold mb-2">
               Welcome back, {teacherData?.name || 'Teacher'}!
             </h1>
-            <p className="text-blue-100">
+            <p className="text-indigo-100">
               {teacherData?.designation} • {teacherData?.department}
             </p>
-            <p className="text-blue-100 text-sm mt-1">
+            <p className="text-indigo-100 text-sm mt-1">
               Ready to inspire minds today? You have {stats.upcomingClasses} classes scheduled.
             </p>
           </div>
@@ -173,13 +174,13 @@ const TeacherDashboardHome = () => {
           title="Total Students"
           value={stats.totalStudents}
           icon="ri-user-3-line"
-          color="bg-blue-500"
+          color="bg-indigo-500"
         />
         <StatCard
           title="Active Courses"
           value={stats.activeCourses}
           icon="ri-book-line"
-          color="bg-blue-600"
+          color="bg-indigo-600"
         />
         <StatCard
           title="Pending Reviews"

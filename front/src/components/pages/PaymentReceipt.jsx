@@ -1,5 +1,6 @@
 import React from 'react';
 import { motion } from 'framer-motion';
+import { themeClasses, iconClasses } from '../../styles/theme';
 
 const PaymentReceipt = ({ payment, admission, onClose, onPrint }) => {
     const formatDate = (date) => {
@@ -17,20 +18,20 @@ const PaymentReceipt = ({ payment, admission, onClose, onPrint }) => {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
-            className="fixed inset-0 bg-black/60 backdrop-blur-sm z-50 flex items-center justify-center p-4"
+            className="fixed inset-0 bg-gray-900/80 backdrop-blur-sm z-50 flex items-center justify-center p-4"
         >
             <motion.div
                 initial={{ scale: 0.9, opacity: 0 }}
                 animate={{ scale: 1, opacity: 1 }}
                 exit={{ scale: 0.9, opacity: 0 }}
-                className="bg-white rounded-2xl shadow-2xl max-w-2xl w-full max-h-[90vh] overflow-y-auto"
+                className="bg-gray-800 border border-slate-700/30 rounded-2xl shadow-2xl max-w-2xl w-full max-h-[90vh] overflow-y-auto"
             >
                 {/* Receipt Header */}
-                <div className="bg-gradient-to-r from-[#4CAF50] to-[#45a049] text-white p-6 rounded-t-2xl">
+                <div className="bg-gradient-to-r from-emerald-600 to-emerald-700 text-white p-6 rounded-t-2xl">
                     <div className="flex justify-between items-start">
                         <div>
                             <h2 className="text-2xl font-bold mb-2">Payment Receipt</h2>
-                            <p className="text-white/90">College ERP System</p>
+                            <p className="text-emerald-100">College ERP System</p>
                         </div>
                         <div className="text-right">
                             <div className="bg-white/20 backdrop-blur-md rounded-lg px-3 py-1">
@@ -43,54 +44,54 @@ const PaymentReceipt = ({ payment, admission, onClose, onPrint }) => {
 
                 <div className="p-6">
                     {/* Payment Status */}
-                    <div className="flex items-center gap-3 mb-6 p-4 bg-green-50 rounded-xl border border-green-200">
-                        <div className="w-8 h-8 bg-green-100 rounded-full flex items-center justify-center">
-                            <i className="ri-check-line text-green-600"></i>
+                    <div className="flex items-center gap-3 mb-6 p-4 bg-emerald-500/20 rounded-xl border border-emerald-500/30">
+                        <div className="w-8 h-8 bg-emerald-500/30 rounded-full flex items-center justify-center">
+                            <i className={`ri-check-line ${iconClasses.success}`}></i>
                         </div>
                         <div>
-                            <h3 className="font-semibold text-green-800">Payment Successful</h3>
-                            <p className="text-green-600 text-sm">Your admission fee has been processed successfully</p>
+                            <h3 className="font-semibold text-emerald-300">Payment Successful</h3>
+                            <p className="text-emerald-400 text-sm">Your admission fee has been processed successfully</p>
                         </div>
                     </div>
 
                     {/* Student Information */}
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
                         <div>
-                            <h4 className="font-semibold text-gray-800 mb-3">Student Details</h4>
+                            <h4 className="font-semibold text-white mb-3">Student Details</h4>
                             <div className="space-y-2">
                                 <div>
-                                    <span className="text-sm text-gray-500">Name:</span>
-                                    <p className="font-medium">{admission?.personalInfo?.name}</p>
+                                    <span className="text-sm text-slate-400">Name:</span>
+                                    <p className="font-medium text-slate-300">{admission?.personalInfo?.name}</p>
                                 </div>
                                 <div>
-                                    <span className="text-sm text-gray-500">Email:</span>
-                                    <p className="font-medium">{admission?.personalInfo?.email}</p>
+                                    <span className="text-sm text-slate-400">Email:</span>
+                                    <p className="font-medium text-slate-300">{admission?.personalInfo?.email}</p>
                                 </div>
                                 <div>
-                                    <span className="text-sm text-gray-500">Mobile:</span>
-                                    <p className="font-medium">{admission?.personalInfo?.mobileNo}</p>
+                                    <span className="text-sm text-slate-400">Mobile:</span>
+                                    <p className="font-medium text-slate-300">{admission?.personalInfo?.mobileNo}</p>
                                 </div>
                                 <div>
-                                    <span className="text-sm text-gray-500">Application Number:</span>
-                                    <p className="font-medium">{admission?.applicationNumber}</p>
+                                    <span className="text-sm text-slate-400">Application Number:</span>
+                                    <p className="font-medium text-slate-300">{admission?.applicationNumber}</p>
                                 </div>
                             </div>
                         </div>
 
                         <div>
-                            <h4 className="font-semibold text-gray-800 mb-3">Course Details</h4>
+                            <h4 className="font-semibold text-white mb-3">Course Details</h4>
                             <div className="space-y-2">
                                 <div>
-                                    <span className="text-sm text-gray-500">Course:</span>
-                                    <p className="font-medium">{admission?.academicInfo?.course}</p>
+                                    <span className="text-sm text-slate-400">Course:</span>
+                                    <p className="font-medium text-slate-300">{admission?.academicInfo?.course}</p>
                                 </div>
                                 <div>
-                                    <span className="text-sm text-gray-500">Branch:</span>
-                                    <p className="font-medium">{admission?.academicInfo?.branch}</p>
+                                    <span className="text-sm text-slate-400">Branch:</span>
+                                    <p className="font-medium text-slate-300">{admission?.academicInfo?.branch}</p>
                                 </div>
                                 <div>
-                                    <span className="text-sm text-gray-500">Session:</span>
-                                    <p className="font-medium">2024-25</p>
+                                    <span className="text-sm text-slate-400">Session:</span>
+                                    <p className="font-medium text-slate-300">2024-25</p>
                                 </div>
                             </div>
                         </div>
@@ -176,14 +177,14 @@ const PaymentReceipt = ({ payment, admission, onClose, onPrint }) => {
                             text: `Payment successful for ₹${payment.amount?.toLocaleString()}`,
                             url: window.location.href
                         })}
-                        className="px-4 py-2 border-2 border-[#4CAF50] text-[#4CAF50] rounded-xl font-semibold hover:bg-[#4CAF50]/10 transition-colors flex items-center justify-center gap-2"
+                        className="px-4 py-2 border-2 border-emerald-500 text-emerald-400 rounded-xl font-semibold hover:bg-emerald-500/20 transition-colors flex items-center justify-center gap-2"
                     >
                         <i className="ri-share-line"></i>
                         Share
                     </button>
                     <button
                         onClick={onClose}
-                        className="px-4 py-2 border-2 border-gray-300 text-gray-700 rounded-xl font-semibold hover:bg-gray-50 transition-colors"
+                        className={`${themeClasses.secondaryButton} px-4 py-2 rounded-xl font-semibold`}
                     >
                         Close
                     </button>

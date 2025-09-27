@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
+import { themeClasses, iconClasses } from '../../styles/theme';
 
 const AdminTopNav = ({ activeTab, isOpen, toggleSidebar }) => {
     const [showNotifications, setShowNotifications] = useState(false);
@@ -88,13 +89,13 @@ const AdminTopNav = ({ activeTab, isOpen, toggleSidebar }) => {
 
     return (
         <div className="sticky top-0 left-0 z-30">
-            <div className="bg-white backdrop-blur-md shadow-sm px-6 py-3 border-b border-gray-200">
+            <div className="bg-gray-800/95 backdrop-blur-md shadow-sm px-6 py-3 border-b border-slate-700/30">
                 <div className="flex items-center justify-between">
                     {/* Left Section */}
                     <div className="flex items-center gap-4">
                         <button 
                             onClick={toggleSidebar}
-                            className="p-2 rounded-xl hover:bg-[#3B82F6]/10 text-[#3B82F6] transition-all duration-300"
+                            className="p-2 rounded-xl hover:bg-indigo-500/20 text-indigo-400 transition-all duration-300"
                         >
                             <motion.i 
                                 animate={{ rotate: isOpen ? 180 : 0 }}
@@ -106,11 +107,11 @@ const AdminTopNav = ({ activeTab, isOpen, toggleSidebar }) => {
                             <motion.h1 
                                 initial={{ y: -20, opacity: 0 }}
                                 animate={{ y: 0, opacity: 1 }}
-                                className="text-xl font-bold text-[#3B82F6]"
+                                className="text-xl font-bold text-white"
                             >
                                 {getPageTitle()}
                             </motion.h1>
-                            <p className="text-sm text-[#06B6D4] hidden md:block">
+                            <p className="text-sm text-slate-400 hidden md:block">
                                 {new Date().toLocaleDateString('en-US', { 
                                     weekday: 'long', 
                                     year: 'numeric', 
@@ -126,7 +127,7 @@ const AdminTopNav = ({ activeTab, isOpen, toggleSidebar }) => {
                         {/* Notifications */}
                         <div className="relative">
                             <button 
-                                className="relative p-2 rounded-xl hover:bg-[#3B82F6]/10 text-[#3B82F6] transition-all duration-300"
+                                className="relative p-2 rounded-xl hover:bg-amber-500/20 text-amber-400 transition-all duration-300"
                                 onClick={() => setShowNotifications(!showNotifications)}
                             >
                                 <i className="ri-notification-3-line text-xl" />
@@ -143,30 +144,30 @@ const AdminTopNav = ({ activeTab, isOpen, toggleSidebar }) => {
                                         initial={{ opacity: 0, y: -10, scale: 0.95 }}
                                         animate={{ opacity: 1, y: 0, scale: 1 }}
                                         exit={{ opacity: 0, y: -10, scale: 0.95 }}
-                                        className="absolute right-0 top-12 w-80 bg-white rounded-xl shadow-lg border border-gray-200 max-h-96 overflow-hidden z-50"
+                                        className="absolute right-0 top-12 w-80 bg-gray-800 rounded-xl shadow-lg border border-slate-700 max-h-96 overflow-hidden z-50"
                                     >
-                                        <div className="px-4 py-2 border-b border-gray-200">
-                                            <h3 className="font-semibold text-gray-800">Notifications</h3>
+                                        <div className="px-4 py-2 border-b border-slate-700">
+                                            <h3 className="font-semibold text-white">Notifications</h3>
                                         </div>
                                         {notifications.length > 0 ? (
                                             notifications.map((notification) => (
                                                 <button
                                                     key={notification.id}
                                                     onClick={() => handleNotificationClick(notification)}
-                                                    className={`w-full px-4 py-3 text-left hover:bg-gray-50 border-b border-gray-100 last:border-b-0 ${
-                                                        !notification.read ? 'bg-blue-50' : ''
+                                                    className={`w-full px-4 py-3 text-left hover:bg-gray-700/50 border-b border-slate-700 last:border-b-0 ${
+                                                        !notification.read ? 'bg-indigo-500/10' : ''
                                                     }`}
                                                 >
                                                     <div className="flex items-start gap-3">
-                                                        <i className={`${getNotificationIcon(notification.type)} text-[#3B82F6] mt-1`} />
+                                                        <i className={`${getNotificationIcon(notification.type)} text-indigo-400 mt-1`} />
                                                         <div className="flex-1 min-w-0">
-                                                            <p className="font-medium text-gray-800 text-sm">
+                                                            <p className="font-medium text-white text-sm">
                                                                 {notification.title}
                                                             </p>
-                                                            <p className="text-gray-600 text-xs mt-1">
+                                                            <p className="text-slate-300 text-xs mt-1">
                                                                 {notification.message}
                                                             </p>
-                                                            <p className="text-gray-400 text-xs mt-1">
+                                                            <p className="text-slate-400 text-xs mt-1">
                                                                 {notification.time.toLocaleTimeString([], { 
                                                                     hour: '2-digit', 
                                                                     minute: '2-digit' 
@@ -174,13 +175,13 @@ const AdminTopNav = ({ activeTab, isOpen, toggleSidebar }) => {
                                                             </p>
                                                         </div>
                                                         {!notification.read && (
-                                                            <div className="w-2 h-2 bg-[#3B82F6] rounded-full flex-shrink-0 mt-1.5"></div>
+                                                            <div className="w-2 h-2 bg-indigo-500 rounded-full flex-shrink-0 mt-1.5"></div>
                                                         )}
                                                     </div>
                                                 </button>
                                             ))
                                         ) : (
-                                            <div className="px-4 py-8 text-center text-gray-500">
+                                            <div className="px-4 py-8 text-center text-slate-400">
                                                 <i className="ri-notification-off-line text-3xl mb-2 block"></i>
                                                 <p className="text-sm">No notifications</p>
                                             </div>
@@ -192,14 +193,14 @@ const AdminTopNav = ({ activeTab, isOpen, toggleSidebar }) => {
 
                         {/* Admin Profile */}
                         <div className="flex items-center gap-2.5 p-2 rounded-xl">
-                            <div className="w-8 h-8 rounded-full bg-[#3B82F6]/10 flex items-center justify-center text-[#3B82F6] font-semibold">
+                            <div className="w-8 h-8 rounded-full bg-indigo-500/20 border border-indigo-500/30 flex items-center justify-center text-indigo-400 font-semibold">
                                 {adminData?.name ? adminData.name.charAt(0).toUpperCase() : 'A'}
                             </div>
                             <div className="hidden md:block text-left">
-                                <p className="text-sm font-semibold text-[#3B82F6]">
+                                <p className="text-sm font-semibold text-white">
                                     {adminData?.name || 'Administrator'}
                                 </p>
-                                <p className="text-xs text-[#06B6D4]">
+                                <p className="text-xs text-slate-400">
                                     System Admin
                                 </p>
                             </div>

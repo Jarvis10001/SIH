@@ -7,7 +7,9 @@ import TopNav from './TopNav';
 import DashboardHome from './pages/DashboardHome';
 import AdmissionForm from './pages/AdmissionFormNew';
 import PaymentPage from './pages/PaymentPage';
+import LibraryPage from './pages/LibraryPage';
 import StudentAttendance from './student/StudentAttendance';
+import HostelSelection from './HostelSelection';
 import axios from 'axios';
 
 
@@ -62,27 +64,28 @@ const DashboardContent = () => {
 
   if (loading) {
     return (
-      <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-slate-50 to-slate-100">
+      <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-gray-900 to-gray-800">
         <div className="text-center">
-          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-[#1E293B] mx-auto mb-4"></div>
-          <p className="text-slate-600">Loading dashboard...</p>
+          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-indigo-500 mx-auto mb-4"></div>
+          <p className="text-slate-300">Loading dashboard...</p>
         </div>
       </div>
     );
   }
 
   return (
-    <div className="flex min-h-screen bg-gradient-to-br from-slate-50 to-slate-100">
+    <div className="flex min-h-screen bg-gradient-to-br from-gray-900 to-gray-800 overflow-x-hidden">
       <Sidebar />
-      <div className={`flex-1 transition-all duration-300 ${
+      <div className={`flex-1 transition-all duration-300 md:duration-700 ml-0 ${
         isOpen ? 'md:ml-72' : 'md:ml-20'
       }`}>
         <TopNav />
-        <main className="p-6">
+        <main className="px-4 py-6 md:p-6">
           <Routes>
             <Route path="/" element={<DashboardHome />} />
             <Route path="/admission" element={<AdmissionForm />} />
             <Route path="/payment" element={<PaymentPage />} />
+            <Route path="/hostel" element={<HostelSelection />} />
             <Route path="/students" element={<StudentsPage />} />
             <Route path="/faculty" element={<FacultyPage />} />
             <Route path="/courses" element={<CoursesPage />} />
@@ -112,65 +115,58 @@ const DashboardLayout = () => {
 
 // Placeholder components until they're implemented
 const StudentsPage = () => (
-  <div className="bg-white rounded-xl p-6 shadow-sm border border-gray-200">
-    <h1 className="text-2xl font-bold text-gray-800 mb-4">Students Management</h1>
-    <p className="text-gray-600">Student management functionality will be implemented here.</p>
+  <div className="bg-gray-800 border border-slate-700 rounded-xl p-6 shadow-sm">
+    <h1 className="text-2xl font-bold text-white mb-4">Students Management</h1>
+    <p className="text-slate-400">Student management functionality will be implemented here.</p>
   </div>
 );
 
 const FacultyPage = () => (
-  <div className="bg-white rounded-xl p-6 shadow-sm border border-gray-200">
-    <h1 className="text-2xl font-bold text-gray-800 mb-4">Faculty Management</h1>
-    <p className="text-gray-600">Faculty management functionality will be implemented here.</p>
+  <div className="bg-gray-800 border border-slate-700 rounded-xl p-6 shadow-sm">
+    <h1 className="text-2xl font-bold text-white mb-4">Faculty Management</h1>
+    <p className="text-slate-400">Faculty management functionality will be implemented here.</p>
   </div>
 );
 
 const CoursesPage = () => (
-  <div className="bg-white rounded-xl p-6 shadow-sm border border-gray-200">
-    <h1 className="text-2xl font-bold text-gray-800 mb-4">Courses Management</h1>
-    <p className="text-gray-600">Course management functionality will be implemented here.</p>
+  <div className="bg-gray-800 border border-slate-700 rounded-xl p-6 shadow-sm">
+    <h1 className="text-2xl font-bold text-white mb-4">Courses Management</h1>
+    <p className="text-slate-400">Course management functionality will be implemented here.</p>
   </div>
 );
 
 const AssignmentsPage = () => (
-  <div className="bg-white rounded-xl p-6 shadow-sm border border-gray-200">
-    <h1 className="text-2xl font-bold text-gray-800 mb-4">Assignments</h1>
-    <p className="text-gray-600">Assignment management functionality will be implemented here.</p>
+  <div className="bg-gray-800 border border-slate-700 rounded-xl p-6 shadow-sm">
+    <h1 className="text-2xl font-bold text-white mb-4">Assignments</h1>
+    <p className="text-slate-400">Assignment management functionality will be implemented here.</p>
   </div>
 );
 
 const GradesPage = () => (
-  <div className="bg-white rounded-xl p-6 shadow-sm border border-gray-200">
-    <h1 className="text-2xl font-bold text-gray-800 mb-4">Grades Management</h1>
-    <p className="text-gray-600">Grade management functionality will be implemented here.</p>
-  </div>
-);
-
-const LibraryPage = () => (
-  <div className="bg-white rounded-xl p-6 shadow-sm border border-gray-200">
-    <h1 className="text-2xl font-bold text-gray-800 mb-4">Library Management</h1>
-    <p className="text-gray-600">Library management functionality will be implemented here.</p>
+  <div className="bg-gray-800 border border-slate-700 rounded-xl p-6 shadow-sm">
+    <h1 className="text-2xl font-bold text-white mb-4">Grades Management</h1>
+    <p className="text-slate-400">Grade management functionality will be implemented here.</p>
   </div>
 );
 
 const EventsPage = () => (
-  <div className="bg-white rounded-xl p-6 shadow-sm border border-gray-200">
-    <h1 className="text-2xl font-bold text-gray-800 mb-4">Events & Calendar</h1>
-    <p className="text-gray-600">Event management functionality will be implemented here.</p>
+  <div className="bg-gray-800 border border-slate-700 rounded-xl p-6 shadow-sm">
+    <h1 className="text-2xl font-bold text-white mb-4">Events & Calendar</h1>
+    <p className="text-slate-400">Event management functionality will be implemented here.</p>
   </div>
 );
 
 const ReportsPage = () => (
-  <div className="bg-white rounded-xl p-6 shadow-sm border border-gray-200">
-    <h1 className="text-2xl font-bold text-gray-800 mb-4">Reports & Analytics</h1>
-    <p className="text-gray-600">Reporting functionality will be implemented here.</p>
+  <div className="bg-gray-800 border border-slate-700 rounded-xl p-6 shadow-sm">
+    <h1 className="text-2xl font-bold text-white mb-4">Reports & Analytics</h1>
+    <p className="text-slate-400">Reporting functionality will be implemented here.</p>
   </div>
 );
 
 const SettingsPage = () => (
-  <div className="bg-white rounded-xl p-6 shadow-sm border border-gray-200">
-    <h1 className="text-2xl font-bold text-gray-800 mb-4">Settings</h1>
-    <p className="text-gray-600">Settings functionality will be implemented here.</p>
+  <div className="bg-gray-800 border border-slate-700 rounded-xl p-6 shadow-sm">
+    <h1 className="text-2xl font-bold text-white mb-4">Settings</h1>
+    <p className="text-slate-400">Settings functionality will be implemented here.</p>
   </div>
 );
 
@@ -178,20 +174,20 @@ const ProfilePage = () => {
   const userData = JSON.parse(localStorage.getItem('user') || '{}');
   
   return (
-    <div className="bg-white rounded-xl p-6 shadow-sm border border-gray-200">
-      <h1 className="text-2xl font-bold text-gray-800 mb-4">Profile</h1>
+    <div className="bg-gray-800 border border-slate-700 rounded-xl p-6 shadow-sm">
+      <h1 className="text-2xl font-bold text-white mb-4">Profile</h1>
       <div className="space-y-4">
         <div>
-          <label className="block text-sm font-medium text-gray-700">Name</label>
-          <p className="mt-1 text-sm text-gray-900">{userData?.name || 'Not provided'}</p>
+          <label className="block text-sm font-medium text-slate-300">Name</label>
+          <p className="mt-1 text-sm text-white">{userData?.name || 'Not provided'}</p>
         </div>
         <div>
-          <label className="block text-sm font-medium text-gray-700">Email</label>
-          <p className="mt-1 text-sm text-gray-900">{userData?.email || 'Not provided'}</p>
+          <label className="block text-sm font-medium text-slate-300">Email</label>
+          <p className="mt-1 text-sm text-white">{userData?.email || 'Not provided'}</p>
         </div>
         <div>
-          <label className="block text-sm font-medium text-gray-700">Role</label>
-          <p className="mt-1 text-sm text-gray-900">{userData?.role || 'User'}</p>
+          <label className="block text-sm font-medium text-slate-300">Role</label>
+          <p className="mt-1 text-sm text-white">{userData?.role || 'User'}</p>
         </div>
       </div>
     </div>

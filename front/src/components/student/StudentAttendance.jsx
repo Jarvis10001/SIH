@@ -19,6 +19,7 @@ import {
   Search,
   RefreshCw
 } from 'lucide-react';
+import { themeClasses, iconClasses } from '../../styles/theme';
 
 const StudentAttendance = () => {
   const [attendanceRecords, setAttendanceRecords] = useState([]);
@@ -232,19 +233,19 @@ const StudentAttendance = () => {
   };
 
   return (
-    <div className="p-6 bg-gray-50 min-h-screen">
+    <div className={`${themeClasses.pageBackground} min-h-screen p-6`}>
       <div className="max-w-7xl mx-auto">
         {/* Header */}
-        <div className="bg-white rounded-lg shadow-sm p-6 mb-6">
+        <div className={`${themeClasses.primaryCard} mb-6`}>
           <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
             <div>
-              <h1 className="text-2xl font-bold text-gray-900 mb-2">My Attendance</h1>
-              <p className="text-gray-600">Track your class attendance and performance</p>
+              <h1 className={themeClasses.primaryHeading}>My Attendance</h1>
+              <p className={themeClasses.mutedText}>Track your class attendance and performance</p>
             </div>
             <div className="flex gap-3">
               <button
                 onClick={fetchAttendanceRecords}
-                className="flex items-center gap-2 px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors"
+                className={`${themeClasses.primaryButton} flex items-center gap-2 px-4 py-2 rounded-lg`}
               >
                 <RefreshCw size={20} />
                 Refresh
@@ -255,57 +256,57 @@ const StudentAttendance = () => {
 
         {/* Statistics Cards */}
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-6">
-          <div className="bg-white rounded-lg shadow-sm p-6">
+          <div className={themeClasses.primaryCard}>
             <div className="flex items-center justify-between">
               <div>
-                <p className="text-sm font-medium text-gray-600">Overall Attendance</p>
+                <p className="text-sm font-medium text-slate-400">Overall Attendance</p>
                 <p className={`text-3xl font-bold ${getPercentageColor(statistics.overallPercentage)}`}>
                   {statistics.overallPercentage}%
                 </p>
               </div>
-              <div className="p-3 rounded-full bg-blue-100">
-                <TrendingUp className="h-6 w-6 text-blue-600" />
+              <div className="p-3 rounded-full bg-indigo-500/20">
+                <TrendingUp className={`h-6 w-6 ${iconClasses.primary}`} />
               </div>
             </div>
-            <p className="text-sm text-gray-500 mt-2">
+            <p className="text-sm text-slate-400 mt-2">
               {statistics.attendedClasses} of {statistics.totalClasses} classes
             </p>
           </div>
 
-          <div className="bg-white rounded-lg shadow-sm p-6">
+          <div className={themeClasses.primaryCard}>
             <div className="flex items-center justify-between">
               <div>
-                <p className="text-sm font-medium text-gray-600">Total Classes</p>
-                <p className="text-3xl font-bold text-gray-900">{statistics.totalClasses}</p>
+                <p className="text-sm font-medium text-slate-400">Total Classes</p>
+                <p className="text-3xl font-bold text-white">{statistics.totalClasses}</p>
               </div>
-              <div className="p-3 rounded-full bg-green-100">
-                <BookOpen className="h-6 w-6 text-green-600" />
+              <div className="p-3 rounded-full bg-emerald-500/20">
+                <BookOpen className={`h-6 w-6 ${iconClasses.success}`} />
               </div>
             </div>
-            <p className="text-sm text-gray-500 mt-2">This semester</p>
+            <p className="text-sm text-slate-400 mt-2">This semester</p>
           </div>
 
-          <div className="bg-white rounded-lg shadow-sm p-6">
+          <div className={themeClasses.primaryCard}>
             <div className="flex items-center justify-between">
               <div>
-                <p className="text-sm font-medium text-gray-600">Classes Attended</p>
-                <p className="text-3xl font-bold text-green-600">{statistics.attendedClasses}</p>
+                <p className="text-sm font-medium text-slate-400">Classes Attended</p>
+                <p className={`text-3xl font-bold ${iconClasses.success}`}>{statistics.attendedClasses}</p>
               </div>
-              <div className="p-3 rounded-full bg-purple-100">
-                <CheckCircle className="h-6 w-6 text-purple-600" />
+              <div className="p-3 rounded-full bg-indigo-500/20">
+                <CheckCircle className={`h-6 w-6 ${iconClasses.primary}`} />
               </div>
             </div>
-            <p className="text-sm text-gray-500 mt-2">Present + Late</p>
+            <p className="text-sm text-slate-400 mt-2">Present + Late</p>
           </div>
         </div>
 
         {/* Subject-wise Statistics */}
         {statistics.subjectWiseStats.length > 0 && (
-          <div className="bg-white rounded-lg shadow-sm p-6 mb-6">
-            <h2 className="text-lg font-semibold text-gray-900 mb-4">Subject-wise Attendance</h2>
+          <div className={`${themeClasses.primaryCard} mb-6`}>
+            <h2 className={`${themeClasses.secondaryHeading} mb-4`}>Subject-wise Attendance</h2>
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
               {statistics.subjectWiseStats.map((stat, index) => (
-                <div key={index} className="p-4 border border-gray-200 rounded-lg">
+                <div key={index} className="p-4 border border-slate-600 rounded-lg bg-gray-700/50">
                   <div className="flex items-center justify-between mb-2">
                     <h3 className="font-medium text-gray-900 truncate">{stat.subject}</h3>
                     <span className={`text-lg font-bold ${getPercentageColor(stat.percentage)}`}>
@@ -391,55 +392,55 @@ const StudentAttendance = () => {
         </div>
 
         {/* Attendance Records */}
-        <div className="bg-white rounded-lg shadow-sm">
-          <div className="p-6 border-b border-gray-200">
-            <h2 className="text-lg font-semibold text-gray-900">Attendance Records</h2>
+        <div className={themeClasses.primaryCard}>
+          <div className="p-6 border-b border-slate-700/30">
+            <h2 className={themeClasses.secondaryHeading}>Attendance Records</h2>
           </div>
 
           {loading ? (
             <div className="p-8 text-center">
-              <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-blue-600 mx-auto"></div>
-              <p className="mt-2 text-gray-600">Loading attendance records...</p>
+              <div className={`${themeClasses.loadingSpinner} mx-auto`}></div>
+              <p className={`mt-2 ${themeClasses.loadingText}`}>Loading attendance records...</p>
             </div>
           ) : attendanceRecords.length === 0 ? (
             <div className="p-8 text-center">
-              <Calendar size={48} className="mx-auto text-gray-400 mb-4" />
-              <p className="text-gray-600">No attendance records found</p>
-              <p className="text-sm text-gray-500 mt-1">Try adjusting your filters or check back later</p>
+              <Calendar size={48} className={`mx-auto ${iconClasses.neutral} mb-4`} />
+              <p className={themeClasses.bodyText}>No attendance records found</p>
+              <p className={`text-sm ${themeClasses.mutedText} mt-1`}>Try adjusting your filters or check back later</p>
             </div>
           ) : (
             <div className="overflow-x-auto">
               <table className="w-full">
-                <thead className="bg-gray-50">
+                <thead className="bg-gray-700/50">
                   <tr>
-                    <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                    <th className="px-6 py-3 text-left text-xs font-medium text-slate-400 uppercase tracking-wider">
                       Date & Time
                     </th>
-                    <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                    <th className="px-6 py-3 text-left text-xs font-medium text-slate-400 uppercase tracking-wider">
                       Subject
                     </th>
-                    <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                    <th className="px-6 py-3 text-left text-xs font-medium text-slate-400 uppercase tracking-wider">
                       Teacher
                     </th>
-                    <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                    <th className="px-6 py-3 text-left text-xs font-medium text-slate-400 uppercase tracking-wider">
                       Status
                     </th>
-                    <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                    <th className="px-6 py-3 text-left text-xs font-medium text-slate-400 uppercase tracking-wider">
                       Actions
                     </th>
                   </tr>
                 </thead>
-                <tbody className="bg-white divide-y divide-gray-200">
+                <tbody className="bg-gray-800 divide-y divide-slate-700/50">
                   {attendanceRecords.map((record) => (
-                    <tr key={record._id} className="hover:bg-gray-50">
+                    <tr key={record._id} className="hover:bg-gray-700/50 transition-colors">
                       <td className="px-6 py-4 whitespace-nowrap">
                         <div className="flex items-center">
-                          <Calendar className="h-5 w-5 text-gray-400 mr-2" />
+                          <Calendar className={`h-5 w-5 ${iconClasses.neutral} mr-2`} />
                           <div>
-                            <div className="text-sm font-medium text-gray-900">
+                            <div className="text-sm font-medium text-white">
                               {formatDate(record.date)}
                             </div>
-                            <div className="text-sm text-gray-500">
+                            <div className="text-sm text-slate-400">
                               {formatTime(record.timeSlot.startTime)} - {formatTime(record.timeSlot.endTime)}
                             </div>
                           </div>
@@ -447,12 +448,12 @@ const StudentAttendance = () => {
                       </td>
                       <td className="px-6 py-4">
                         <div className="flex items-center">
-                          <BookOpen className="h-5 w-5 text-gray-400 mr-2" />
+                          <BookOpen className={`h-5 w-5 ${iconClasses.neutral} mr-2`} />
                           <div>
-                            <div className="text-sm font-medium text-gray-900">
+                            <div className="text-sm font-medium text-white">
                               {record.classInfo.subject}
                             </div>
-                            <div className="text-sm text-gray-500">
+                            <div className="text-sm text-slate-400">
                               {record.classInfo.className} - {record.classInfo.section} | Sem {record.classInfo.semester}
                             </div>
                           </div>

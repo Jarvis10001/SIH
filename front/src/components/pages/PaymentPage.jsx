@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { motion } from "framer-motion";
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
+import { themeClasses, iconClasses } from '../../styles/theme';
 
 const PaymentPage = () => {
     const navigate = useNavigate();
@@ -20,15 +21,15 @@ const PaymentPage = () => {
 
     const inputClasses = `
         w-full p-3 rounded-xl 
-        bg-[#F8F9F4] border-2 border-transparent
-        focus:border-[#3B82F6]
-        focus:ring-4 focus:ring-[#3B82F6]/10 
-        focus:bg-white
-        hover:border-[#3B82F6]/30
+        bg-gray-700 border-2 border-slate-600
+        focus:border-indigo-500
+        focus:ring-4 focus:ring-indigo-500/10 
+        focus:bg-gray-600
+        hover:border-indigo-500/30
         transition-all duration-300 ease-in-out
-        text-[#333333] placeholder-[#6C757D]/60
-        focus:placeholder-[#3B82F6]/50
-        focus:shadow-lg focus:shadow-[#3B82F6]/5
+        text-white placeholder-slate-400
+        focus:placeholder-indigo-400/70
+        focus:shadow-lg focus:shadow-indigo-500/5
         outline-none
     `;
 
@@ -249,8 +250,8 @@ const PaymentPage = () => {
 
     if (isLoading) {
         return (
-            <div className="flex items-center justify-center min-h-screen">
-                <div className="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-[#3B82F6]"></div>
+            <div className={`${themeClasses.pageBackground} flex items-center justify-center min-h-screen`}>
+                <div className={themeClasses.loadingSpinner}></div>
             </div>
         );
     }
@@ -368,194 +369,195 @@ const PaymentPage = () => {
     }
 
     return (
-        <div className="max-w-4xl mx-auto my-10 px-4 min-h-screen bg-gradient-to-br from-[#3B82F6]/5 via-white to-[#06B6D4]/5">
-            {/* Error banner */}
-            {error && (
-                <div className="mb-6 bg-red-50 border border-red-200 rounded-xl p-4 shadow-sm">
+        <div className={`${themeClasses.pageBackground} min-h-screen py-10`}>
+            <div className="max-w-4xl mx-auto px-4">
+                {/* Error banner */}
+                {error && (
+                    <div className="mb-6 bg-red-500/20 border border-red-500/30 rounded-xl p-4 shadow-sm">
+                        <div className="flex items-center gap-3">
+                            <div className="flex-shrink-0">
+                                <i className={`ri-error-warning-line text-xl ${iconClasses.danger}`}></i>
+                            </div>
+                            <div>
+                                <h4 className="text-red-300 font-medium">Payment Error</h4>
+                                <p className="text-red-400 text-sm">{error}</p>
+                            </div>
+                            <button
+                                onClick={() => setError(null)}
+                                className="ml-auto text-red-400 hover:text-red-300"
+                            >
+                                <i className="ri-close-line text-xl"></i>
+                            </button>
+                        </div>
+                    </div>
+                )}
+
+                {/* Notification banner */}
+                <div className="mb-6 bg-indigo-500/20 border border-indigo-500/30 rounded-xl p-4 shadow-sm">
                     <div className="flex items-center gap-3">
                         <div className="flex-shrink-0">
-                            <i className="ri-error-warning-line text-xl text-red-600"></i>
+                            <i className={`ri-information-line text-xl ${iconClasses.primary}`}></i>
                         </div>
                         <div>
-                            <h4 className="text-red-800 font-medium">Payment Error</h4>
-                            <p className="text-red-700 text-sm">{error}</p>
-                        </div>
-                        <button
-                            onClick={() => setError(null)}
-                            className="ml-auto text-red-600 hover:text-red-800"
-                        >
-                            <i className="ri-close-line text-xl"></i>
-                        </button>
-                    </div>
-                </div>
-            )}
-
-            {/* Notification banner */}
-            <div className="mb-6 bg-[#3B82F6]/10 border border-[#3B82F6]/20 rounded-xl p-4 shadow-sm">
-                <div className="flex items-center gap-3">
-                    <div className="flex-shrink-0">
-                        <i className="ri-information-line text-xl text-[#3B82F6]"></i>
-                    </div>
-                    <div>
-                        <h4 className="text-[#333333] font-medium">Admission Fee Payment</h4>
-                        <p className="text-[#6C757D] text-sm">
-                            Complete your admission by paying the required fees. Your admission will be confirmed after successful payment.
-                        </p>
-                    </div>
-                </div>
-            </div>
-
-            <div className="bg-white/70 backdrop-blur-lg rounded-2xl shadow-xl border border-gray-100 overflow-hidden">
-                {/* Header */}
-                <div className="relative h-32 bg-gradient-to-r from-[#3B82F6]/20 to-[#2563EB]/20">
-                    <div className="absolute inset-0 px-8 py-6">
-                        <div className="flex justify-between items-center">
-                            <div>
-                                <h2 className="text-2xl font-bold text-[#333333] mb-1">
-                                    Payment Portal
-                                </h2>
-                                <p className="text-[#6C757D] text-sm">
-                                    Secure payment for your college admission
-                                </p>
-                            </div>
-                            <div className="h-12 w-12 bg-white/20 backdrop-blur-md rounded-xl flex items-center justify-center">
-                                <i className="ri-bank-card-line text-2xl text-[#3B82F6]"></i>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <div className="p-8">
-                    {/* Student Information */}
-                    <motion.div
-                        initial={{ opacity: 0, y: 20 }}
-                        animate={{ opacity: 1, y: 0 }}
-                        className="bg-white/50 rounded-xl p-6 backdrop-blur-sm border border-gray-100 shadow-sm mb-8"
-                    >
-                        <div className="flex items-center gap-4 mb-6">
-                            <div className="h-10 w-10 rounded-xl bg-[#3B82F6]/10 flex items-center justify-center">
-                                <i className="ri-user-line text-xl text-[#3B82F6]"></i>
-                            </div>
-                            <h3 className="text-xl font-bold text-[#333333]">Student Information</h3>
-                        </div>
-                        
-                        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                            <div>
-                                <label className="text-[#333333] font-medium block mb-1">Student Name</label>
-                                <input
-                                    type="text"
-                                    value={admissionData?.personalInfo?.name || ''}
-                                    className={inputClasses}
-                                    readOnly
-                                />
-                            </div>
-                            <div>
-                                <label className="text-[#333333] font-medium block mb-1">Application ID</label>
-                                <input
-                                    type="text"
-                                    value={admissionData?.applicationNumber || 'N/A'}
-                                    className={inputClasses}
-                                    readOnly
-                                />
-                            </div>
-                            <div>
-                                <label className="text-[#333333] font-medium block mb-1">Course</label>
-                                <input
-                                    type="text"
-                                    value={admissionData?.academicInfo?.course || ''}
-                                    className={inputClasses}
-                                    readOnly
-                                />
-                            </div>
-                            <div>
-                                <label className="text-[#333333] font-medium block mb-1">Branch</label>
-                                <input
-                                    type="text"
-                                    value={admissionData?.academicInfo?.branch || ''}
-                                    className={inputClasses}
-                                    readOnly
-                                />
-                            </div>
-                        </div>
-                    </motion.div>
-
-                    {/* Fee Structure */}
-                    <motion.div
-                        initial={{ opacity: 0, y: 20 }}
-                        animate={{ opacity: 1, y: 0 }}
-                        className="bg-white/50 rounded-xl p-6 backdrop-blur-sm border border-gray-100 shadow-sm mb-8"
-                    >
-                        <div className="flex items-center gap-4 mb-6">
-                            <div className="h-10 w-10 rounded-xl bg-[#3B82F6]/10 flex items-center justify-center">
-                                <i className="ri-money-rupee-circle-line text-xl text-[#3B82F6]"></i>
-                            </div>
-                            <h3 className="text-xl font-bold text-[#333333]">Fee Structure</h3>
-                        </div>
-
-                        <div className="space-y-4">
-                            <div className="flex justify-between items-center py-3 border-b border-gray-200">
-                                <span className="text-[#333333] font-medium">Admission Fee</span>
-                                <span className="text-[#333333] font-semibold">₹{fees.admissionFee.toLocaleString()}</span>
-                            </div>
-                            <div className="flex justify-between items-center py-3 border-b border-gray-200">
-                                <span className="text-[#333333] font-medium">Registration Fee</span>
-                                <span className="text-[#333333] font-semibold">₹{fees.registrationFee.toLocaleString()}</span>
-                            </div>
-                            <div className="flex justify-between items-center py-3 border-b border-gray-200">
-                                <span className="text-[#333333] font-medium">Security Deposit</span>
-                                <span className="text-[#333333] font-semibold">₹{fees.securityDeposit.toLocaleString()}</span>
-                            </div>
-                            <div className="flex justify-between items-center py-4 bg-[#3B82F6]/10 rounded-lg px-4">
-                                <span className="text-[#333333] font-bold text-lg">Total Amount</span>
-                                <span className="text-[#3B82F6] font-bold text-xl">₹{fees.total.toLocaleString()}</span>
-                            </div>
-                        </div>
-                    </motion.div>
-
-                    {/* Payment Methods */}
-                    <motion.div
-                        initial={{ opacity: 0, y: 20 }}
-                        animate={{ opacity: 1, y: 0 }}
-                        className="bg-white/50 rounded-xl p-6 backdrop-blur-sm border border-gray-100 shadow-sm mb-8"
-                    >
-                        <div className="flex items-center gap-4 mb-6">
-                            <div className="h-10 w-10 rounded-xl bg-[#3B82F6]/10 flex items-center justify-center">
-                                <i className="ri-secure-payment-line text-xl text-[#3B82F6]"></i>
-                            </div>
-                            <h3 className="text-xl font-bold text-[#333333]">Secure Payment</h3>
-                        </div>
-
-                        <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-6">
-                            <div className="flex items-center justify-center p-4 bg-white rounded-lg border border-gray-200">
-                                <img src="/api/placeholder/60/40" alt="Visa" className="h-8" />
-                            </div>
-                            <div className="flex items-center justify-center p-4 bg-white rounded-lg border border-gray-200">
-                                <img src="/api/placeholder/60/40" alt="Mastercard" className="h-8" />
-                            </div>
-                            <div className="flex items-center justify-center p-4 bg-white rounded-lg border border-gray-200">
-                                <img src="/api/placeholder/60/40" alt="UPI" className="h-8" />
-                            </div>
-                            <div className="flex items-center justify-center p-4 bg-white rounded-lg border border-gray-200">
-                                <img src="/api/placeholder/60/40" alt="Net Banking" className="h-8" />
-                            </div>
-                        </div>
-
-                        <div className="text-center">
-                            <p className="text-sm text-[#6C757D] mb-4">
-                                <i className="ri-shield-check-line text-[#3B82F6] mr-1"></i>
-                                Payments are secured by SSL encryption and processed through Razorpay
+                            <h4 className="text-white font-medium">Admission Fee Payment</h4>
+                            <p className="text-slate-300 text-sm">
+                                Complete your admission by paying the required fees. Your admission will be confirmed after successful payment.
                             </p>
                         </div>
-                    </motion.div>
+                    </div>
+                </div>
 
-                    {/* Payment Button */}
-                    <div className="pt-6 border-t border-gray-100">
-                        <motion.button
-                            whileHover={{ scale: 1.01 }}
-                            whileTap={{ scale: 0.99 }}
-                            onClick={handlePayment}
-                            disabled={paymentLoading}
-                            className={`w-full p-4 bg-gradient-to-r from-[#3B82F6] to-[#2563EB] text-white rounded-xl font-semibold shadow-lg hover:shadow-xl hover:shadow-[#3B82F6]/20 transition-all duration-300 ${paymentLoading ? 'opacity-50 cursor-not-allowed' : ''}`}
+                <div className="bg-gray-800/90 backdrop-blur-lg rounded-2xl shadow-xl border border-slate-700/30 overflow-hidden">
+                    {/* Header */}
+                    <div className="relative h-32 bg-gradient-to-r from-indigo-600/30 to-indigo-700/30">
+                        <div className="absolute inset-0 px-8 py-6">
+                            <div className="flex justify-between items-center">
+                                <div>
+                                    <h2 className="text-2xl font-bold text-white mb-1">
+                                        Payment Portal
+                                    </h2>
+                                    <p className="text-slate-300 text-sm">
+                                        Secure payment for your college admission
+                                    </p>
+                                </div>
+                                <div className="h-12 w-12 bg-indigo-500/20 backdrop-blur-md rounded-xl flex items-center justify-center">
+                                    <i className={`ri-bank-card-line text-2xl ${iconClasses.primary}`}></i>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div className="p-8">
+                        {/* Student Information */}
+                        <motion.div
+                            initial={{ opacity: 0, y: 20 }}
+                            animate={{ opacity: 1, y: 0 }}
+                            className="bg-gray-700/50 rounded-xl p-6 backdrop-blur-sm border border-slate-600/30 shadow-sm mb-8"
+                        >
+                            <div className="flex items-center gap-4 mb-6">
+                                <div className="h-10 w-10 rounded-xl bg-indigo-500/20 flex items-center justify-center">
+                                    <i className={`ri-user-line text-xl ${iconClasses.primary}`}></i>
+                                </div>
+                                <h3 className="text-xl font-bold text-white">Student Information</h3>
+                            </div>
+                            
+                            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                                <div>
+                                    <label className="text-slate-300 font-medium block mb-1">Student Name</label>
+                                    <input
+                                        type="text"
+                                        value={admissionData?.personalInfo?.name || ''}
+                                        className={inputClasses}
+                                        readOnly
+                                    />
+                                </div>
+                                <div>
+                                    <label className="text-slate-300 font-medium block mb-1">Application ID</label>
+                                    <input
+                                        type="text"
+                                        value={admissionData?.applicationNumber || 'N/A'}
+                                        className={inputClasses}
+                                        readOnly
+                                    />
+                                </div>
+                                <div>
+                                    <label className="text-slate-300 font-medium block mb-1">Course</label>
+                                    <input
+                                        type="text"
+                                        value={admissionData?.academicInfo?.course || ''}
+                                        className={inputClasses}
+                                        readOnly
+                                    />
+                                </div>
+                                <div>
+                                    <label className="text-slate-300 font-medium block mb-1">Branch</label>
+                                    <input
+                                        type="text"
+                                        value={admissionData?.academicInfo?.branch || ''}
+                                        className={inputClasses}
+                                        readOnly
+                                    />
+                                </div>
+                            </div>
+                        </motion.div>
+
+                        {/* Fee Structure */}
+                        <motion.div
+                            initial={{ opacity: 0, y: 20 }}
+                            animate={{ opacity: 1, y: 0 }}
+                            className="bg-gray-700/50 rounded-xl p-6 backdrop-blur-sm border border-slate-600/30 shadow-sm mb-8"
+                        >
+                            <div className="flex items-center gap-4 mb-6">
+                                <div className="h-10 w-10 rounded-xl bg-indigo-500/20 flex items-center justify-center">
+                                    <i className={`ri-money-rupee-circle-line text-xl ${iconClasses.primary}`}></i>
+                                </div>
+                                <h3 className="text-xl font-bold text-white">Fee Structure</h3>
+                            </div>
+
+                            <div className="space-y-4">
+                                <div className="flex justify-between items-center py-3 border-b border-slate-600/30">
+                                    <span className="text-slate-300 font-medium">Admission Fee</span>
+                                    <span className="text-white font-semibold">₹{fees.admissionFee.toLocaleString()}</span>
+                                </div>
+                                <div className="flex justify-between items-center py-3 border-b border-slate-600/30">
+                                    <span className="text-slate-300 font-medium">Registration Fee</span>
+                                    <span className="text-white font-semibold">₹{fees.registrationFee.toLocaleString()}</span>
+                                </div>
+                                <div className="flex justify-between items-center py-3 border-b border-slate-600/30">
+                                    <span className="text-slate-300 font-medium">Security Deposit</span>
+                                    <span className="text-white font-semibold">₹{fees.securityDeposit.toLocaleString()}</span>
+                                </div>
+                                <div className="flex justify-between items-center py-4 bg-indigo-500/20 rounded-lg px-4">
+                                    <span className="text-white font-bold text-lg">Total Amount</span>
+                                    <span className={`${iconClasses.primary} font-bold text-xl`}>₹{fees.total.toLocaleString()}</span>
+                                </div>
+                            </div>
+                        </motion.div>
+
+                        {/* Payment Methods */}
+                        <motion.div
+                            initial={{ opacity: 0, y: 20 }}
+                            animate={{ opacity: 1, y: 0 }}
+                            className="bg-gray-700/50 rounded-xl p-6 backdrop-blur-sm border border-slate-600/30 shadow-sm mb-8"
+                        >
+                            <div className="flex items-center gap-4 mb-6">
+                                <div className="h-10 w-10 rounded-xl bg-indigo-500/20 flex items-center justify-center">
+                                    <i className={`ri-secure-payment-line text-xl ${iconClasses.primary}`}></i>
+                                </div>
+                                <h3 className="text-xl font-bold text-white">Secure Payment</h3>
+                            </div>
+
+                            <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-6">
+                                <div className="flex items-center justify-center p-4 bg-gray-600/50 rounded-lg border border-slate-600/30">
+                                    <span className="text-slate-300 text-sm font-medium">Visa</span>
+                                </div>
+                                <div className="flex items-center justify-center p-4 bg-gray-600/50 rounded-lg border border-slate-600/30">
+                                    <span className="text-slate-300 text-sm font-medium">Mastercard</span>
+                                </div>
+                                <div className="flex items-center justify-center p-4 bg-gray-600/50 rounded-lg border border-slate-600/30">
+                                    <span className="text-slate-300 text-sm font-medium">UPI</span>
+                                </div>
+                                <div className="flex items-center justify-center p-4 bg-gray-600/50 rounded-lg border border-slate-600/30">
+                                    <span className="text-slate-300 text-sm font-medium">Net Banking</span>
+                                </div>
+                            </div>
+
+                            <div className="text-center">
+                                <p className="text-sm text-slate-400 mb-4">
+                                    <i className={`ri-shield-check-line ${iconClasses.primary} mr-1`}></i>
+                                    Payments are secured by SSL encryption and processed through Razorpay
+                                </p>
+                            </div>
+                        </motion.div>
+
+                        {/* Payment Button */}
+                        <div className="pt-6 border-t border-slate-700/30">
+                            <motion.button
+                                whileHover={{ scale: 1.01 }}
+                                whileTap={{ scale: 0.99 }}
+                                onClick={handlePayment}
+                                disabled={paymentLoading}
+                                className={`${themeClasses.primaryButton} w-full p-4 rounded-xl ${paymentLoading ? 'opacity-50 cursor-not-allowed' : ''}`}
                         >
                             <span className="flex items-center justify-center gap-2">
                                 {paymentLoading ? (
@@ -572,13 +574,13 @@ const PaymentPage = () => {
                             </span>
                         </motion.button>
                         
-                        <p className="text-center mt-4 text-sm text-[#6C757D]">
+                        <p className="text-center mt-4 text-sm text-slate-400">
                             By proceeding with payment, you agree to our{' '}
-                            <a href="#" className="text-[#3B82F6] hover:text-[#2563EB] underline">
+                            <a href="#" className="text-indigo-400 hover:text-indigo-300 underline">
                                 Terms and Conditions
                             </a>
                             {' '}and{' '}
-                            <a href="#" className="text-[#3B82F6] hover:text-[#2563EB] underline">
+                            <a href="#" className="text-indigo-400 hover:text-indigo-300 underline">
                                 Refund Policy
                             </a>
                         </p>
@@ -586,7 +588,8 @@ const PaymentPage = () => {
                 </div>
             </div>
         </div>
+        </div>
     );
-};
+}
 
 export default PaymentPage;

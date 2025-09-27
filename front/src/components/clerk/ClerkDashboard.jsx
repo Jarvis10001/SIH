@@ -4,8 +4,10 @@ import { motion, AnimatePresence } from 'framer-motion';
 import axios from 'axios';
 import StudentVerification from './StudentVerification';
 import DocumentVerification from './DocumentVerification';
+import LibraryManagement from './LibraryManagement';
 import ClerkSidebar from './ClerkSidebar';
 import ClerkTopNav from './ClerkTopNav';
+import { themeClasses, iconClasses } from '../../styles/theme';
 
 const ClerkDashboard = () => {
     const navigate = useNavigate();
@@ -58,16 +60,16 @@ const ClerkDashboard = () => {
     const renderOverview = () => (
         <div className="space-y-6">
             {/* Welcome Section */}
-            <div className="bg-gradient-to-r from-[#3B82F6] to-[#2563EB] rounded-2xl p-6 text-white">
+            <div className={`${themeClasses.welcomeCard} shadow-xl`}>
                 <div className="flex items-center justify-between">
                     <div>
                         <h2 className="text-2xl font-bold mb-2">
                             Welcome back, {clerkData?.personalInfo?.fullName}!
                         </h2>
-                        <p className="text-blue-100">
+                        <p className="text-indigo-100">
                             {clerkData?.professionalInfo?.designation} - {clerkData?.professionalInfo?.department}
                         </p>
-                        <p className="text-blue-100 text-sm mt-1">
+                        <p className="text-indigo-100 text-sm mt-1">
                             Access Level: {clerkData?.systemAccess?.accessLevel?.toUpperCase()}
                         </p>
                     </div>
@@ -82,15 +84,15 @@ const ClerkDashboard = () => {
                 <motion.div
                     initial={{ opacity: 0, y: 20 }}
                     animate={{ opacity: 1, y: 0 }}
-                    className="bg-white rounded-2xl p-6 shadow-lg border border-gray-100"
+                    className={themeClasses.primaryCard}
                 >
                     <div className="flex items-center justify-between">
                         <div>
-                            <p className="text-sm font-medium text-gray-600">Accessible Modules</p>
-                            <p className="text-3xl font-bold text-gray-900">{dashboardStats.modules || 0}</p>
+                            <p className={`text-sm font-medium ${themeClasses.mutedText}`}>Accessible Modules</p>
+                            <p className="text-3xl font-bold text-white">{dashboardStats.modules || 0}</p>
                         </div>
-                        <div className="w-12 h-12 bg-[#3B82F6]/10 rounded-xl flex items-center justify-center">
-                            <i className="ri-apps-line text-[#3B82F6] text-xl"></i>
+                        <div className="w-12 h-12 bg-indigo-500/20 border border-indigo-500/30 rounded-xl flex items-center justify-center">
+                            <i className={`ri-apps-line ${iconClasses.primary} text-xl`}></i>
                         </div>
                     </div>
                 </motion.div>
@@ -99,15 +101,15 @@ const ClerkDashboard = () => {
                     initial={{ opacity: 0, y: 20 }}
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ delay: 0.1 }}
-                    className="bg-white rounded-2xl p-6 shadow-lg border border-gray-100"
+                    className={themeClasses.primaryCard}
                 >
                     <div className="flex items-center justify-between">
                         <div>
-                            <p className="text-sm font-medium text-gray-600">Department</p>
-                            <p className="text-lg font-bold text-gray-900">{dashboardStats.department || 'N/A'}</p>
+                            <p className={`text-sm font-medium ${themeClasses.mutedText}`}>Department</p>
+                            <p className="text-lg font-bold text-white">{dashboardStats.department || 'N/A'}</p>
                         </div>
-                        <div className="w-12 h-12 bg-[#3B82F6]/10 rounded-xl flex items-center justify-center">
-                            <i className="ri-building-line text-[#3B82F6] text-xl"></i>
+                        <div className="w-12 h-12 bg-indigo-500/20 border border-indigo-500/30 rounded-xl flex items-center justify-center">
+                            <i className={`ri-building-line ${iconClasses.primary} text-xl`}></i>
                         </div>
                     </div>
                 </motion.div>
@@ -116,15 +118,15 @@ const ClerkDashboard = () => {
                     initial={{ opacity: 0, y: 20 }}
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ delay: 0.2 }}
-                    className="bg-white rounded-2xl p-6 shadow-lg border border-gray-100"
+                    className={themeClasses.primaryCard}
                 >
                     <div className="flex items-center justify-between">
                         <div>
-                            <p className="text-sm font-medium text-gray-600">Work Shift</p>
-                            <p className="text-lg font-bold text-gray-900">{dashboardStats.workShift || 'N/A'}</p>
+                            <p className={`text-sm font-medium ${themeClasses.mutedText}`}>Work Shift</p>
+                            <p className="text-lg font-bold text-white">{dashboardStats.workShift || 'N/A'}</p>
                         </div>
-                        <div className="w-12 h-12 bg-[#3B82F6]/10 rounded-xl flex items-center justify-center">
-                            <i className="ri-time-line text-[#3B82F6] text-xl"></i>
+                        <div className="w-12 h-12 bg-indigo-500/20 border border-indigo-500/30 rounded-xl flex items-center justify-center">
+                            <i className={`ri-time-line ${iconClasses.primary} text-xl`}></i>
                         </div>
                     </div>
                 </motion.div>
@@ -133,40 +135,40 @@ const ClerkDashboard = () => {
                     initial={{ opacity: 0, y: 20 }}
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ delay: 0.3 }}
-                    className="bg-white rounded-2xl p-6 shadow-lg border border-gray-100"
+                    className={themeClasses.primaryCard}
                 >
                     <div className="flex items-center justify-between">
                         <div>
-                            <p className="text-sm font-medium text-gray-600">Access Level</p>
-                            <p className="text-lg font-bold text-gray-900 capitalize">
+                            <p className={`text-sm font-medium ${themeClasses.mutedText}`}>Access Level</p>
+                            <p className="text-lg font-bold text-white capitalize">
                                 {dashboardStats.accessLevel || 'Read'}
                             </p>
                         </div>
-                        <div className="w-12 h-12 bg-[#3B82F6]/10 rounded-xl flex items-center justify-center">
-                            <i className="ri-shield-user-line text-[#3B82F6] text-xl"></i>
+                        <div className="w-12 h-12 bg-indigo-500/20 border border-indigo-500/30 rounded-xl flex items-center justify-center">
+                            <i className={`ri-shield-user-line ${iconClasses.primary} text-xl`}></i>
                         </div>
                     </div>
                 </motion.div>
             </div>
 
             {/* Quick Actions */}
-            <div className="bg-white rounded-2xl shadow-lg border border-gray-100 p-6">
-                <h3 className="text-xl font-semibold text-gray-900 mb-4">Quick Actions</h3>
+            <div className={`${themeClasses.primaryCard} shadow-lg`}>
+                <h3 className={`${themeClasses.secondaryHeading} mb-4`}>Quick Actions</h3>
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
                     {clerkData?.systemAccess?.modules?.includes('admission_processing') && (
                         <motion.button
                             whileHover={{ scale: 1.02 }}
                             whileTap={{ scale: 0.98 }}
                             onClick={() => setActiveTab('student-verification')}
-                            className="p-4 bg-gradient-to-r from-[#3B82F6]/10 to-[#06B6D4]/10 rounded-xl border border-[#3B82F6]/20 hover:from-[#3B82F6]/20 hover:to-[#06B6D4]/20 transition-all duration-300"
+                            className="p-4 bg-gradient-to-r from-indigo-500/10 to-cyan-500/10 rounded-xl border border-indigo-500/20 hover:from-indigo-500/20 hover:to-cyan-500/20 transition-all duration-300"
                         >
                             <div className="flex items-center space-x-3">
-                                <div className="w-10 h-10 bg-[#3B82F6] rounded-lg flex items-center justify-center">
+                                <div className="w-10 h-10 bg-indigo-600 rounded-lg flex items-center justify-center">
                                     <i className="ri-user-add-line text-white"></i>
                                 </div>
                                 <div className="text-left">
-                                    <p className="font-semibold text-gray-900">Student Verification</p>
-                                    <p className="text-sm text-gray-600">Review admission applications</p>
+                                    <p className="font-semibold text-white">Student Verification</p>
+                                    <p className={`text-sm ${themeClasses.mutedText}`}>Review admission applications</p>
                                 </div>
                             </div>
                         </motion.button>
@@ -176,15 +178,15 @@ const ClerkDashboard = () => {
                         <motion.button
                             whileHover={{ scale: 1.02 }}
                             whileTap={{ scale: 0.98 }}
-                            className="p-4 bg-gradient-to-r from-[#06B6D4]/10 to-[#3B82F6]/10 rounded-xl border border-[#06B6D4]/20 hover:from-[#06B6D4]/20 hover:to-[#3B82F6]/20 transition-all duration-300"
+                            className="p-4 bg-gradient-to-r from-cyan-500/10 to-indigo-500/10 rounded-xl border border-cyan-500/20 hover:from-cyan-500/20 hover:to-indigo-500/20 transition-all duration-300"
                         >
                             <div className="flex items-center space-x-3">
-                                <div className="w-10 h-10 bg-[#06B6D4] rounded-lg flex items-center justify-center">
+                                <div className="w-10 h-10 bg-cyan-600 rounded-lg flex items-center justify-center">
                                     <i className="ri-file-check-line text-white"></i>
                                 </div>
                                 <div className="text-left">
-                                    <p className="font-semibold text-gray-900">Document Verification</p>
-                                    <p className="text-sm text-gray-600">Verify student documents</p>
+                                    <p className="font-semibold text-white">Document Verification</p>
+                                    <p className={`text-sm ${themeClasses.mutedText}`}>Verify student documents</p>
                                 </div>
                             </div>
                         </motion.button>
@@ -194,15 +196,15 @@ const ClerkDashboard = () => {
                         <motion.button
                             whileHover={{ scale: 1.02 }}
                             whileTap={{ scale: 0.98 }}
-                            className="p-4 bg-gradient-to-r from-[#2563EB]/10 to-[#3B82F6]/10 rounded-xl border border-[#2563EB]/20 hover:from-[#2563EB]/20 hover:to-[#3B82F6]/20 transition-all duration-300"
+                            className="p-4 bg-gradient-to-r from-indigo-600/10 to-indigo-500/10 rounded-xl border border-indigo-600/20 hover:from-indigo-600/20 hover:to-indigo-500/20 transition-all duration-300"
                         >
                             <div className="flex items-center space-x-3">
-                                <div className="w-10 h-10 bg-[#2563EB] rounded-lg flex items-center justify-center">
+                                <div className="w-10 h-10 bg-indigo-700 rounded-lg flex items-center justify-center">
                                     <i className="ri-money-dollar-circle-line text-white"></i>
                                 </div>
                                 <div className="text-left">
-                                    <p className="font-semibold text-gray-900">Fee Collection</p>
-                                    <p className="text-sm text-gray-600">Manage fee payments</p>
+                                    <p className="font-semibold text-white">Fee Collection</p>
+                                    <p className={`text-sm ${themeClasses.mutedText}`}>Manage fee payments</p>
                                 </div>
                             </div>
                         </motion.button>
@@ -224,6 +226,8 @@ const ClerkDashboard = () => {
                 return <StudentVerification />;
             case 'document-verification':
                 return <DocumentVerification />;
+            case 'library-management':
+                return <LibraryManagement />;
             case 'application-status':
                 return renderApplicationStatus();
             case 'student-records':
@@ -303,34 +307,34 @@ const ClerkDashboard = () => {
     );
 
     const renderProfile = () => (
-        <div className="bg-white rounded-2xl shadow-lg border border-gray-100 p-6">
+        <div className={themeClasses.primaryCard}>
             <div className="flex items-center gap-4 mb-6">
-                <div className="w-16 h-16 bg-gradient-to-br from-[#3B82F6] to-[#2563EB] rounded-xl flex items-center justify-center text-white font-bold text-2xl">
+                <div className="w-16 h-16 bg-gradient-to-br from-indigo-600 to-indigo-700 rounded-xl flex items-center justify-center text-white font-bold text-2xl border border-indigo-500/30">
                     {clerkData?.personalInfo?.fullName?.charAt(0).toUpperCase() || 'C'}
                 </div>
                 <div>
-                    <h3 className="text-xl font-semibold text-gray-900">
+                    <h3 className={themeClasses.secondaryHeading}>
                         {clerkData?.personalInfo?.fullName || 'Clerk Profile'}
                     </h3>
-                    <p className="text-gray-600">Employee ID: {clerkData?.employeeId}</p>
+                    <p className={themeClasses.mutedText}>Employee ID: {clerkData?.employeeId}</p>
                 </div>
             </div>
             
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                 <div>
-                    <h4 className="font-semibold text-gray-900 mb-3">Personal Information</h4>
+                    <h4 className={`font-semibold ${themeClasses.bodyText} mb-3`}>Personal Information</h4>
                     <div className="space-y-2">
-                        <p className="text-sm"><span className="font-medium">Email:</span> {clerkData?.personalInfo?.email}</p>
-                        <p className="text-sm"><span className="font-medium">Phone:</span> {clerkData?.personalInfo?.phone}</p>
-                        <p className="text-sm"><span className="font-medium">Department:</span> {clerkData?.professionalInfo?.department}</p>
+                        <p className="text-sm"><span className="font-medium text-white">Email:</span> <span className={themeClasses.mutedText}>{clerkData?.personalInfo?.email}</span></p>
+                        <p className="text-sm"><span className="font-medium text-white">Phone:</span> <span className={themeClasses.mutedText}>{clerkData?.personalInfo?.phone}</span></p>
+                        <p className="text-sm"><span className="font-medium text-white">Department:</span> <span className={themeClasses.mutedText}>{clerkData?.professionalInfo?.department}</span></p>
                     </div>
                 </div>
                 <div>
-                    <h4 className="font-semibold text-gray-900 mb-3">Professional Information</h4>
+                    <h4 className={`font-semibold ${themeClasses.bodyText} mb-3`}>Professional Information</h4>
                     <div className="space-y-2">
-                        <p className="text-sm"><span className="font-medium">Designation:</span> {clerkData?.professionalInfo?.designation}</p>
-                        <p className="text-sm"><span className="font-medium">Work Shift:</span> {clerkData?.professionalInfo?.workShift}</p>
-                        <p className="text-sm"><span className="font-medium">Access Level:</span> {clerkData?.systemAccess?.accessLevel}</p>
+                        <p className="text-sm"><span className="font-medium text-white">Designation:</span> <span className={themeClasses.mutedText}>{clerkData?.professionalInfo?.designation}</span></p>
+                        <p className="text-sm"><span className="font-medium text-white">Work Shift:</span> <span className={themeClasses.mutedText}>{clerkData?.professionalInfo?.workShift}</span></p>
+                        <p className="text-sm"><span className="font-medium text-white">Access Level:</span> <span className={themeClasses.mutedText}>{clerkData?.systemAccess?.accessLevel}</span></p>
                     </div>
                 </div>
             </div>
@@ -338,7 +342,7 @@ const ClerkDashboard = () => {
     );
 
     return (
-        <div className="h-screen bg-gray-50 flex overflow-hidden">
+        <div className={themeClasses.dashboardLayout}>
             {/* Clerk Sidebar */}
             <ClerkSidebar 
                 activeTab={activeTab}
@@ -349,7 +353,7 @@ const ClerkDashboard = () => {
             />
 
             {/* Main Content Area */}
-            <div className="flex-1 flex flex-col min-w-0 overflow-hidden">
+            <div className={`flex-1 flex flex-col min-w-0 overflow-hidden transition-all md:duration-700 ${sidebarOpen ? 'md:ml-72' : 'md:ml-20'}`}>
                 {/* Top Navigation */}
                 <ClerkTopNav 
                     activeTab={activeTab}
@@ -359,12 +363,12 @@ const ClerkDashboard = () => {
                 />
 
                 {/* Main Content */}
-                <main className="flex-1 p-6 overflow-y-auto">
+                <main className="flex-1 px-4 py-6 md:p-6 overflow-y-auto">
                     {error && (
                         <motion.div
                             initial={{ opacity: 0, y: -10 }}
                             animate={{ opacity: 1, y: 0 }}
-                            className="bg-red-50 border border-red-200 text-red-700 px-4 py-3 rounded-xl mb-6"
+                            className="bg-red-500/10 border border-red-500/30 text-red-400 px-4 py-3 rounded-xl mb-6"
                         >
                             <div className="flex items-center gap-2">
                                 <i className="ri-error-warning-line"></i>

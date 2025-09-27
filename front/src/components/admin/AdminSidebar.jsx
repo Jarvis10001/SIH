@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { useNavigate } from 'react-router-dom';
+import { themeClasses, iconClasses } from '../../styles/theme';
 
 const AdminSidebar = ({ activeTab, setActiveTab, isOpen, setIsOpen }) => {
     const navigate = useNavigate();
@@ -101,36 +102,18 @@ const AdminSidebar = ({ activeTab, setActiveTab, isOpen, setIsOpen }) => {
                 )}
             </AnimatePresence>
 
-            {/* Sidebar */}
-            <motion.div
-                initial={false}
-                animate={{
-                    width: isOpen ? '280px' : '80px',
-                    transition: { duration: 0.3, ease: 'easeInOut' }
-                }}
-                className={`fixed left-0 top-0 h-screen bg-gradient-to-b from-[#1E3A8A] to-[#0C4A6E] text-white z-50 flex flex-col shadow-2xl ${
-                    isOpen ? 'lg:relative' : 'lg:relative'
-                }`}
-            >
+            {/* Sidebar: off-canvas on mobile; collapse on md+ with CSS transitions */}
+            <div className={`fixed left-0 top-0 h-screen bg-gradient-to-b from-gray-900 to-gray-800 text-white z-50 flex flex-col shadow-2xl transform transition-all duration-300 md:duration-700 border-r border-slate-700/30 ${isOpen ? 'translate-x-0 w-72 md:w-72' : '-translate-x-full md:translate-x-0 md:w-20'}`}>
                 {/* Header */}
-                <div className="p-6 border-b border-white/10">
+                <div className="p-6 border-b border-slate-700/30">
                     <div className="flex items-center gap-3">
-                        <div className="w-10 h-10 bg-white/20 rounded-xl flex items-center justify-center">
-                            <i className="ri-admin-line text-xl text-white"></i>
+                        <div className="w-10 h-10 bg-indigo-500/20 border border-indigo-500/30 rounded-xl flex items-center justify-center">
+                            <i className={`ri-admin-line text-xl ${iconClasses.primary}`}></i>
                         </div>
-                        <AnimatePresence>
-                            {isOpen && (
-                                <motion.div
-                                    initial={{ opacity: 0, x: -20 }}
-                                    animate={{ opacity: 1, x: 0 }}
-                                    exit={{ opacity: 0, x: -20 }}
-                                    className="overflow-hidden"
-                                >
-                                    <h2 className="text-lg font-bold text-white">Admin Panel</h2>
-                                    <p className="text-sm text-blue-200">Management System</p>
-                                </motion.div>
-                            )}
-                        </AnimatePresence>
+                        <div className={`overflow-hidden transition-all duration-300 md:duration-700 ${isOpen ? 'opacity-100 translate-x-0' : 'opacity-0 -translate-x-3'}`}>
+                            <h2 className="text-lg font-bold text-white">Admin Panel</h2>
+                            <p className="text-sm text-slate-400">Management System</p>
+                        </div>
                     </div>
                 </div>
 
@@ -140,68 +123,38 @@ const AdminSidebar = ({ activeTab, setActiveTab, isOpen, setIsOpen }) => {
                         {navigationItems.map((item) => (
                             <div key={item.id}>
                                 {/* Main Item */}
-                                <motion.button
-                                    whileHover={{ scale: 1.02 }}
-                                    whileTap={{ scale: 0.98 }}
+                                <button
                                     onClick={() => handleNavClick(item)}
                                     className={`w-full flex items-center gap-3 p-3 rounded-xl transition-all duration-300 ${
-                                        activeTab === item.id
-                                            ? 'bg-white/20 text-white shadow-lg'
-                                            : 'text-blue-100 hover:bg-white/10 hover:text-white'
+                                        activeTab === item.id ? 'bg-gradient-to-r from-indigo-500/20 to-indigo-600/20 text-white shadow-lg border border-indigo-500/30' : 'text-slate-300 hover:bg-gradient-to-r hover:from-indigo-500/10 hover:to-indigo-600/10 hover:text-white'
                                     }`}
                                 >
-                                    <i className={`${item.icon} text-xl flex-shrink-0`}></i>
-                                    <AnimatePresence>
-                                        {isOpen && (
-                                            <motion.span
-                                                initial={{ opacity: 0, width: 0 }}
-                                                animate={{ opacity: 1, width: 'auto' }}
-                                                exit={{ opacity: 0, width: 0 }}
-                                                className="font-medium overflow-hidden whitespace-nowrap"
-                                            >
-                                                {item.label}
-                                            </motion.span>
-                                        )}
-                                    </AnimatePresence>
-                                    {/* Expand Arrow for sections */}
+                                    <i className={`${item.icon} text-xl flex-shrink-0 ${activeTab === item.id ? iconClasses.primary : 'text-slate-400 group-hover:text-indigo-400'}`}></i>
+                                    <span className={`font-medium overflow-hidden whitespace-nowrap transition-all duration-300 md:duration-700 ${isOpen ? 'opacity-100 translate-x-0' : 'opacity-0 -translate-x-3'}`}>
+                                        {item.label}
+                                    </span>
                                     {item.type === 'section' && isOpen && (
-                                        <motion.i
-                                            animate={{ 
-                                                rotate: expandedSections[item.id] ? 180 : 0 
-                                            }}
-                                            className="ri-arrow-down-s-line text-sm ml-auto"
-                                        />
+                                        <motion.i animate={{ rotate: expandedSections[item.id] ? 180 : 0 }} className="ri-arrow-down-s-line text-sm ml-auto" />
                                     )}
-                                </motion.button>
+                                </button>
 
                                 {/* Children Items */}
                                 <AnimatePresence>
                                     {item.type === 'section' && expandedSections[item.id] && isOpen && (
-                                        <motion.div
-                                            initial={{ height: 0, opacity: 0 }}
-                                            animate={{ height: 'auto', opacity: 1 }}
-                                            exit={{ height: 0, opacity: 0 }}
-                                            className="overflow-hidden ml-4 mt-2 space-y-1"
-                                        >
+                                        <div className="overflow-hidden ml-4 mt-2 space-y-1">
                                             {item.children.map((child) => (
-                                                <motion.button
+                                                <button
                                                     key={child.id}
-                                                    whileHover={{ scale: 1.02 }}
-                                                    whileTap={{ scale: 0.98 }}
                                                     onClick={() => setActiveTab(child.id)}
                                                     className={`w-full flex items-center gap-3 p-2.5 rounded-lg transition-all duration-300 ${
-                                                        activeTab === child.id
-                                                            ? 'bg-[#3B82F6]/30 text-white'
-                                                            : 'text-blue-200 hover:bg-white/5 hover:text-white'
+                                                        activeTab === child.id ? 'bg-indigo-600/30 text-white border border-indigo-500/30' : 'text-slate-400 hover:bg-slate-700/30 hover:text-white'
                                                     }`}
                                                 >
-                                                    <i className={`${child.icon} text-lg flex-shrink-0`}></i>
-                                                    <span className="font-medium text-sm">
-                                                        {child.label}
-                                                    </span>
-                                                </motion.button>
+                                                    <i className={`${child.icon} text-lg flex-shrink-0 ${activeTab === child.id ? iconClasses.primary : 'text-slate-500'}`}></i>
+                                                    <span className="font-medium text-sm">{child.label}</span>
+                                                </button>
                                             ))}
-                                        </motion.div>
+                                        </div>
                                     )}
                                 </AnimatePresence>
                             </div>
@@ -210,29 +163,15 @@ const AdminSidebar = ({ activeTab, setActiveTab, isOpen, setIsOpen }) => {
                 </div>
 
                 {/* Footer */}
-                <div className="p-4 border-t border-white/10">
-                    <motion.button
-                        whileHover={{ scale: 1.02 }}
-                        whileTap={{ scale: 0.98 }}
-                        onClick={handleLogout}
-                        className="w-full flex items-center gap-3 p-3 rounded-xl text-red-300 hover:bg-red-500/20 hover:text-red-200 transition-all duration-300"
-                    >
+                <div className="p-4 border-t border-slate-700/30">
+                    <button onClick={handleLogout} className="w-full flex items-center gap-3 p-3 rounded-xl text-red-400 hover:bg-red-500/20 hover:text-red-300 transition-all duration-300 border border-transparent hover:border-red-500/30">
                         <i className="ri-logout-box-line text-xl flex-shrink-0"></i>
-                        <AnimatePresence>
-                            {isOpen && (
-                                <motion.span
-                                    initial={{ opacity: 0, width: 0 }}
-                                    animate={{ opacity: 1, width: 'auto' }}
-                                    exit={{ opacity: 0, width: 0 }}
-                                    className="font-medium overflow-hidden whitespace-nowrap"
-                                >
-                                    Logout
-                                </motion.span>
-                            )}
-                        </AnimatePresence>
-                    </motion.button>
+                        <span className={`font-medium overflow-hidden whitespace-nowrap transition-all duration-300 md:duration-700 ${isOpen ? 'opacity-100 translate-x-0' : 'opacity-0 -translate-x-3'}`}>
+                            Logout
+                        </span>
+                    </button>
                 </div>
-            </motion.div>
+            </div>
         </>
     );
 };
