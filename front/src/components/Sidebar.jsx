@@ -14,7 +14,8 @@ const navItems = [
   { name: "Attendance", icon: "ri-calendar-check-line", path: "/dashboard/attendance" },
   { name: "Grades", icon: "ri-bar-chart-line", path: "/dashboard/grades" },
   { name: "Library", icon: "ri-book-2-line", path: "/dashboard/library" },
-  { name: "Events", icon: "ri-calendar-event-line", path: "/dashboard/events" },
+  { name: "Calendar", icon: "ri-calendar-line", path: "/dashboard/calendar" },
+  { name: "Announcements", icon: "ri-megaphone-line", path: "/dashboard/events" },
   { name: "Reports", icon: "ri-file-chart-line", path: "/dashboard/reports" },
   { name: "Settings", icon: "ri-settings-line", path: "/dashboard/settings" },
 ];

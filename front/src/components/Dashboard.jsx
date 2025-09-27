@@ -8,6 +8,9 @@ import DashboardHome from './pages/DashboardHome';
 import AdmissionForm from './pages/AdmissionFormNew';
 import PaymentPage from './pages/PaymentPage';
 import LibraryPage from './pages/LibraryPage';
+import GradesPage from './pages/GradesPage';
+import AnnouncementsPage from './pages/AnnouncementsPage';
+import CalendarPage from './pages/CalendarPage';
 import StudentAttendance from './student/StudentAttendance';
 import HostelSelection from './HostelSelection';
 import axios from 'axios';
@@ -93,7 +96,8 @@ const DashboardContent = () => {
             <Route path="/attendance" element={<StudentAttendance />} />
             <Route path="/grades" element={<GradesPage />} />
             <Route path="/library" element={<LibraryPage />} />
-            <Route path="/events" element={<EventsPage />} />
+            <Route path="/calendar" element={<CalendarPage />} />
+            <Route path="/events" element={<AnnouncementsPage />} />
             <Route path="/reports" element={<ReportsPage />} />
             <Route path="/settings" element={<SettingsPage />} />
             <Route path="/profile" element={<ProfilePage />} />
@@ -139,20 +143,6 @@ const AssignmentsPage = () => (
   <div className="bg-gray-800 border border-slate-700 rounded-xl p-6 shadow-sm">
     <h1 className="text-2xl font-bold text-white mb-4">Assignments</h1>
     <p className="text-slate-400">Assignment management functionality will be implemented here.</p>
-  </div>
-);
-
-const GradesPage = () => (
-  <div className="bg-gray-800 border border-slate-700 rounded-xl p-6 shadow-sm">
-    <h1 className="text-2xl font-bold text-white mb-4">Grades Management</h1>
-    <p className="text-slate-400">Grade management functionality will be implemented here.</p>
-  </div>
-);
-
-const EventsPage = () => (
-  <div className="bg-gray-800 border border-slate-700 rounded-xl p-6 shadow-sm">
-    <h1 className="text-2xl font-bold text-white mb-4">Events & Calendar</h1>
-    <p className="text-slate-400">Event management functionality will be implemented here.</p>
   </div>
 );
 
