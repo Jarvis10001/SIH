@@ -143,13 +143,22 @@ const TeacherProfile = () => {
               {isEditing ? (
                 <textarea
                   name="address"
-                  value={formData?.address || ''}
+                  value={
+                    formData?.address?.currentAddress 
+                      ? `${formData.address.currentAddress.street || ''}, ${formData.address.currentAddress.city || ''}, ${formData.address.currentAddress.state || ''} - ${formData.address.currentAddress.pincode || ''}`
+                      : ''
+                  }
                   onChange={handleInputChange}
                   rows="3"
                   className="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#4CAF50] focus:border-transparent"
                 />
               ) : (
-                <p className="text-gray-900">{teacherData?.address || 'Not provided'}</p>
+                <p className="text-gray-900">
+                  {teacherData?.address?.currentAddress 
+                    ? `${teacherData.address.currentAddress.street || ''}, ${teacherData.address.currentAddress.city || ''}, ${teacherData.address.currentAddress.state || ''} - ${teacherData.address.currentAddress.pincode || ''}`
+                    : 'Not provided'
+                  }
+                </p>
               )}
             </div>
           </div>

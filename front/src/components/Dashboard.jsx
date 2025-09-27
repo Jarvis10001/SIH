@@ -11,6 +11,14 @@ import LibraryPage from './pages/LibraryPage';
 import GradesPage from './pages/GradesPage';
 import AnnouncementsPage from './pages/AnnouncementsPage';
 import CalendarPage from './pages/CalendarPage';
+import TimetablePage from './pages/TimetablePage';
+import StudentResourcesPage from './pages/StudentResourcesPage';
+import StudentQueriesPage from './pages/StudentQueriesPage';
+import AdminQueriesPage from './admin/AdminQueriesPage';
+import AdminDashboard from './admin/AdminDashboard';
+import TeacherGradesPage from './teacher/TeacherGradesPage';
+import TeacherTimetablePage from './teacher/TeacherTimetablePage';
+import TeacherResourcesPage from './teacher/TeacherResourcesPage';
 import StudentAttendance from './student/StudentAttendance';
 import HostelSelection from './HostelSelection';
 import axios from 'axios';
@@ -96,7 +104,15 @@ const DashboardContent = () => {
             <Route path="/attendance" element={<StudentAttendance />} />
             <Route path="/grades" element={<GradesPage />} />
             <Route path="/library" element={<LibraryPage />} />
+            <Route path="/timetable" element={<TimetablePage />} />
             <Route path="/calendar" element={<CalendarPage />} />
+            <Route path="/resources" element={<StudentResourcesPage />} />
+            <Route path="/queries" element={<StudentQueriesPage />} />
+            <Route path="/admin/queries" element={<AdminQueriesPage />} />
+            <Route path="/admin/dashboard" element={<AdminDashboard />} />
+            <Route path="/teacher/grades" element={<TeacherGradesPage />} />
+            <Route path="/teacher/timetable" element={<TeacherTimetablePage />} />
+            <Route path="/teacher/resources" element={<TeacherResourcesPage />} />
             <Route path="/events" element={<AnnouncementsPage />} />
             <Route path="/reports" element={<ReportsPage />} />
             <Route path="/settings" element={<SettingsPage />} />

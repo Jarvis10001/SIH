@@ -214,15 +214,35 @@ export const themeClasses = {
   primaryCard: 'bg-gray-800 border border-slate-700 rounded-xl p-6 shadow-sm',
   welcomeCard: 'bg-gradient-to-r from-indigo-600 to-indigo-700 rounded-2xl p-6 text-white',
   
-  // Text styles
+  // Background and surfaces
+  background: 'bg-gray-900',
+  surface: 'bg-gray-800',
+  border: 'border-slate-700',
+  card: 'bg-gray-800 border border-slate-700',
+  
+  // Text styles (structured and flat)
+  text: {
+    primary: 'text-white',
+    secondary: 'text-slate-300',
+    tertiary: 'text-slate-400',
+    muted: 'text-slate-500',
+  },
   primaryHeading: 'text-2xl font-bold text-white',
   secondaryHeading: 'text-xl font-semibold text-white',
   bodyText: 'text-slate-300',
   mutedText: 'text-slate-400',
   
-  // Interactive elements
+  // Button styles (structured and flat)
+  button: {
+    primary: 'bg-gradient-to-r from-indigo-600 to-indigo-700 text-white px-6 py-3 rounded-xl font-semibold hover:from-indigo-700 hover:to-indigo-800 transition-all duration-300 shadow-lg',
+    secondary: 'px-4 py-2 bg-slate-600/20 hover:bg-slate-600/30 text-slate-300 hover:text-white rounded-lg transition-colors duration-200',
+  },
   primaryButton: 'bg-gradient-to-r from-indigo-600 to-indigo-700 text-white px-6 py-3 rounded-xl font-semibold hover:from-indigo-700 hover:to-indigo-800 transition-all duration-300 shadow-lg',
   secondaryButton: 'px-4 py-2 bg-slate-600/20 hover:bg-slate-600/30 text-slate-300 hover:text-white rounded-lg transition-colors duration-200',
+  
+  // Sidebar styles
+  sidebar: 'bg-gradient-to-b from-gray-900 to-gray-800 border-r border-slate-700/30',
+  sidebarActive: 'bg-gradient-to-r from-indigo-500/20 to-indigo-600/20 text-white shadow-lg border border-indigo-500/30',
   
   // Loading states
   loadingSpinner: 'animate-spin rounded-full h-12 w-12 border-b-2 border-indigo-500',

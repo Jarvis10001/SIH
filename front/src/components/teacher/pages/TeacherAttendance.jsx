@@ -28,17 +28,63 @@ const TeacherAttendance = () => {
   const [filters, setFilters] = useState({
     startDate: '',
     endDate: '',
-    subject: '',
-    section: ''
+    branch: '',
+    subject: ''
   });
+
+  // Teacher's branches and subjects data - same structure as other pages
+  const teacherBranches = [
+    {
+      id: 'all',
+      name: 'All Branches',
+      subjects: []
+    },
+    {
+      id: 'cse-2021',
+      name: 'CSE 2021 Batch',
+      branchName: 'Computer Science Engineering',
+      year: '2021',
+      subjects: [
+        { id: 'cs101', name: 'Programming Fundamentals' },
+        { id: 'cs102', name: 'Data Structures' }
+      ]
+    },
+    {
+      id: 'cse-2022', 
+      name: 'CSE 2022 Batch',
+      branchName: 'Computer Science Engineering',
+      year: '2022',
+      subjects: [
+        { id: 'cs301', name: 'Database Management Systems' },
+        { id: 'cs302', name: 'Computer Networks' }
+      ]
+    },
+    {
+      id: 'ece-2021',
+      name: 'ECE 2021 Batch',
+      branchName: 'Electronics & Communication',
+      year: '2021',
+      subjects: [
+        { id: 'ec101', name: 'Circuit Analysis' },
+        { id: 'ec102', name: 'Electronic Devices' }
+      ]
+    },
+    {
+      id: 'me-2022',
+      name: 'ME 2022 Batch',
+      branchName: 'Mechanical Engineering',
+      year: '2022',
+      subjects: [
+        { id: 'me301', name: 'Thermodynamics' },
+        { id: 'me302', name: 'Fluid Mechanics' }
+      ]
+    }
+  ];
 
   // Upload form data
   const [uploadData, setUploadData] = useState({
+    branch: '',
     subject: '',
-    subjectCode: '',
-    className: '',
-    section: '',
-    semester: '',
     academicYear: '2024-25',
     date: new Date().toISOString().split('T')[0],
     startTime: '09:00',
@@ -54,8 +100,8 @@ const TeacherAttendance = () => {
       
       if (filters.startDate) queryParams.append('startDate', filters.startDate);
       if (filters.endDate) queryParams.append('endDate', filters.endDate);
+      if (filters.branch) queryParams.append('branch', filters.branch);
       if (filters.subject) queryParams.append('subject', filters.subject);
-      if (filters.section) queryParams.append('section', filters.section);
 
       const response = await fetch(`${import.meta.env.VITE_BACKEND_URL}/api/attendance/teacher?${queryParams}`, {
         headers: {
@@ -109,8 +155,8 @@ const TeacherAttendance = () => {
       return;
     }
 
-    if (!uploadData.subject || !uploadData.className || !uploadData.section) {
-      toast.error('Please fill in all required fields');
+    if (!uploadData.branch || !uploadData.subject) {
+      toast.error('Please select branch and subject');
       return;
     }
 
@@ -140,11 +186,8 @@ const TeacherAttendance = () => {
         setShowUploadModal(false);
         setSelectedFile(null);
         setUploadData({
+          branch: '',
           subject: '',
-          subjectCode: '',
-          className: '',
-          section: '',
-          semester: '',
           academicYear: '2024-25',
           date: new Date().toISOString().split('T')[0],
           startTime: '09:00',
@@ -304,24 +347,35 @@ STU010,Excused`;
               />
             </div>
             <div>
+              <label className="block text-sm font-medium text-gray-700 mb-2">Branch & Year</label>
+              <select
+                value={filters.branch}
+                onChange={(e) => setFilters({...filters, branch: e.target.value, subject: ''})} // Reset subject when branch changes
+                className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-blue-500 focus:border-blue-500"
+              >
+                <option value="">All Branches</option>
+                {teacherBranches.slice(1).map(branch => (
+                  <option key={branch.id} value={branch.id}>
+                    {branch.name}
+                  </option>
+                ))}
+              </select>
+            </div>
+            <div>
               <label className="block text-sm font-medium text-gray-700 mb-2">Subject</label>
-              <input
-                type="text"
-                placeholder="Filter by subject"
+              <select
                 value={filters.subject}
                 onChange={(e) => setFilters({...filters, subject: e.target.value})}
                 className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-blue-500 focus:border-blue-500"
-              />
-            </div>
-            <div>
-              <label className="block text-sm font-medium text-gray-700 mb-2">Section</label>
-              <input
-                type="text"
-                placeholder="Filter by section"
-                value={filters.section}
-                onChange={(e) => setFilters({...filters, section: e.target.value})}
-                className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-blue-500 focus:border-blue-500"
-              />
+                disabled={!filters.branch}
+              >
+                <option value="">All Subjects</option>
+                {filters.branch && teacherBranches.find(b => b.id === filters.branch)?.subjects?.map(subject => (
+                  <option key={subject.id} value={subject.id}>
+                    {subject.name}
+                  </option>
+                ))}
+              </select>
             </div>
           </div>
         </div>
@@ -466,72 +520,41 @@ STU010,Excused`;
 
                   <div>
                     <label className="block text-sm font-medium text-gray-700 mb-2">
+                      Branch & Year *
+                    </label>
+                    <select
+                      required
+                      value={uploadData.branch}
+                      onChange={(e) => {
+                        setUploadData({...uploadData, branch: e.target.value, subject: ''}); // Reset subject when branch changes
+                      }}
+                      className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-blue-500 focus:border-blue-500"
+                    >
+                      <option value="">Select a branch</option>
+                      {teacherBranches.slice(1).map(branch => (
+                        <option key={branch.id} value={branch.id}>
+                          {branch.name}
+                        </option>
+                      ))}
+                    </select>
+                  </div>
+
+                  <div>
+                    <label className="block text-sm font-medium text-gray-700 mb-2">
                       Subject *
                     </label>
-                    <input
-                      type="text"
+                    <select
                       required
                       value={uploadData.subject}
                       onChange={(e) => setUploadData({...uploadData, subject: e.target.value})}
                       className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-blue-500 focus:border-blue-500"
-                      placeholder="e.g., Mathematics"
-                    />
-                  </div>
-
-                  <div>
-                    <label className="block text-sm font-medium text-gray-700 mb-2">
-                      Subject Code
-                    </label>
-                    <input
-                      type="text"
-                      value={uploadData.subjectCode}
-                      onChange={(e) => setUploadData({...uploadData, subjectCode: e.target.value})}
-                      className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-blue-500 focus:border-blue-500"
-                      placeholder="e.g., MATH101"
-                    />
-                  </div>
-
-                  <div>
-                    <label className="block text-sm font-medium text-gray-700 mb-2">
-                      Class Name *
-                    </label>
-                    <input
-                      type="text"
-                      required
-                      value={uploadData.className}
-                      onChange={(e) => setUploadData({...uploadData, className: e.target.value})}
-                      className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-blue-500 focus:border-blue-500"
-                      placeholder="e.g., Computer Science"
-                    />
-                  </div>
-
-                  <div>
-                    <label className="block text-sm font-medium text-gray-700 mb-2">
-                      Section *
-                    </label>
-                    <input
-                      type="text"
-                      required
-                      value={uploadData.section}
-                      onChange={(e) => setUploadData({...uploadData, section: e.target.value})}
-                      className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-blue-500 focus:border-blue-500"
-                      placeholder="e.g., A"
-                    />
-                  </div>
-
-                  <div>
-                    <label className="block text-sm font-medium text-gray-700 mb-2">
-                      Semester *
-                    </label>
-                    <select
-                      required
-                      value={uploadData.semester}
-                      onChange={(e) => setUploadData({...uploadData, semester: e.target.value})}
-                      className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-blue-500 focus:border-blue-500"
+                      disabled={!uploadData.branch}
                     >
-                      <option value="">Select Semester</option>
-                      {[1,2,3,4,5,6,7,8].map(sem => (
-                        <option key={sem} value={sem}>{sem}</option>
+                      <option value="">Select a subject</option>
+                      {uploadData.branch && teacherBranches.find(b => b.id === uploadData.branch)?.subjects?.map(subject => (
+                        <option key={subject.id} value={subject.id}>
+                          {subject.name}
+                        </option>
                       ))}
                     </select>
                   </div>

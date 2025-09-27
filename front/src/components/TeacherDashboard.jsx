@@ -10,9 +10,9 @@ import TeacherCourses from './teacher/pages/TeacherCourses';
 import TeacherStudents from './teacher/pages/TeacherStudents';
 import TeacherAssignments from './teacher/pages/TeacherAssignments';
 import TeacherAttendance from './teacher/pages/TeacherAttendance';
-import TeacherGrades from './teacher/pages/TeacherGrades';
-import TeacherSchedule from './teacher/pages/TeacherSchedule';
-import TeacherResources from './teacher/pages/TeacherResources';
+import TeacherGradesPage from './teacher/TeacherGradesPage';
+import TeacherTimetablePage from './teacher/TeacherTimetablePage';
+import TeacherResourcesPage from './teacher/TeacherResourcesPage';
 import TeacherReports from './teacher/pages/TeacherReports';
 import TeacherSettings from './teacher/pages/TeacherSettings';
 import { themeClasses } from '../styles/theme';
@@ -94,9 +94,9 @@ const TeacherDashboardContent = () => {
             <Route path="/students" element={<TeacherStudents />} />
             <Route path="/assignments" element={<TeacherAssignments />} />
             <Route path="/attendance" element={<TeacherAttendance />} />
-            <Route path="/grades" element={<TeacherGrades />} />
-            <Route path="/schedule" element={<TeacherSchedule />} />
-            <Route path="/resources" element={<TeacherResources />} />
+            <Route path="/grades" element={<TeacherGradesPage />} />
+            <Route path="/schedule" element={<TeacherTimetablePage />} />
+            <Route path="/resources" element={<TeacherResourcesPage />} />
             <Route path="/reports" element={<TeacherReports />} />
             <Route path="/settings" element={<TeacherSettings />} />
           </Routes>

@@ -7,21 +7,72 @@ const TeacherDashboardHome = () => {
   const [teacherData, setTeacherData] = useState({});
   const [stats, setStats] = useState({
     totalStudents: 0,
-    activeCourses: 0,
+    activeBranches: 0,
     pendingAssignments: 0,
     upcomingClasses: 0
   });
+
+  // Teacher's branches and subjects data - consistent with other components
+  const teacherBranches = [
+    {
+      id: 'cse-2021',
+      name: 'CSE 2021 Batch',
+      branchName: 'Computer Science Engineering',
+      year: '2021',
+      students: 45,
+      subjects: [
+        { id: 'cs101', name: 'Programming Fundamentals' },
+        { id: 'cs102', name: 'Data Structures' }
+      ]
+    },
+    {
+      id: 'cse-2022',
+      name: 'CSE 2022 Batch',
+      branchName: 'Computer Science Engineering',
+      year: '2022', 
+      students: 38,
+      subjects: [
+        { id: 'cs301', name: 'Database Management Systems' },
+        { id: 'cs302', name: 'Computer Networks' }
+      ]
+    },
+    {
+      id: 'ece-2021',
+      name: 'ECE 2021 Batch',
+      branchName: 'Electronics & Communication',
+      year: '2021',
+      students: 42,
+      subjects: [
+        { id: 'ec101', name: 'Circuit Analysis' },
+        { id: 'ec102', name: 'Electronic Devices' }
+      ]
+    },
+    {
+      id: 'me-2022',
+      name: 'ME 2022 Batch', 
+      branchName: 'Mechanical Engineering',
+      year: '2022',
+      students: 31,
+      subjects: [
+        { id: 'me301', name: 'Thermodynamics' },
+        { id: 'me302', name: 'Fluid Mechanics' }
+      ]
+    }
+  ];
 
   useEffect(() => {
     const teacher = JSON.parse(localStorage.getItem('teacherData') || '{}');
     setTeacherData(teacher);
 
-    // Mock stats - in a real app, this would come from an API
+    // Calculate stats based on branch data
+    const totalStudents = teacherBranches.reduce((sum, branch) => sum + branch.students, 0);
+    const totalSubjects = teacherBranches.reduce((sum, branch) => sum + branch.subjects.length, 0);
+    
     setStats({
-      totalStudents: 156,
-      activeCourses: 4,
+      totalStudents: totalStudents,
+      activeBranches: teacherBranches.length,
       pendingAssignments: 12,
-      upcomingClasses: 3
+      upcomingClasses: totalSubjects
     });
   }, []);
 
@@ -60,8 +111,8 @@ const TeacherDashboardHome = () => {
     {
       id: 1,
       type: 'assignment',
-      title: 'Assignment 3 submitted',
-      description: '15 students submitted Data Structures assignment',
+      title: 'Assignment submitted',
+      description: '15 students from CSE 2021 submitted Data Structures assignment',
       time: '2 hours ago',
       icon: 'ri-file-list-line',
       color: 'blue'
@@ -70,7 +121,7 @@ const TeacherDashboardHome = () => {
       id: 2,
       type: 'attendance',
       title: 'Attendance marked',
-      description: 'CS-101 class attendance completed',
+      description: 'Programming Fundamentals class - CSE 2021 Batch attendance completed',
       time: '4 hours ago',
       icon: 'ri-calendar-check-line',
       color: 'green'
@@ -79,7 +130,7 @@ const TeacherDashboardHome = () => {
       id: 3,
       type: 'grade',
       title: 'Grades published',
-      description: 'Quiz 2 results released for Algorithm Design',
+      description: 'Circuit Analysis quiz results released for ECE 2021 Batch',
       time: '1 day ago',
       icon: 'ri-bar-chart-line',
       color: 'purple'
@@ -88,7 +139,7 @@ const TeacherDashboardHome = () => {
       id: 4,
       type: 'resource',
       title: 'Resource uploaded',
-      description: 'Lecture notes for Chapter 5 shared',
+      description: 'Thermodynamics lecture notes shared with ME 2022 Batch',
       time: '2 days ago',
       icon: 'ri-folder-line',
       color: 'orange'
@@ -98,24 +149,24 @@ const TeacherDashboardHome = () => {
   const upcomingClasses = [
     {
       id: 1,
-      course: 'Data Structures',
-      code: 'CS-201',
+      subject: 'Data Structures',
+      branch: 'CSE 2021 Batch',
       time: '10:00 AM - 11:30 AM',
       room: 'Room 204',
       students: 45
     },
     {
       id: 2,
-      course: 'Algorithm Design',
-      code: 'CS-301',
+      subject: 'Database Management Systems',
+      branch: 'CSE 2022 Batch',
       time: '2:00 PM - 3:30 PM',
       room: 'Room 105',
       students: 38
     },
     {
       id: 3,
-      course: 'Database Systems',
-      code: 'CS-202',
+      subject: 'Circuit Analysis',
+      branch: 'ECE 2021 Batch',
       time: '4:00 PM - 5:30 PM',
       room: 'Lab 3',
       students: 42
@@ -177,8 +228,8 @@ const TeacherDashboardHome = () => {
           color="bg-indigo-500"
         />
         <StatCard
-          title="Active Courses"
-          value={stats.activeCourses}
+          title="Active Branches"
+          value={stats.activeBranches}
           icon="ri-book-line"
           color="bg-indigo-600"
         />
@@ -244,8 +295,8 @@ const TeacherDashboardHome = () => {
             {upcomingClasses.map((class_item) => (
               <div key={class_item.id} className="flex items-center justify-between p-4 bg-gradient-to-br from-[#3B82F6]/5 to-[#06B6D4]/5 rounded-lg hover:from-[#3B82F6]/10 hover:to-[#06B6D4]/10 transition-colors">
                 <div>
-                  <h3 className="font-semibold text-gray-800">{class_item.course}</h3>
-                  <p className="text-sm text-gray-600">{class_item.code} • {class_item.room}</p>
+                  <h3 className="font-semibold text-gray-800">{class_item.subject}</h3>
+                  <p className="text-sm text-gray-600">{class_item.branch} • {class_item.room}</p>
                   <p className="text-sm text-gray-500">{class_item.students} students</p>
                 </div>
                 <div className="text-right">
