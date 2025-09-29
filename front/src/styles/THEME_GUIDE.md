@@ -1,8 +1,8 @@
-# College ERP Theme Implementation Guide
+# AcademiX Theme Implementation Guide
 
 ## 🎨 Theme Overview
 
-This document provides a complete guide for implementing the College ERP design system theme across all components. The theme is based on a professional dark color palette with indigo as the primary brand color.
+This document provides a complete guide for implementing the AcademiX design system theme across all components. The theme is based on a professional dark color palette with indigo as the primary brand color.
 
 ## 📁 File Structure
 
@@ -319,4 +319,4 @@ To apply this theme to existing components:
 5. **Apply consistent spacing** using theme layout values
 6. **Add proper hover states** with theme colors
 
-This theme system ensures consistent, maintainable styling across the entire College ERP application! 🎨✨
+This theme system ensures consistent, maintainable styling across the entire AcademiX application! 🎨✨

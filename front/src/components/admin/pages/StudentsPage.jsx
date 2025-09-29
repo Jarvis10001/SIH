@@ -20,14 +20,14 @@ const StudentsPage = () => {
         {
             _id: '1',
             studentId: 'STU2024001',
-            name: { firstName: 'Rajesh', lastName: 'Kumar', middleName: '' },
-            email: 'rajesh.kumar@college.edu',
+            name: { firstName: 'Tanishq', lastName: 'Sharma', middleName: '' },
+            email: 'sharmatanishq456@gmail.com',
             branch: 'Computer Science Engineering',
             year: 2,
             semester: 4,
             contact: { phone: { primary: '+91-9876543210' } },
             personalInfo: { gender: 'Male', dateOfBirth: '2003-05-15' },
-            admissionInfo: { admissionDate: '2022-08-15' },
+            admissionInfo: { admissionDate: '2020-02-02' },
             status: 'Active',
             profile: { profilePhoto: null }
         },

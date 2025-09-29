@@ -1,7 +1,7 @@
 # Cloudinary Integration Setup Guide
 
 ## Overview
-This guide will help you set up Cloudinary for storing admission form documents in your College ERP system. Cloudinary provides cloud-based image and video management with features like automatic optimization, transformations, and CDN delivery.
+This guide will help you set up Cloudinary for storing admission form documents in your AcademiX system. Cloudinary provides cloud-based image and video management with features like automatic optimization, transformations, and CDN delivery.
 
 ## Prerequisites
 - Cloudinary account (free tier available)

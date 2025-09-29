@@ -61,17 +61,15 @@ const HostelSelection = () => {
     const generateRoomData = (hostelId, floor) => {
         const roomsPerFloor = 30;
         const rooms = [];
-        const roomStatuses = ['available', 'occupied', 'maintenance', 'reserved'];
+        const roomStatuses = ['available', 'occupied'];
         
         for (let i = 1; i <= roomsPerFloor; i++) {
             const roomNumber = `${floor}${i.toString().padStart(2, '0')}`;
             const randomStatus = Math.random();
             let status;
             
-            if (randomStatus < 0.3) status = 'available';
-            else if (randomStatus < 0.7) status = 'occupied';
-            else if (randomStatus < 0.85) status = 'reserved';
-            else status = 'maintenance';
+            if (randomStatus < 0.5) status = 'available';
+            else status = 'occupied';
             
             rooms.push({
                 id: `${hostelId}-${roomNumber}`,
@@ -97,8 +95,6 @@ const HostelSelection = () => {
         switch (status) {
             case 'available': return 'bg-emerald-600 hover:bg-emerald-500 border-emerald-500 text-white';
             case 'occupied': return 'bg-red-500/20 cursor-not-allowed border-red-500/30 text-red-400';
-            case 'reserved': return 'bg-amber-500/20 cursor-not-allowed border-amber-500/30 text-amber-400';
-            case 'maintenance': return 'bg-slate-500/20 cursor-not-allowed border-slate-500/30 text-slate-400';
             default: return 'bg-slate-600/20 border-slate-600/30 text-slate-400';
         }
     };
@@ -107,8 +103,6 @@ const HostelSelection = () => {
         switch (status) {
             case 'available': return 'ri-checkbox-blank-line';
             case 'occupied': return 'ri-user-fill';
-            case 'reserved': return 'ri-lock-line';
-            case 'maintenance': return 'ri-tools-line';
             default: return 'ri-question-line';
         }
     };
@@ -137,8 +131,16 @@ const HostelSelection = () => {
             }`}
             onClick={() => setSelectedHostel(hostel)}
         >
-            <div className="relative h-48 bg-gradient-to-br from-indigo-600 to-indigo-700 flex items-center justify-center">
-                <i className="ri-building-2-line text-6xl text-white"></i>
+            <div className="relative h-48 bg-gradient-to-br from-gray-700 to-gray-800 flex items-center justify-center border-b border-gray-600">
+                <div className="flex flex-col items-center space-y-2">
+                    <div className="p-4 bg-indigo-500/20 rounded-2xl">
+                        <i className="ri-building-2-line text-4xl text-indigo-400"></i>
+                    </div>
+                    <div className="text-center">
+                        <p className="text-white font-semibold">{hostel.name}</p>
+                        <p className="text-gray-400 text-sm">{hostel.floors} Floors • {hostel.totalRooms} Rooms</p>
+                    </div>
+                </div>
                 {selectedHostel?.id === hostel.id && (
                     <div className="absolute top-3 right-3 w-8 h-8 bg-emerald-500 rounded-full flex items-center justify-center">
                         <i className="ri-check-line text-white font-bold"></i>

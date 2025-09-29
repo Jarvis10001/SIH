@@ -161,7 +161,7 @@ const PaymentPage = () => {
                 key: import.meta.env.VITE_RAZORPAY_KEY_ID,
                 amount: order.amount,
                 currency: order.currency,
-                name: 'College ERP',
+                name: 'AcademiX',
                 description: 'Admission Fee Payment',
                 image: '/logo.png',
                 order_id: order.id,

@@ -30,6 +30,11 @@ const AdminDashboard = () => {
     const [editingClerk, setEditingClerk] = useState(null);
     const [adminData, setAdminData] = useState(null);
 
+    // Teacher page specific state
+    const [teacherSearchTerm, setTeacherSearchTerm] = useState('');
+    const [teacherFilterDepartment, setTeacherFilterDepartment] = useState('all');
+    const [teacherViewMode, setTeacherViewMode] = useState('grid');
+
     const [clerkForm, setClerkForm] = useState({
         employeeId: '',
         personalInfo: {
@@ -831,19 +836,15 @@ const AdminDashboard = () => {
     };
 
     const renderTeachers = () => {
-        const [searchTerm, setSearchTerm] = useState('');
-        const [filterDepartment, setFilterDepartment] = useState('all');
-        const [viewMode, setViewMode] = useState('grid');
-        
         // Get unique departments
         const departments = [...new Set(teachers.map(t => t.department).filter(Boolean))];
         
         // Filter teachers
         const filteredTeachers = teachers.filter(teacher => {
-            const matchesSearch = teacher.name?.toLowerCase().includes(searchTerm.toLowerCase()) ||
-                                teacher.email?.toLowerCase().includes(searchTerm.toLowerCase()) ||
-                                teacher.teacherId?.toLowerCase().includes(searchTerm.toLowerCase());
-            const matchesDepartment = filterDepartment === 'all' || teacher.department === filterDepartment;
+            const matchesSearch = teacher.name?.toLowerCase().includes(teacherSearchTerm.toLowerCase()) ||
+                                teacher.email?.toLowerCase().includes(teacherSearchTerm.toLowerCase()) ||
+                                teacher.teacherId?.toLowerCase().includes(teacherSearchTerm.toLowerCase());
+            const matchesDepartment = teacherFilterDepartment === 'all' || teacher.department === teacherFilterDepartment;
             return matchesSearch && matchesDepartment;
         });
 
@@ -908,16 +909,16 @@ const AdminDashboard = () => {
                                 <input
                                     type="text"
                                     placeholder="Search teachers..."
-                                    value={searchTerm}
-                                    onChange={(e) => setSearchTerm(e.target.value)}
+                                    value={teacherSearchTerm}
+                                    onChange={(e) => setTeacherSearchTerm(e.target.value)}
                                     className={`w-full pl-10 pr-4 py-2 ${themeClasses.input} rounded-lg`}
                                 />
                             </div>
                         </div>
                         <div className="flex gap-4">
                             <select
-                                value={filterDepartment}
-                                onChange={(e) => setFilterDepartment(e.target.value)}
+                                value={teacherFilterDepartment}
+                                onChange={(e) => setTeacherFilterDepartment(e.target.value)}
                                 className={`px-3 py-2 ${themeClasses.input} rounded-lg`}
                             >
                                 <option value="all">All Departments</option>
@@ -927,14 +928,14 @@ const AdminDashboard = () => {
                             </select>
                             <div className={`flex rounded-lg overflow-hidden border ${themeClasses.border}`}>
                                 <button
-                                    onClick={() => setViewMode('grid')}
-                                    className={`px-3 py-2 ${viewMode === 'grid' ? themeClasses.button.primary : themeClasses.button.secondary}`}
+                                    onClick={() => setTeacherViewMode('grid')}
+                                    className={`px-3 py-2 ${teacherViewMode === 'grid' ? themeClasses.button.primary : themeClasses.button.secondary}`}
                                 >
                                     <i className="ri-grid-line"></i>
                                 </button>
                                 <button
-                                    onClick={() => setViewMode('table')}
-                                    className={`px-3 py-2 ${viewMode === 'table' ? themeClasses.button.primary : themeClasses.button.secondary}`}
+                                    onClick={() => setTeacherViewMode('table')}
+                                    className={`px-3 py-2 ${teacherViewMode === 'table' ? themeClasses.button.primary : themeClasses.button.secondary}`}
                                 >
                                     <i className="ri-table-line"></i>
                                 </button>
@@ -959,7 +960,7 @@ const AdminDashboard = () => {
                             {teachers.length === 0 ? 'Add your first teacher to get started' : 'Try adjusting your search or filters'}
                         </p>
                     </div>
-                ) : viewMode === 'grid' ? (
+                ) : teacherViewMode === 'grid' ? (
                     // Grid View
                     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
                         {filteredTeachers.map((teacher) => (

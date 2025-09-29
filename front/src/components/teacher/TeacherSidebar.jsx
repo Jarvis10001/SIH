@@ -5,7 +5,6 @@ import { themeClasses, iconClasses } from '../../styles/theme';
 
 const teacherNavItems = [
   { name: "Dashboard", icon: "ri-home-line", path: "/teacher/dashboard" },
-  { name: "My Courses", icon: "ri-book-line", path: "/teacher/dashboard/courses" },
   { name: "Students", icon: "ri-user-3-line", path: "/teacher/dashboard/students" },
   { name: "Assignments", icon: "ri-file-list-3-line", path: "/teacher/dashboard/assignments" },
   { name: "Attendance", icon: "ri-calendar-check-line", path: "/teacher/dashboard/attendance" },
@@ -60,7 +59,7 @@ const TeacherSidebar = () => {
             <span className={`text-xl font-bold text-white transition-opacity duration-300 md:duration-700 ${
               isOpen ? 'opacity-100' : 'opacity-0'
             }`}>
-              Teacher<span className="text-indigo-300">Portal</span>
+              <span className="text-indigo-300">AcademiX</span> Teacher
             </span>
           </Link>
           

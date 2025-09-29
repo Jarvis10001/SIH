@@ -1,8 +1,8 @@
 /**
- * College ERP - Design System Theme Configuration
+ * AcademiX - Design System Theme Configuration
  * 
  * This file contains the complete theme specification for consistent styling
- * across all components in the College ERP application.
+ * across all components in the AcademiX application.
  * 
  * Usage:
  * import { theme, getThemeClasses } from '../styles/theme';

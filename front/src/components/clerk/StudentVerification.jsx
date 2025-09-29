@@ -94,15 +94,15 @@ const StudentVerification = () => {
         const suggestedStudentId = generateStudentId(selectedApplication);
 
         return (
-            <div className={`${themeClasses.primaryCard} rounded-2xl shadow-lg border ${themeClasses.border} overflow-hidden`}>
+            <div className={`${themeClasses.primaryCard} rounded-lg shadow-md border ${themeClasses.border} overflow-hidden`}>
                 {/* Header */}
-                <div className="bg-gradient-to-r from-indigo-600 to-indigo-700 p-6 text-white">
+                <div className="bg-gray-800 p-4 border-b border-gray-700">
                     <div className="flex items-center justify-between">
                         <div>
-                            <h2 className="text-2xl font-bold">
+                            <h2 className="text-lg font-bold text-white">
                                 {selectedApplication.personalInfo?.fullName}
                             </h2>
-                            <p className="text-indigo-100">
+                            <p className="text-gray-400 text-sm">
                                 Application ID: {selectedApplication.applicationId}
                             </p>
                         </div>
@@ -111,9 +111,9 @@ const StudentVerification = () => {
                                 setViewMode('list');
                                 setSelectedApplication(null);
                             }}
-                            className="bg-white/20 hover:bg-white/30 rounded-lg p-2 transition-colors"
+                            className="bg-gray-700 hover:bg-gray-600 rounded-md p-2 transition-colors text-gray-300"
                         >
-                            <i className="ri-close-line text-xl"></i>
+                            <i className="ri-close-line"></i>
                         </button>
                     </div>
                 </div>
@@ -271,25 +271,21 @@ const StudentVerification = () => {
                             </div>
 
                             {/* Action Buttons */}
-                            <div className="flex justify-end space-x-4 pt-4">
-                                <motion.button
-                                    whileHover={{ scale: 1.02 }}
-                                    whileTap={{ scale: 0.98 }}
+                            <div className="flex justify-end space-x-3 pt-4">
+                                <button
                                     onClick={() => handleVerifyStudent(selectedApplication._id, 'rejected')}
-                                    className="bg-red-500/20 text-red-400 px-6 py-3 rounded-xl font-semibold hover:bg-red-500/30 transition-colors flex items-center"
+                                    className="bg-red-500/20 text-red-400 px-4 py-2 rounded-md font-medium hover:bg-red-500/30 transition-colors flex items-center"
                                 >
                                     <i className="ri-close-circle-line mr-2"></i>
-                                    Reject Application
-                                </motion.button>
-                                <motion.button
-                                    whileHover={{ scale: 1.02 }}
-                                    whileTap={{ scale: 0.98 }}
+                                    Reject
+                                </button>
+                                <button
                                     onClick={() => handleVerifyStudent(selectedApplication._id, 'verified', suggestedStudentId)}
-                                    className={`${themeClasses.button.primary} px-6 py-3 rounded-xl font-semibold transition-colors flex items-center`}
+                                    className={`${themeClasses.button.primary} px-4 py-2 rounded-md font-medium transition-colors flex items-center`}
                                 >
                                     <i className="ri-check-circle-line mr-2"></i>
                                     Verify & Assign ID
-                                </motion.button>
+                                </button>
                             </div>
                         </div>
                     </div>
@@ -299,135 +295,177 @@ const StudentVerification = () => {
     };
 
     const renderApplicationsList = () => (
-        <div className="space-y-6">
-            {/* Filter and Stats */}
-            <div className={`${themeClasses.primaryCard} rounded-2xl shadow-lg border ${themeClasses.border} p-6`}>
-                <div className="flex items-center justify-between mb-6">
-                    <h2 className={`text-2xl font-bold ${themeClasses.text.primary}`}>Student Verification</h2>
-                    <div className="flex items-center space-x-4">
-                        <select
-                            value={filter}
-                            onChange={(e) => setFilter(e.target.value)}
-                            className={`border ${themeClasses.border} ${themeClasses.surface} ${themeClasses.text.primary} rounded-lg px-4 py-2 focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500`}
-                        >
-                            <option value="pending">Pending Applications</option>
-                            <option value="verified">Verified Students</option>
-                            <option value="rejected">Rejected Applications</option>
-                        </select>
+        <div className="min-h-screen bg-gray-900 p-6">
+            {/* Simple Header */}
+            <div className="bg-gray-800 rounded-lg border border-gray-700 mb-6">
+                <div className="p-6">
+                    <div className="flex flex-col lg:flex-row justify-between items-start lg:items-center gap-4">
+                        <div>
+                            <h1 className="text-2xl font-bold text-white flex items-center gap-2">
+                                <i className="ri-shield-check-line text-indigo-400"></i>
+                                Student Verification
+                            </h1>
+                            <p className="text-gray-400 mt-1">
+                                Review and verify student applications
+                            </p>
+                            <div className="flex items-center gap-4 text-gray-500 text-sm mt-2">
+                                <span>Total: {applications.length}</span>
+                                <span>•</span>
+                                <span>Updated: {new Date().toLocaleDateString()}</span>
+                            </div>
+                        </div>
+                        <div>
+                            <select
+                                value={filter}
+                                onChange={(e) => setFilter(e.target.value)}
+                                className="bg-gray-700 text-white rounded-md px-4 py-2 border border-gray-600 focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500"
+                            >
+                                <option value="pending">Pending Applications</option>
+                                <option value="verified">Verified Students</option>
+                                <option value="rejected">Rejected Applications</option>
+                            </select>
+                        </div>
                     </div>
                 </div>
+            </div>
 
-                {/* Stats Cards */}
-                <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-                    <div className={`${themeClasses.surface} p-4 rounded-xl border border-yellow-500/30`}>
-                        <div className="flex items-center justify-between">
-                            <div>
-                                <p className={`text-sm font-medium ${themeClasses.text.warning}`}>Pending Review</p>
-                                <p className={`text-2xl font-bold ${themeClasses.text.warning}`}>
-                                    {applications.filter(app => app.verificationStatus === 'pending').length}
-                                </p>
-                            </div>
-                            <i className={`ri-time-line text-2xl ${themeClasses.text.warning}`}></i>
+                {/* Simple Stats Cards */}
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-6">
+                <div className="bg-gray-800 rounded-lg p-4 border border-gray-700">
+                    <div className="flex items-center justify-between">
+                        <div>
+                            <p className="text-sm text-gray-400">Pending Review</p>
+                            <p className="text-2xl font-bold text-white">
+                                {applications.filter(app => app.verificationStatus === 'pending').length}
+                            </p>
+                        </div>
+                        <div className="p-2 bg-yellow-500/20 rounded-lg">
+                            <i className="ri-time-line text-xl text-yellow-400"></i>
                         </div>
                     </div>
-                    <div className={`${themeClasses.surface} p-4 rounded-xl border border-indigo-500/30`}>
-                        <div className="flex items-center justify-between">
-                            <div>
-                                <p className={`text-sm font-medium ${themeClasses.text.accent}`}>Verified</p>
-                                <p className={`text-2xl font-bold ${themeClasses.text.accent}`}>
-                                    {applications.filter(app => app.verificationStatus === 'verified').length}
-                                </p>
-                            </div>
-                            <i className={`ri-check-line text-2xl ${themeClasses.text.accent}`}></i>
+                </div>
+                <div className="bg-gray-800 rounded-lg p-4 border border-gray-700">
+                    <div className="flex items-center justify-between">
+                        <div>
+                            <p className="text-sm text-gray-400">Verified</p>
+                            <p className="text-2xl font-bold text-white">
+                                {applications.filter(app => app.verificationStatus === 'verified').length}
+                            </p>
+                        </div>
+                        <div className="p-2 bg-emerald-500/20 rounded-lg">
+                            <i className="ri-check-line text-xl text-emerald-400"></i>
                         </div>
                     </div>
-                    <div className={`${themeClasses.surface} p-4 rounded-xl border border-red-500/30`}>
-                        <div className="flex items-center justify-between">
-                            <div>
-                                <p className={`text-sm font-medium ${themeClasses.text.error}`}>Rejected</p>
-                                <p className={`text-2xl font-bold ${themeClasses.text.error}`}>
-                                    {applications.filter(app => app.verificationStatus === 'rejected').length}
-                                </p>
-                            </div>
-                            <i className={`ri-close-line text-2xl ${themeClasses.text.error}`}></i>
+                </div>
+                <div className="bg-gray-800 rounded-lg p-4 border border-gray-700">
+                    <div className="flex items-center justify-between">
+                        <div>
+                            <p className="text-sm text-gray-400">Rejected</p>
+                            <p className="text-2xl font-bold text-white">
+                                {applications.filter(app => app.verificationStatus === 'rejected').length}
+                            </p>
+                        </div>
+                        <div className="p-2 bg-red-500/20 rounded-lg">
+                            <i className="ri-close-line text-xl text-red-400"></i>
                         </div>
                     </div>
                 </div>
             </div>
 
             {/* Applications List */}
-            <div className={`${themeClasses.primaryCard} rounded-2xl shadow-lg border ${themeClasses.border} overflow-hidden`}>
+            <div className="bg-gray-800 rounded-lg border border-gray-700 overflow-hidden">
+                <div className="p-4 border-b border-gray-700">
+                    <h2 className="text-lg font-semibold text-white flex items-center gap-2">
+                        <i className="ri-file-list-3-line text-indigo-400"></i>
+                        {filter.charAt(0).toUpperCase() + filter.slice(1)} Applications
+                    </h2>
+                </div>
+
                 {loading ? (
-                    <div className="p-8 text-center">
-                        <i className={`ri-loader-4-line animate-spin text-2xl ${themeClasses.text.muted} mb-2`}></i>
-                        <p className={themeClasses.text.secondary}>Loading applications...</p>
+                    <div className="p-12 text-center">
+                        <div className="animate-spin rounded-full h-12 w-12 border-2 border-indigo-500 border-t-transparent mx-auto mb-4"></div>
+                        <p className="text-gray-400 text-lg">Loading applications...</p>
                     </div>
                 ) : applications.length === 0 ? (
-                    <div className="p-8 text-center">
-                        <i className={`ri-file-list-3-line text-4xl ${themeClasses.text.muted} mb-4`}></i>
-                        <p className={`${themeClasses.text.secondary} text-lg font-medium mb-2`}>No applications found</p>
-                        <p className={themeClasses.text.muted}>No {filter} applications at the moment</p>
+                    <div className="p-12 text-center">
+                        <div className="p-4 bg-gray-700/50 rounded-2xl w-fit mx-auto mb-4">
+                            <i className="ri-file-list-3-line text-gray-500 text-4xl"></i>
+                        </div>
+                        <h3 className="text-lg font-semibold text-gray-300 mb-2">No Applications Found</h3>
+                        <p className="text-gray-500">No {filter} applications at the moment</p>
                     </div>
                 ) : (
                     <div className="overflow-x-auto">
                         <table className="w-full">
-                            <thead className={themeClasses.surfaceVariant}>
-                                <tr>
-                                    <th className={`px-6 py-3 text-left text-xs font-medium ${themeClasses.text.muted} uppercase tracking-wider`}>Applicant</th>
-                                    <th className={`px-6 py-3 text-left text-xs font-medium ${themeClasses.text.muted} uppercase tracking-wider`}>Course</th>
-                                    <th className={`px-6 py-3 text-left text-xs font-medium ${themeClasses.text.muted} uppercase tracking-wider`}>Application Date</th>
-                                    <th className={`px-6 py-3 text-left text-xs font-medium ${themeClasses.text.muted} uppercase tracking-wider`}>Status</th>
-                                    <th className={`px-6 py-3 text-left text-xs font-medium ${themeClasses.text.muted} uppercase tracking-wider`}>Actions</th>
+                            <thead>
+                                <tr className="bg-gray-800">
+                                    <th className="px-4 py-3 text-left text-xs font-medium text-gray-400 uppercase">Applicant</th>
+                                    <th className="px-4 py-3 text-left text-xs font-medium text-gray-400 uppercase">Course</th>
+                                    <th className="px-4 py-3 text-left text-xs font-medium text-gray-400 uppercase">Date</th>
+                                    <th className="px-4 py-3 text-left text-xs font-medium text-gray-400 uppercase">Status</th>
+                                    <th className="px-4 py-3 text-center text-xs font-medium text-gray-400 uppercase">Actions</th>
                                 </tr>
                             </thead>
-                            <tbody className={`${themeClasses.primaryCard} divide-y ${themeClasses.border}`}>
+                            <tbody className="divide-y divide-gray-700">
                                 {applications.map((application) => (
-                                    <motion.tr
+                                    <tr
                                         key={application._id}
-                                        initial={{ opacity: 0 }}
-                                        animate={{ opacity: 1 }}
-                                        className={`hover:${themeClasses.surfaceVariant} transition-colors`}
+                                        className="hover:bg-gray-700/50 transition-colors"
                                     >
-                                        <td className="px-6 py-4 whitespace-nowrap">
-                                            <div className="flex items-center">
-                                                <div className="w-10 h-10 bg-gradient-to-br from-indigo-500 to-indigo-600 rounded-full flex items-center justify-center text-white font-semibold">
+                                        <td className="px-4 py-3">
+                                            <div className="flex items-center space-x-3">
+                                                <div className="w-8 h-8 bg-indigo-500 rounded-full flex items-center justify-center text-white text-sm font-medium">
                                                     {application.personalInfo?.fullName?.charAt(0).toUpperCase()}
                                                 </div>
-                                                <div className="ml-4">
-                                                    <div className={`text-sm font-medium ${themeClasses.text.primary}`}>
+                                                <div>
+                                                    <div className="text-sm font-medium text-white">
                                                         {application.personalInfo?.fullName}
                                                     </div>
-                                                    <div className={`text-sm ${themeClasses.text.secondary}`}>
+                                                    <div className="text-xs text-gray-400">
                                                         {application.applicationId}
                                                     </div>
                                                 </div>
                                             </div>
                                         </td>
-                                        <td className="px-6 py-4 whitespace-nowrap">
-                                            <div className="text-sm text-gray-900">{application.personalInfo?.course}</div>
-                                            <div className="text-sm text-gray-500">{application.academicInfo?.twelfthPercentage}%</div>
+                                        <td className="px-4 py-3">
+                                            <div>
+                                                <div className="text-sm font-medium text-white">{application.personalInfo?.course}</div>
+                                                <div className="text-xs text-gray-400">
+                                                    {application.academicInfo?.twelfthPercentage}% in 12th
+                                                </div>
+                                            </div>
                                         </td>
-                                        <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
-                                            {new Date(application.createdAt).toLocaleDateString()}
+                                        <td className="px-4 py-3">
+                                            <div className="text-sm text-white">
+                                                {new Date(application.createdAt).toLocaleDateString()}
+                                            </div>
                                         </td>
-                                        <td className="px-6 py-4 whitespace-nowrap">
-                                            <span className={`inline-flex px-2 py-1 text-xs font-semibold rounded-full ${getStatusColor(application.verificationStatus)}`}>
+                                        <td className="px-4 py-3">
+                                            <span className={`inline-flex items-center px-2 py-1 rounded text-xs font-medium ${
+                                                application.verificationStatus === 'verified'
+                                                    ? 'bg-emerald-500/20 text-emerald-400'
+                                                    : application.verificationStatus === 'rejected'
+                                                    ? 'bg-red-500/20 text-red-400'
+                                                    : 'bg-yellow-500/20 text-yellow-400'
+                                            }`}>
                                                 {application.verificationStatus || 'pending'}
                                             </span>
                                         </td>
-                                        <td className="px-6 py-4 whitespace-nowrap text-sm font-medium">
-                                            <button
-                                                onClick={() => {
-                                                    setSelectedApplication(application);
-                                                    setViewMode('detail');
-                                                }}
-                                                className="text-[#3B82F6] hover:text-[#2563EB] p-2 rounded-lg hover:bg-blue-50 transition-colors"
-                                                title="Review Application"
-                                            >
-                                                <i className="ri-eye-line"></i>
-                                            </button>
+                                        <td className="px-4 py-3">
+                                            <div className="flex items-center justify-center">
+                                                <button
+                                                    onClick={() => {
+                                                        setSelectedApplication(application);
+                                                        setViewMode('detail');
+                                                    }}
+                                                    className="p-2 bg-indigo-500/20 hover:bg-indigo-500/30 text-indigo-400 rounded-md transition-colors"
+                                                    title="Review Application"
+                                                >
+                                                    <i className="ri-eye-line"></i>
+                                                </button>
+                                            </div>
                                         </td>
-                                    </motion.tr>
+                                    </tr>
                                 ))}
                             </tbody>
                         </table>
@@ -440,39 +478,19 @@ const StudentVerification = () => {
     return (
         <div className={themeClasses.pageBackground}>
             {error && (
-                <motion.div
-                    initial={{ opacity: 0, y: -10 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    className={`${themeClasses.surface} border border-red-500/30 ${themeClasses.text.error} px-4 py-3 rounded-xl mb-6`}
-                >
+                <div className={`${themeClasses.surface} border border-red-500/30 ${themeClasses.text.error} px-4 py-3 rounded-lg mb-6`}>
                     <div className="flex items-center gap-2">
                         <i className="ri-error-warning-line"></i>
                         {error}
                     </div>
-                </motion.div>
+                </div>
             )}
 
-            <AnimatePresence mode="wait">
-                {viewMode === 'list' ? (
-                    <motion.div
-                        key="list"
-                        initial={{ opacity: 0, x: -20 }}
-                        animate={{ opacity: 1, x: 0 }}
-                        exit={{ opacity: 0, x: -20 }}
-                    >
-                        {renderApplicationsList()}
-                    </motion.div>
-                ) : (
-                    <motion.div
-                        key="detail"
-                        initial={{ opacity: 0, x: 20 }}
-                        animate={{ opacity: 1, x: 0 }}
-                        exit={{ opacity: 0, x: 20 }}
-                    >
-                        {renderApplicationDetail()}
-                    </motion.div>
-                )}
-            </AnimatePresence>
+            {viewMode === 'list' ? (
+                renderApplicationsList()
+            ) : (
+                renderApplicationDetail()
+            )}
         </div>
     );
 };

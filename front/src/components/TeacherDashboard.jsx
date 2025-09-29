@@ -6,7 +6,6 @@ import TeacherSidebar from './teacher/TeacherSidebar';
 import TeacherTopNav from './teacher/TeacherTopNav';
 import TeacherDashboardHome from './teacher/pages/TeacherDashboardHome';
 import TeacherProfile from './teacher/pages/TeacherProfile';
-import TeacherCourses from './teacher/pages/TeacherCourses';
 import TeacherStudents from './teacher/pages/TeacherStudents';
 import TeacherAssignments from './teacher/pages/TeacherAssignments';
 import TeacherAttendance from './teacher/pages/TeacherAttendance';
@@ -90,7 +89,7 @@ const TeacherDashboardContent = () => {
           <Routes>
             <Route path="/" element={<TeacherDashboardHome />} />
             <Route path="/profile" element={<TeacherProfile />} />
-            <Route path="/courses" element={<TeacherCourses />} />
+            {/* <Route path="/courses" element={<TeacherCourses />} /> */}
             <Route path="/students" element={<TeacherStudents />} />
             <Route path="/assignments" element={<TeacherAssignments />} />
             <Route path="/attendance" element={<TeacherAttendance />} />

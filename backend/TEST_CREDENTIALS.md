@@ -1,4 +1,4 @@
-# Test User Credentials for College Management System
+# Test User Credentials for AcademiX Management System
 
 This file contains login credentials for all test users created in the system. Use these credentials for testing and development purposes.
 

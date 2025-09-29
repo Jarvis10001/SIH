@@ -1,4 +1,4 @@
-# Smart ERP College Management System
+# AcademiX Management System
 ## Progress Report - Team Submission
 **Date: September 18, 2025**  
 **Time: 10:00 PM**
@@ -6,13 +6,13 @@
 ---
 
 ## 1. Problem Statement (10-15 words)
-**Smart ERP Solution for Comprehensive College Administration and Student Management**
+**AcademiX Solution for Comprehensive College Administration and Student Management**
 
 ---
 
 ## 2. Abstract of Proposed Idea (150-200 words)
 
-Our Smart ERP system addresses the critical need for integrated college management by providing a comprehensive digital solution that streamlines administrative processes across multiple departments. The system features role-based access control with dedicated portals for students, teachers, clerks, and administrators, each with tailored functionalities.
+AcademiX addresses the critical need for integrated college management by providing a comprehensive digital solution that streamlines administrative processes across multiple departments. The system features role-based access control with dedicated portals for students, teachers, clerks, and administrators, each with tailored functionalities.
 
 The platform encompasses automated admission processing with digital document verification, real-time fee collection and tracking, intelligent hostel management with occupancy monitoring, and comprehensive academic record management. Key innovations include a unified dashboard system providing real-time analytics, automated workflow processing for administrative tasks, and seamless integration capabilities with existing college infrastructure.
 

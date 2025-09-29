@@ -31,7 +31,7 @@ const PaymentReceipt = ({ payment, admission, onClose, onPrint }) => {
                     <div className="flex justify-between items-start">
                         <div>
                             <h2 className="text-2xl font-bold mb-2">Payment Receipt</h2>
-                            <p className="text-emerald-100">College ERP System</p>
+                            <p className="text-emerald-100">AcademiX System</p>
                         </div>
                         <div className="text-right">
                             <div className="bg-white/20 backdrop-blur-md rounded-lg px-3 py-1">
@@ -173,7 +173,7 @@ const PaymentReceipt = ({ payment, admission, onClose, onPrint }) => {
                     </button>
                     <button
                         onClick={() => window.navigator.share?.({
-                            title: 'Payment Receipt - College ERP',
+                            title: 'Payment Receipt - AcademiX',
                             text: `Payment successful for ₹${payment.amount?.toLocaleString()}`,
                             url: window.location.href
                         })}

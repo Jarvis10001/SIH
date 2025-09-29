@@ -32,7 +32,7 @@ const TopNav = () => {
     useEffect(() => {
         const fetchNotifications = async () => {
             try {
-                // Mock notifications for College ERP
+                // Mock notifications for AcademiX
                 const mockNotifications = [
                     {
                         id: '1',

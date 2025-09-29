@@ -1,5 +1,4 @@
 import React, { useState, useEffect, useCallback } from 'react';
-import { toast } from 'react-toastify';
 import { motion, AnimatePresence } from 'framer-motion';
 import { themeClasses, iconClasses } from '../../../styles/theme';
 import { 
@@ -114,11 +113,11 @@ const TeacherAttendance = () => {
         const result = await response.json();
         setAttendanceRecords(result.data || []);
       } else {
-        toast.error('Failed to fetch attendance records');
+        console.error('Failed to fetch attendance records');
       }
     } catch (error) {
       console.error('Error fetching attendance records:', error);
-      toast.error('Error fetching attendance records');
+      console.error('Error fetching attendance records');
     } finally {
       setLoading(false);
     }
@@ -141,7 +140,7 @@ const TeacherAttendance = () => {
       if (validTypes.includes(file.type) || file.name.match(/\.(xlsx|xls|csv)$/i)) {
         setSelectedFile(file);
       } else {
-        toast.error('Please select a valid Excel (.xlsx, .xls) or CSV file');
+        alert('Please select a valid Excel (.xlsx, .xls) or CSV file');
         e.target.value = '';
       }
     }
@@ -152,12 +151,12 @@ const TeacherAttendance = () => {
     e.preventDefault();
     
     if (!selectedFile) {
-      toast.error('Please select a file to upload');
+      alert('Please select a file to upload');
       return;
     }
 
     if (!uploadData.branch || !uploadData.subject) {
-      toast.error('Please select branch and subject');
+      alert('Please select branch and subject');
       return;
     }
 
@@ -183,7 +182,7 @@ const TeacherAttendance = () => {
       const result = await response.json();
 
       if (response.ok) {
-        toast.success('Attendance uploaded successfully');
+        alert('Attendance uploaded successfully');
         setShowUploadModal(false);
         setSelectedFile(null);
         setUploadData({
@@ -196,14 +195,14 @@ const TeacherAttendance = () => {
         });
         fetchAttendanceRecords();
       } else {
-        toast.error(result.message || 'Failed to upload attendance');
+        alert(result.message || 'Failed to upload attendance');
         if (result.errors) {
-          result.errors.forEach(error => toast.error(error));
+          result.errors.forEach(error => console.error(error));
         }
       }
     } catch (error) {
       console.error('Upload error:', error);
-      toast.error('Error uploading attendance file');
+      console.error('Error uploading attendance file');
     } finally {
       setUploading(false);
     }
@@ -225,14 +224,14 @@ const TeacherAttendance = () => {
       });
 
       if (response.ok) {
-        toast.success('Attendance record deleted successfully');
+        alert('Attendance record deleted successfully');
         fetchAttendanceRecords();
       } else {
-        toast.error('Failed to delete attendance record');
+        alert('Failed to delete attendance record');
       }
     } catch (error) {
       console.error('Delete error:', error);
-      toast.error('Error deleting attendance record');
+      console.error('Error deleting attendance record');
     }
   };
 
@@ -277,7 +276,7 @@ STU010,Excused`;
     window.URL.revokeObjectURL(url);
     
     // Show help message
-    toast.info('Template downloaded! Fill in the SID and Status columns, then upload back through this page.');
+    console.log('Template downloaded! Fill in the SID and Status columns, then upload back through this page.');
   };
 
   const formatDate = (dateString) => {
@@ -297,192 +296,297 @@ STU010,Excused`;
   };
 
   return (
-    <div className={`${themeClasses.pageBackground}`}>
-      <div className={`${themeClasses.pageContainer}`}>
-        {/* Header */}
-        <div className={`${themeClasses.primaryCard} mb-6`}>
-          <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
-            <div>
-              <h1 className={`text-2xl font-bold ${themeClasses.text.primary} mb-2`}>Attendance Management</h1>
-              <p className={`${themeClasses.text.secondary}`}>Upload and manage student attendance records</p>
-            </div>
-            <div className="flex gap-3">
-              <button
-                onClick={downloadTemplate}
-                className={`flex items-center gap-2 px-4 py-2 ${themeClasses.button.secondary} rounded-lg transition-colors`}
-              >
-                <Download size={20} />
-                Template
-              </button>
-              <button
-                onClick={() => setShowUploadModal(true)}
-                className={`flex items-center gap-2 px-4 py-2 ${themeClasses.button.primary} rounded-lg transition-colors`}
-              >
-                <Upload size={20} />
-                Upload Attendance
-              </button>
-            </div>
-          </div>
-        </div>
-
-        {/* Filters */}
-        <div className={`${themeClasses.primaryCard} mb-6`}>
-          <h2 className={`text-lg font-semibold ${themeClasses.text.primary} mb-4`}>Filters</h2>
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
-            <div>
-              <label className={`block text-sm font-medium ${themeClasses.text.secondary} mb-2`}>Start Date</label>
-              <input
-                type="date"
-                value={filters.startDate}
-                onChange={(e) => setFilters({...filters, startDate: e.target.value})}
-                className={`w-full px-3 py-2 ${themeClasses.surface} ${themeClasses.border} ${themeClasses.text.primary} rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500`}
-              />
-            </div>
-            <div>
-              <label className={`block text-sm font-medium ${themeClasses.text.secondary} mb-2`}>End Date</label>
-              <input
-                type="date"
-                value={filters.endDate}
-                onChange={(e) => setFilters({...filters, endDate: e.target.value})}
-                className={`w-full px-3 py-2 ${themeClasses.surface} ${themeClasses.border} ${themeClasses.text.primary} rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500`}
-              />
-            </div>
-            <div>
-              <label className={`block text-sm font-medium ${themeClasses.text.secondary} mb-2`}>Branch & Year</label>
-              <select
-                value={filters.branch}
-                onChange={(e) => setFilters({...filters, branch: e.target.value, subject: ''})} // Reset subject when branch changes
-                className={`w-full px-3 py-2 ${themeClasses.surface} ${themeClasses.border} ${themeClasses.text.primary} rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500`}
-              >
-                <option value="">All Branches</option>
-                {teacherBranches.slice(1).map(branch => (
-                  <option key={branch.id} value={branch.id}>
-                    {branch.name}
-                  </option>
-                ))}
-              </select>
-            </div>
-            <div>
-              <label className={`block text-sm font-medium ${themeClasses.text.secondary} mb-2`}>Subject</label>
-              <select
-                value={filters.subject}
-                onChange={(e) => setFilters({...filters, subject: e.target.value})}
-                className={`w-full px-3 py-2 ${themeClasses.surface} ${themeClasses.border} ${themeClasses.text.primary} rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500`}
-                disabled={!filters.branch}
-              >
-                <option value="">All Subjects</option>
-                {filters.branch && teacherBranches.find(b => b.id === filters.branch)?.subjects?.map(subject => (
-                  <option key={subject.id} value={subject.id}>
-                    {subject.name}
-                  </option>
-                ))}
-              </select>
+    <div className="min-h-screen bg-gray-900">
+      <div className="max-w-7xl mx-auto p-6">
+        {/* Clean Header with AcademiX Theme */}
+        <motion.div 
+          initial={{ opacity: 0, y: -20 }}
+          animate={{ opacity: 1, y: 0 }}
+          className="bg-gradient-to-r from-indigo-600 to-indigo-700 rounded-2xl shadow-xl mb-8 overflow-hidden"
+        >
+          <div className="p-8">
+            <div className="flex flex-col lg:flex-row justify-between items-start lg:items-center gap-6">
+              <div className="space-y-2">
+                <h1 className="text-3xl font-bold text-white flex items-center gap-3">
+                  <div className="p-3 bg-white/10 rounded-xl">
+                    <Users size={28} className="text-white" />
+                  </div>
+                  Attendance Management
+                </h1>
+                <p className="text-indigo-100 text-lg">
+                  Track and manage student attendance with ease
+                </p>
+                <div className="flex items-center gap-4 text-indigo-200 text-sm">
+                  <span className="flex items-center gap-1">
+                    <Calendar size={16} />
+                    Academic Year 2024-25
+                  </span>
+                  <span className="flex items-center gap-1">
+                    <Clock size={16} />
+                    Last updated: {new Date().toLocaleDateString()}
+                  </span>
+                </div>
+              </div>
+              <div className="flex gap-3">
+                <motion.button
+                  whileHover={{ scale: 1.02 }}
+                  whileTap={{ scale: 0.98 }}
+                  onClick={downloadTemplate}
+                  className="flex items-center gap-2 px-6 py-3 bg-white/10 hover:bg-white/20 text-white rounded-xl font-semibold transition-all duration-300 border border-white/20"
+                >
+                  <Download size={20} />
+                  Download Template
+                </motion.button>
+                <motion.button
+                  whileHover={{ scale: 1.02 }}
+                  whileTap={{ scale: 0.98 }}
+                  onClick={() => setShowUploadModal(true)}
+                  className="flex items-center gap-2 px-6 py-3 bg-white text-indigo-700 hover:bg-gray-50 rounded-xl font-semibold transition-all duration-300 shadow-lg"
+                >
+                  <Upload size={20} />
+                  Upload Attendance
+                </motion.button>
+              </div>
             </div>
           </div>
-        </div>
+        </motion.div>
 
-        {/* Attendance Records */}
-        <div className={`${themeClasses.primaryCard} rounded-lg shadow-sm`}>
-          <div className={`p-6 border-b ${themeClasses.border}`}>
-            <h2 className={`text-lg font-semibold ${themeClasses.text.primary}`}>Attendance Records</h2>
+        {/* Enhanced Filters */}
+        <motion.div 
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 0.1 }}
+          className="bg-gray-800/90 rounded-2xl shadow-xl mb-8 border border-slate-700/30"
+        >
+          <div className="p-6 border-b border-slate-700/30">
+            <h2 className="text-xl font-semibold text-white flex items-center gap-2">
+              <div className="p-2 bg-indigo-500/20 rounded-lg">
+                <AlertCircle size={20} className="text-indigo-400" />
+              </div>
+              Filter Records
+            </h2>
+            <p className="text-slate-400 mt-1">Narrow down your attendance records</p>
+          </div>
+          <div className="p-6">
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+              <div className="space-y-2">
+                <label className="block text-sm font-medium text-slate-300">Start Date</label>
+                <div className="relative">
+                  <Calendar size={18} className="absolute left-3 top-1/2 transform -translate-y-1/2 text-slate-400" />
+                  <input
+                    type="date"
+                    value={filters.startDate}
+                    onChange={(e) => setFilters({...filters, startDate: e.target.value})}
+                    className="w-full pl-10 pr-4 py-3 bg-gray-700/50 border border-slate-600/30 text-white rounded-xl focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 transition-all duration-300"
+                  />
+                </div>
+              </div>
+              <div className="space-y-2">
+                <label className="block text-sm font-medium text-slate-300">End Date</label>
+                <div className="relative">
+                  <Calendar size={18} className="absolute left-3 top-1/2 transform -translate-y-1/2 text-slate-400" />
+                  <input
+                    type="date"
+                    value={filters.endDate}
+                    onChange={(e) => setFilters({...filters, endDate: e.target.value})}
+                    className="w-full pl-10 pr-4 py-3 bg-gray-700/50 border border-slate-600/30 text-white rounded-xl focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 transition-all duration-300"
+                  />
+                </div>
+              </div>
+              <div className="space-y-2">
+                <label className="block text-sm font-medium text-slate-300">Branch & Year</label>
+                <div className="relative">
+                  <BookOpen size={18} className="absolute left-3 top-1/2 transform -translate-y-1/2 text-slate-400" />
+                  <select
+                    value={filters.branch}
+                    onChange={(e) => setFilters({...filters, branch: e.target.value, subject: ''})}
+                    className="w-full pl-10 pr-4 py-3 bg-gray-700/50 border border-slate-600/30 text-white rounded-xl focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 transition-all duration-300 appearance-none"
+                  >
+                    <option value="">All Branches</option>
+                    {teacherBranches.slice(1).map(branch => (
+                      <option key={branch.id} value={branch.id}>
+                        {branch.name}
+                      </option>
+                    ))}
+                  </select>
+                </div>
+              </div>
+              <div className="space-y-2">
+                <label className="block text-sm font-medium text-slate-300">Subject</label>
+                <div className="relative">
+                  <FileText size={18} className="absolute left-3 top-1/2 transform -translate-y-1/2 text-slate-400" />
+                  <select
+                    value={filters.subject}
+                    onChange={(e) => setFilters({...filters, subject: e.target.value})}
+                    className="w-full pl-10 pr-4 py-3 bg-gray-700/50 border border-slate-600/30 text-white rounded-xl focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 transition-all duration-300 appearance-none disabled:opacity-50"
+                    disabled={!filters.branch}
+                  >
+                    <option value="">All Subjects</option>
+                    {filters.branch && teacherBranches.find(b => b.id === filters.branch)?.subjects?.map(subject => (
+                      <option key={subject.id} value={subject.id}>
+                        {subject.name}
+                      </option>
+                    ))}
+                  </select>
+                </div>
+              </div>
+            </div>
+          </div>
+        </motion.div>
+
+        {/* Enhanced Attendance Records */}
+        <motion.div 
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 0.2 }}
+          className="bg-gray-800/90 rounded-2xl shadow-xl border border-slate-700/30"
+        >
+          <div className="p-6 border-b border-slate-700/30">
+            <div className="flex items-center justify-between">
+              <div>
+                <h2 className="text-xl font-semibold text-white flex items-center gap-2">
+                  <div className="p-2 bg-emerald-500/20 rounded-lg">
+                    <CheckCircle size={20} className="text-emerald-400" />
+                  </div>
+                  Attendance Records
+                </h2>
+                <p className="text-gray-400 mt-1">Manage your class attendance data</p>
+              </div>
+              <div className="text-right">
+                <p className="text-sm text-gray-400">Total Records</p>
+                <p className="text-2xl font-bold text-white">{attendanceRecords.length}</p>
+              </div>
+            </div>
           </div>
 
           {loading ? (
-            <div className="p-8 text-center">
-              <div className={`animate-spin rounded-full h-8 w-8 border-b-2 ${themeClasses.border} mx-auto`}></div>
-              <p className={`mt-2 ${themeClasses.text.secondary}`}>Loading attendance records...</p>
+            <div className="p-12 text-center">
+              <div className="animate-spin rounded-full h-12 w-12 border-2 border-indigo-500 border-t-transparent mx-auto mb-4"></div>
+              <p className="text-gray-400 text-lg">Loading attendance records...</p>
             </div>
           ) : attendanceRecords.length === 0 ? (
-            <div className="p-8 text-center">
-              <FileText size={48} className={`mx-auto ${themeClasses.text.muted} mb-4`} />
-              <p className={themeClasses.text.secondary}>No attendance records found</p>
+            <div className="p-12 text-center">
+              <div className="p-4 bg-slate-700/50 rounded-2xl w-fit mx-auto mb-4">
+                <FileText size={48} className="text-slate-500 mx-auto" />
+              </div>
+              <h3 className="text-lg font-semibold text-slate-300 mb-2">No Records Found</h3>
+              <p className="text-slate-500">Upload attendance data to get started</p>
             </div>
           ) : (
             <div className="overflow-x-auto">
               <table className="w-full">
-                <thead className={themeClasses.surfaceVariant}>
-                  <tr>
-                    <th className={`px-6 py-3 text-left text-xs font-medium ${themeClasses.text.muted} uppercase tracking-wider`}>
+                <thead>
+                  <tr className="bg-slate-800/50">
+                    <th className="px-6 py-4 text-left text-xs font-semibold text-slate-400 uppercase tracking-wider">
                       Date & Time
                     </th>
-                    <th className={`px-6 py-3 text-left text-xs font-medium ${themeClasses.text.muted} uppercase tracking-wider`}>
+                    <th className="px-6 py-4 text-left text-xs font-semibold text-slate-400 uppercase tracking-wider">
                       Class Details
                     </th>
-                    <th className={`px-6 py-3 text-left text-xs font-medium ${themeClasses.text.muted} uppercase tracking-wider`}>
-                      Statistics
+                    <th className="px-6 py-4 text-left text-xs font-semibold text-slate-400 uppercase tracking-wider">
+                      Attendance Stats
                     </th>
-                    <th className={`px-6 py-3 text-left text-xs font-medium ${themeClasses.text.muted} uppercase tracking-wider`}>
+                    <th className="px-6 py-4 text-center text-xs font-semibold text-slate-400 uppercase tracking-wider">
                       Actions
                     </th>
                   </tr>
                 </thead>
-                <tbody className={`${themeClasses.primaryCard} divide-y ${themeClasses.border}`}>
-                  {attendanceRecords.map((record) => (
-                    <tr key={record._id} className={`hover:${themeClasses.surfaceVariant}`}>
-                      <td className="px-6 py-4 whitespace-nowrap">
-                        <div className="flex items-center">
-                          <Calendar className={`h-5 w-5 ${themeClasses.text.muted} mr-2`} />
+                <tbody className="divide-y divide-slate-700/30">
+                  {attendanceRecords.map((record, index) => (
+                    <motion.tr 
+                      key={record._id} 
+                      initial={{ opacity: 0, x: -20 }}
+                      animate={{ opacity: 1, x: 0 }}
+                      transition={{ delay: index * 0.05 }}
+                      className="hover:bg-slate-700/30 transition-all duration-300"
+                    >
+                      <td className="px-6 py-5">
+                        <div className="flex items-center space-x-3">
+                          <div className="p-2 bg-indigo-500/20 rounded-lg">
+                            <Calendar className="h-5 w-5 text-indigo-400" />
+                          </div>
                           <div>
-                            <div className={`text-sm font-medium ${themeClasses.text.primary}`}>
+                            <div className="text-sm font-semibold text-white">
                               {formatDate(record.date)}
                             </div>
-                            <div className={`text-sm ${themeClasses.text.secondary}`}>
+                            <div className="text-sm text-gray-400 flex items-center gap-1">
+                              <Clock size={14} />
                               {formatTime(record.timeSlot.startTime)} - {formatTime(record.timeSlot.endTime)}
                             </div>
                           </div>
                         </div>
                       </td>
-                      <td className="px-6 py-4">
-                        <div className="flex items-center">
-                          <BookOpen className={`h-5 w-5 ${themeClasses.text.muted} mr-2`} />
+                      <td className="px-6 py-5">
+                        <div className="flex items-center space-x-3">
+                          <div className="p-2 bg-blue-500/20 rounded-lg">
+                            <BookOpen className="h-5 w-5 text-blue-400" />
+                          </div>
                           <div>
-                            <div className={`text-sm font-medium ${themeClasses.text.primary}`}>
+                            <div className="text-sm font-semibold text-white">
                               {record.classInfo.subject}
                             </div>
-                            <div className={`text-sm ${themeClasses.text.secondary}`}>
+                            <div className="text-sm text-gray-400">
                               {record.classInfo.className} - {record.classInfo.section} | Sem {record.classInfo.semester}
                             </div>
                           </div>
                         </div>
                       </td>
-                      <td className="px-6 py-4">
-                        <div className="flex items-center">
-                          <Users className={`h-5 w-5 ${themeClasses.text.muted} mr-2`} />
+                      <td className="px-6 py-5">
+                        <div className="flex items-center space-x-3">
+                          <div className="p-2 bg-emerald-500/20 rounded-lg">
+                            <Users className="h-5 w-5 text-emerald-400" />
+                          </div>
                           <div>
-                            <div className={`text-sm font-medium ${themeClasses.text.primary}`}>
-                              {record.statistics.attendancePercentage}% Present
+                            <div className="flex items-center gap-2">
+                              <span className="text-sm font-semibold text-white">
+                                {record.statistics.attendancePercentage}%
+                              </span>
+                              <div className={`px-2 py-1 rounded-full text-xs font-medium ${
+                                record.statistics.attendancePercentage >= 75 
+                                  ? 'bg-emerald-500/20 text-emerald-400' 
+                                  : record.statistics.attendancePercentage >= 50
+                                  ? 'bg-yellow-500/20 text-yellow-400'
+                                  : 'bg-red-500/20 text-red-400'
+                              }`}>
+                                {record.statistics.attendancePercentage >= 75 ? 'Good' : 
+                                 record.statistics.attendancePercentage >= 50 ? 'Average' : 'Low'}
+                              </div>
                             </div>
-                            <div className={`text-sm ${themeClasses.text.secondary}`}>
-                              {record.statistics.presentCount}/{record.statistics.totalStudents} students
+                            <div className="text-sm text-gray-400">
+                              {record.statistics.presentCount}/{record.statistics.totalStudents} students present
                             </div>
                           </div>
                         </div>
                       </td>
-                      <td className="px-6 py-4 whitespace-nowrap text-sm font-medium">
-                        <div className="flex items-center gap-2">
-                          <button
+                      <td className="px-6 py-5">
+                        <div className="flex items-center justify-center space-x-2">
+                          <motion.button
+                            whileHover={{ scale: 1.1 }}
+                            whileTap={{ scale: 0.9 }}
                             onClick={() => viewRecord(record)}
-                            className={`${themeClasses.text.accent} hover:opacity-80 p-1`}
+                            className="p-2 bg-indigo-500/20 hover:bg-indigo-500/30 text-indigo-400 rounded-lg transition-all duration-300"
                             title="View Details"
                           >
                             <Eye size={16} />
-                          </button>
-                          <button
+                          </motion.button>
+                          <motion.button
+                            whileHover={{ scale: 1.1 }}
+                            whileTap={{ scale: 0.9 }}
                             onClick={() => handleDelete(record._id)}
-                            className={`${themeClasses.text.error} hover:opacity-80 p-1`}
-                            title="Delete"
+                            className="p-2 bg-red-500/20 hover:bg-red-500/30 text-red-400 rounded-lg transition-all duration-300"
+                            title="Delete Record"
                           >
                             <Trash2 size={16} />
-                          </button>
+                          </motion.button>
                         </div>
                       </td>
-                    </tr>
+                    </motion.tr>
                   ))}
                 </tbody>
               </table>
             </div>
           )}
-        </div>
+        </motion.div>
       </div>
 
       {/* Upload Modal */}
@@ -492,7 +596,7 @@ STU010,Excused`;
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
-            className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center p-4 z-50"
+            className="fixed inset-0 bg-gray-900/80 flex items-center justify-center p-4 z-50"
           >
             <motion.div
               initial={{ scale: 0.95, opacity: 0 }}
@@ -705,20 +809,20 @@ STU010,Excused`;
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
-            className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center p-4 z-50"
+            className="fixed inset-0 bg-gray-900/80 flex items-center justify-center p-4 z-50"
           >
             <motion.div
               initial={{ scale: 0.95, opacity: 0 }}
               animate={{ scale: 1, opacity: 1 }}
               exit={{ scale: 0.95, opacity: 0 }}
-              className="bg-white rounded-lg max-w-4xl w-full max-h-[90vh] overflow-y-auto"
+              className="bg-gray-800/90 rounded-2xl shadow-xl border border-slate-700/30 max-w-4xl w-full max-h-[90vh] overflow-y-auto"
             >
-              <div className="p-6 border-b border-gray-200">
+              <div className="p-6 border-b border-slate-700/30">
                 <div className="flex items-center justify-between">
-                  <h2 className="text-xl font-semibold text-gray-900">Attendance Details</h2>
+                  <h2 className="text-xl font-semibold text-white">Attendance Details</h2>
                   <button
                     onClick={() => setShowViewModal(false)}
-                    className="text-gray-400 hover:text-gray-600"
+                    className="text-slate-400 hover:text-slate-300"
                   >
                     <X size={24} />
                   </button>
@@ -728,81 +832,81 @@ STU010,Excused`;
               <div className="p-6">
                 {/* Class Information */}
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
-                  <div className="bg-gray-50 rounded-lg p-4">
-                    <h3 className="text-lg font-medium text-gray-900 mb-3">Class Information</h3>
-                    <div className="space-y-2 text-sm">
-                      <p><strong>Subject:</strong> {selectedRecord.classInfo.subject}</p>
-                      <p><strong>Class:</strong> {selectedRecord.classInfo.className}</p>
-                      <p><strong>Section:</strong> {selectedRecord.classInfo.section}</p>
-                      <p><strong>Semester:</strong> {selectedRecord.classInfo.semester}</p>
-                      <p><strong>Academic Year:</strong> {selectedRecord.classInfo.academicYear}</p>
+                  <div className="bg-slate-700/50 rounded-lg p-4">
+                    <h3 className="text-lg font-medium text-white mb-3">Class Information</h3>
+                    <div className="space-y-2 text-sm text-slate-300">
+                      <p><strong className="text-indigo-400">Subject:</strong> {selectedRecord.classInfo.subject}</p>
+                      <p><strong className="text-indigo-400">Class:</strong> {selectedRecord.classInfo.className}</p>
+                      <p><strong className="text-indigo-400">Section:</strong> {selectedRecord.classInfo.section}</p>
+                      <p><strong className="text-indigo-400">Semester:</strong> {selectedRecord.classInfo.semester}</p>
+                      <p><strong className="text-indigo-400">Academic Year:</strong> {selectedRecord.classInfo.academicYear}</p>
                     </div>
                   </div>
 
-                  <div className="bg-gray-50 rounded-lg p-4">
-                    <h3 className="text-lg font-medium text-gray-900 mb-3">Session Details</h3>
-                    <div className="space-y-2 text-sm">
-                      <p><strong>Date:</strong> {formatDate(selectedRecord.date)}</p>
-                      <p><strong>Time:</strong> {formatTime(selectedRecord.timeSlot.startTime)} - {formatTime(selectedRecord.timeSlot.endTime)}</p>
-                      <p><strong>Teacher:</strong> {selectedRecord.teacherInfo.teacherName}</p>
+                  <div className="bg-slate-700/50 rounded-lg p-4">
+                    <h3 className="text-lg font-medium text-white mb-3">Session Details</h3>
+                    <div className="space-y-2 text-sm text-slate-300">
+                      <p><strong className="text-indigo-400">Date:</strong> {formatDate(selectedRecord.date)}</p>
+                      <p><strong className="text-indigo-400">Time:</strong> {formatTime(selectedRecord.timeSlot.startTime)} - {formatTime(selectedRecord.timeSlot.endTime)}</p>
+                      <p><strong className="text-indigo-400">Teacher:</strong> {selectedRecord.teacherInfo.teacherName}</p>
                     </div>
                   </div>
                 </div>
 
                 {/* Statistics */}
-                <div className="bg-blue-50 rounded-lg p-4 mb-6">
-                  <h3 className="text-lg font-medium text-gray-900 mb-3">Attendance Statistics</h3>
+                <div className="bg-indigo-500/10 rounded-lg p-4 mb-6 border border-indigo-500/20">
+                  <h3 className="text-lg font-medium text-white mb-3">Attendance Statistics</h3>
                   <div className="grid grid-cols-2 md:grid-cols-4 gap-4 text-center">
                     <div>
-                      <div className="text-2xl font-bold text-blue-600">{selectedRecord.statistics.totalStudents}</div>
-                      <div className="text-sm text-gray-600">Total Students</div>
+                      <div className="text-2xl font-bold text-indigo-400">{selectedRecord.statistics.totalStudents}</div>
+                      <div className="text-sm text-slate-400">Total Students</div>
                     </div>
                     <div>
-                      <div className="text-2xl font-bold text-green-600">{selectedRecord.statistics.presentCount}</div>
-                      <div className="text-sm text-gray-600">Present</div>
+                      <div className="text-2xl font-bold text-emerald-400">{selectedRecord.statistics.presentCount}</div>
+                      <div className="text-sm text-slate-400">Present</div>
                     </div>
                     <div>
-                      <div className="text-2xl font-bold text-red-600">{selectedRecord.statistics.absentCount}</div>
-                      <div className="text-sm text-gray-600">Absent</div>
+                      <div className="text-2xl font-bold text-red-400">{selectedRecord.statistics.absentCount}</div>
+                      <div className="text-sm text-slate-400">Absent</div>
                     </div>
                     <div>
-                      <div className="text-2xl font-bold text-blue-600">{selectedRecord.statistics.attendancePercentage}%</div>
-                      <div className="text-sm text-gray-600">Attendance</div>
+                      <div className="text-2xl font-bold text-blue-400">{selectedRecord.statistics.attendancePercentage}%</div>
+                      <div className="text-sm text-slate-400">Attendance</div>
                     </div>
                   </div>
                 </div>
 
                 {/* Student List */}
                 <div>
-                  <h3 className="text-lg font-medium text-gray-900 mb-3">Student Attendance</h3>
+                  <h3 className="text-lg font-medium text-white mb-3">Student Attendance</h3>
                   <div className="overflow-x-auto">
-                    <table className="w-full border border-gray-200 rounded-lg">
-                      <thead className="bg-gray-50">
+                    <table className="w-full border border-slate-600/30 rounded-lg">
+                      <thead className="bg-slate-800/50">
                         <tr>
-                          <th className="px-4 py-2 text-left text-xs font-medium text-gray-500 uppercase">Student ID</th>
-                          <th className="px-4 py-2 text-left text-xs font-medium text-gray-500 uppercase">Name</th>
-                          <th className="px-4 py-2 text-left text-xs font-medium text-gray-500 uppercase">Roll Number</th>
-                          <th className="px-4 py-2 text-left text-xs font-medium text-gray-500 uppercase">Status</th>
-                          <th className="px-4 py-2 text-left text-xs font-medium text-gray-500 uppercase">Remarks</th>
+                          <th className="px-4 py-2 text-left text-xs font-medium text-slate-400 uppercase">Student ID</th>
+                          <th className="px-4 py-2 text-left text-xs font-medium text-slate-400 uppercase">Name</th>
+                          <th className="px-4 py-2 text-left text-xs font-medium text-slate-400 uppercase">Roll Number</th>
+                          <th className="px-4 py-2 text-left text-xs font-medium text-slate-400 uppercase">Status</th>
+                          <th className="px-4 py-2 text-left text-xs font-medium text-slate-400 uppercase">Remarks</th>
                         </tr>
                       </thead>
-                      <tbody className="bg-white divide-y divide-gray-200">
+                      <tbody className="bg-gray-700/30 divide-y divide-slate-600/30">
                         {selectedRecord.studentAttendance.map((student, index) => (
-                          <tr key={index} className="hover:bg-gray-50">
-                            <td className="px-4 py-2 text-sm text-gray-900">{student.studentId}</td>
-                            <td className="px-4 py-2 text-sm text-gray-900">{student.studentName}</td>
-                            <td className="px-4 py-2 text-sm text-gray-900">{student.rollNumber}</td>
+                          <tr key={index} className="hover:bg-slate-700/50">
+                            <td className="px-4 py-2 text-sm text-white">{student.studentId}</td>
+                            <td className="px-4 py-2 text-sm text-white">{student.studentName}</td>
+                            <td className="px-4 py-2 text-sm text-white">{student.rollNumber}</td>
                             <td className="px-4 py-2">
                               <span className={`inline-flex px-2 py-1 text-xs font-semibold rounded-full ${
-                                student.status === 'Present' ? 'bg-green-100 text-green-800' :
-                                student.status === 'Absent' ? 'bg-red-100 text-red-800' :
-                                student.status === 'Late' ? 'bg-yellow-100 text-yellow-800' :
-                                'bg-blue-100 text-blue-800'
+                                student.status === 'Present' ? 'bg-emerald-500/20 text-emerald-400' :
+                                student.status === 'Absent' ? 'bg-red-500/20 text-red-400' :
+                                student.status === 'Late' ? 'bg-yellow-500/20 text-yellow-400' :
+                                'bg-blue-500/20 text-blue-400'
                               }`}>
                                 {student.status}
                               </span>
                             </td>
-                            <td className="px-4 py-2 text-sm text-gray-600">{student.remarks || '-'}</td>
+                            <td className="px-4 py-2 text-sm text-slate-400">{student.remarks || '-'}</td>
                           </tr>
                         ))}
                       </tbody>

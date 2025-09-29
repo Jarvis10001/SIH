@@ -1,5 +1,5 @@
 # Test Dataset Credentials
-**College ERP System - Test User Credentials**
+**AcademiX System - Test User Credentials**
 *Generated on: September 19, 2025*
 
 ---
@@ -163,4 +163,4 @@ Password: admin123
 ---
 
 *Last Updated: September 19, 2025*
-*Generated for SIH Project - Smart ERP College Management System*
+*Generated for SIH Project - AcademiX Management System*

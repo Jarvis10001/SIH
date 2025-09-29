@@ -115,7 +115,7 @@ const ClerkSidebar = ({ activeTab, setActiveTab, isOpen, setIsOpen }) => {
                         </div>
                         <div className={`overflow-hidden transition-all duration-300 md:duration-700 ${isOpen ? 'opacity-100 translate-x-0' : 'opacity-0 -translate-x-3'}`}>
                             <h2 className="text-lg font-bold text-white">Clerk Portal</h2>
-                            <p className="text-sm text-slate-400">College ERP</p>
+                            <p className="text-sm text-slate-400">AcademiX</p>
                         </div>
                     </div>
                 </div>

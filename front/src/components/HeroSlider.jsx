@@ -7,7 +7,7 @@ const HeroSlider = () => {
 
   const slides = [
     {
-      title: "Smart College Management System",
+      title: "Student Management System",
       subtitle: "Revolutionizing Education Administration",
       description: "Complete ERP solution for modern educational institutions. Streamline admissions, manage students, and optimize operations.",
       image: "https://images.unsplash.com/photo-1523240795612-9a054b0db644?auto=format&fit=crop&w=1400&q=80",
@@ -45,19 +45,19 @@ const HeroSlider = () => {
         { value: "Real-time", label: "Financial Reports" }
       ]
     },
-    {
-      title: "Smart Hostel Management",
-      subtitle: "Complete Residential Solutions",
-      description: "Intelligent hostel management with room allocation, occupancy tracking, and maintenance request systems.",
-      image: "https://images.unsplash.com/photo-1555854877-bab0e655b8db?auto=format&fit=crop&w=1400&q=80",
-      cta: "Explore Features",
-      link: "#solutions",
-      stats: [
-        { value: "100%", label: "Occupancy Tracking" },
-        { value: "Fast", label: "Room Allocation" },
-        { value: "24/7", label: "Maintenance Support" }
-      ]
-    }
+    // {
+    //   title: "Smart Hostel Management",
+    //   subtitle: "Complete Residential Solutions",
+    //   description: "Intelligent hostel management with room allocation, occupancy tracking, and maintenance request systems.",
+    //   image: "https://images.unsplash.com/photo-1555854877-bab0e655b8db?auto=format&fit=crop&w=1400&q=80",
+    //   cta: "Explore Features",
+    //   link: "#solutions",
+    //   stats: [
+    //     { value: "100%", label: "Occupancy Tracking" },
+    //     { value: "Fast", label: "Room Allocation" },
+    //     { value: "24/7", label: "Maintenance Support" }
+    //   ]
+    // }
   ];
 
   // Updated slide variants with slower transitions

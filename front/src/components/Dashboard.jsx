@@ -14,6 +14,7 @@ import CalendarPage from './pages/CalendarPage';
 import TimetablePage from './pages/TimetablePage';
 import StudentResourcesPage from './pages/StudentResourcesPage';
 import StudentQueriesPage from './pages/StudentQueriesPage';
+import StudentAssignments from './pages/StudentAssignments';
 import AdminQueriesPage from './admin/AdminQueriesPage';
 import AdminDashboard from './admin/AdminDashboard';
 import TeacherGradesPage from './teacher/TeacherGradesPage';
@@ -100,7 +101,7 @@ const DashboardContent = () => {
             <Route path="/students" element={<StudentsPage />} />
             <Route path="/faculty" element={<FacultyPage />} />
             <Route path="/courses" element={<CoursesPage />} />
-            <Route path="/assignments" element={<AssignmentsPage />} />
+            <Route path="/assignments" element={<StudentAssignments />} />
             <Route path="/attendance" element={<StudentAttendance />} />
             <Route path="/grades" element={<GradesPage />} />
             <Route path="/library" element={<LibraryPage />} />
@@ -155,12 +156,7 @@ const CoursesPage = () => (
   </div>
 );
 
-const AssignmentsPage = () => (
-  <div className="bg-gray-800 border border-slate-700 rounded-xl p-6 shadow-sm">
-    <h1 className="text-2xl font-bold text-white mb-4">Assignments</h1>
-    <p className="text-slate-400">Assignment management functionality will be implemented here.</p>
-  </div>
-);
+
 
 const ReportsPage = () => (
   <div className="bg-gray-800 border border-slate-700 rounded-xl p-6 shadow-sm">

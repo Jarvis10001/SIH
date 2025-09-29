@@ -10,6 +10,7 @@ const navItems = [
   
   // Student Section
   { name: "Students", icon: "ri-user-3-line", path: "/dashboard/students" },
+  { name: "Assignments", icon: "ri-file-list-3-line", path: "/dashboard/assignments" },
   { name: "Attendance", icon: "ri-calendar-check-line", path: "/dashboard/attendance" },
   { name: "Grades", icon: "ri-bar-chart-line", path: "/dashboard/grades" },
   { name: "Library", icon: "ri-book-2-line", path: "/dashboard/library" },
@@ -69,7 +70,7 @@ const Sidebar = () => {
             <span className={`text-xl font-bold text-white transition-opacity duration-300 md:duration-700 ${
               isOpen ? 'opacity-100' : 'opacity-0'
             }`}>
-              College<span className="text-indigo-400">ERP</span>
+              <span className="text-indigo-400">AcademiX</span>
             </span>
           </Link>
           
@@ -129,7 +130,7 @@ const Sidebar = () => {
             <div>
               {isOpen && (
                 <h3 className="text-xs font-semibold text-slate-400 uppercase tracking-wider mb-3 px-4">
-                  Student Portal
+                  AcademiX Student
                 </h3>
               )}
               <div className="space-y-1">
@@ -137,6 +138,7 @@ const Sidebar = () => {
                   { name: "Admission", icon: "ri-file-add-line", path: "/dashboard/admission" },
                   { name: "Payment", icon: "ri-bank-card-line", path: "/dashboard/payment" },
                   { name: "Hostel", icon: "ri-building-2-line", path: "/dashboard/hostel" },
+                  { name: "Assignments", icon: "ri-file-list-3-line", path: "/dashboard/assignments" },
                   { name: "Attendance", icon: "ri-calendar-check-line", path: "/dashboard/attendance" },
                   { name: "Grades", icon: "ri-bar-chart-line", path: "/dashboard/grades" },
                   { name: "Library", icon: "ri-book-2-line", path: "/dashboard/library" },

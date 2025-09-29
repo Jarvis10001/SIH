@@ -2,7 +2,7 @@
 
 ## 🎯 Quick Start
 
-To populate your database with test data for the College ERP system:
+To populate your database with test data for the AcademiX system:
 
 ### 1. Navigate to Backend Directory
 ```bash
@@ -146,4 +146,4 @@ After seeding and running both frontend and backend:
 
 ---
 
-*Generated for SIH Project - Smart ERP College Management System*
+*Generated for SIH Project - AcademiX Management System*

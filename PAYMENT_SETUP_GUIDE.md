@@ -1,7 +1,7 @@
 # Payment System Setup Guide
 
 ## Overview
-This guide will help you set up the Razorpay payment integration for the College ERP system admission fee collection.
+This guide will help you set up the Razorpay payment integration for the AcademiX system admission fee collection.
 
 ## Prerequisites
 1. Razorpay account (sign up at https://razorpay.com)
