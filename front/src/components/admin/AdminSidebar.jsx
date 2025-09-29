@@ -34,7 +34,18 @@ const AdminSidebar = ({ activeTab, setActiveTab, isOpen, setIsOpen }) => {
             children: [
                 { id: 'courses', label: 'Courses', icon: 'ri-book-line' },
                 { id: 'departments', label: 'Departments', icon: 'ri-building-line' },
-                { id: 'academic-calendar', label: 'Academic Calendar', icon: 'ri-calendar-line' }
+                { id: 'academic-calendar', label: 'Academic Calendar', icon: 'ri-calendar-line' },
+                { id: 'events', label: 'Event Management', icon: 'ri-calendar-event-line' }
+            ]
+        },
+        {
+            id: 'support',
+            label: 'Student Support',
+            icon: 'ri-customer-service-2-line',
+            type: 'section',
+            children: [
+                { id: 'queries', label: 'Student Queries', icon: 'ri-question-answer-line' },
+                { id: 'announcements', label: 'Announcements', icon: 'ri-megaphone-line' }
             ]
         },
         {

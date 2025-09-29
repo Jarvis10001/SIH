@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useCallback } from 'react';
 import { toast } from 'react-toastify';
 import { motion, AnimatePresence } from 'framer-motion';
+import { themeClasses, iconClasses } from '../../../styles/theme';
 import { 
   Upload, 
   Download, 
@@ -296,26 +297,26 @@ STU010,Excused`;
   };
 
   return (
-    <div className="p-6 bg-gray-50 min-h-screen">
-      <div className="max-w-7xl mx-auto">
+    <div className={`${themeClasses.pageBackground}`}>
+      <div className={`${themeClasses.pageContainer}`}>
         {/* Header */}
-        <div className="bg-white rounded-lg shadow-sm p-6 mb-6">
+        <div className={`${themeClasses.primaryCard} mb-6`}>
           <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
             <div>
-              <h1 className="text-2xl font-bold text-gray-900 mb-2">Attendance Management</h1>
-              <p className="text-gray-600">Upload and manage student attendance records</p>
+              <h1 className={`text-2xl font-bold ${themeClasses.text.primary} mb-2`}>Attendance Management</h1>
+              <p className={`${themeClasses.text.secondary}`}>Upload and manage student attendance records</p>
             </div>
             <div className="flex gap-3">
               <button
                 onClick={downloadTemplate}
-                className="flex items-center gap-2 px-4 py-2 bg-gray-100 text-gray-700 rounded-lg hover:bg-gray-200 transition-colors"
+                className={`flex items-center gap-2 px-4 py-2 ${themeClasses.button.secondary} rounded-lg transition-colors`}
               >
                 <Download size={20} />
                 Template
               </button>
               <button
                 onClick={() => setShowUploadModal(true)}
-                className="flex items-center gap-2 px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors"
+                className={`flex items-center gap-2 px-4 py-2 ${themeClasses.button.primary} rounded-lg transition-colors`}
               >
                 <Upload size={20} />
                 Upload Attendance
@@ -325,33 +326,33 @@ STU010,Excused`;
         </div>
 
         {/* Filters */}
-        <div className="bg-white rounded-lg shadow-sm p-6 mb-6">
-          <h2 className="text-lg font-semibold text-gray-900 mb-4">Filters</h2>
+        <div className={`${themeClasses.primaryCard} mb-6`}>
+          <h2 className={`text-lg font-semibold ${themeClasses.text.primary} mb-4`}>Filters</h2>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-2">Start Date</label>
+              <label className={`block text-sm font-medium ${themeClasses.text.secondary} mb-2`}>Start Date</label>
               <input
                 type="date"
                 value={filters.startDate}
                 onChange={(e) => setFilters({...filters, startDate: e.target.value})}
-                className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-blue-500 focus:border-blue-500"
+                className={`w-full px-3 py-2 ${themeClasses.surface} ${themeClasses.border} ${themeClasses.text.primary} rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500`}
               />
             </div>
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-2">End Date</label>
+              <label className={`block text-sm font-medium ${themeClasses.text.secondary} mb-2`}>End Date</label>
               <input
                 type="date"
                 value={filters.endDate}
                 onChange={(e) => setFilters({...filters, endDate: e.target.value})}
-                className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-blue-500 focus:border-blue-500"
+                className={`w-full px-3 py-2 ${themeClasses.surface} ${themeClasses.border} ${themeClasses.text.primary} rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500`}
               />
             </div>
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-2">Branch & Year</label>
+              <label className={`block text-sm font-medium ${themeClasses.text.secondary} mb-2`}>Branch & Year</label>
               <select
                 value={filters.branch}
                 onChange={(e) => setFilters({...filters, branch: e.target.value, subject: ''})} // Reset subject when branch changes
-                className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-blue-500 focus:border-blue-500"
+                className={`w-full px-3 py-2 ${themeClasses.surface} ${themeClasses.border} ${themeClasses.text.primary} rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500`}
               >
                 <option value="">All Branches</option>
                 {teacherBranches.slice(1).map(branch => (
@@ -362,11 +363,11 @@ STU010,Excused`;
               </select>
             </div>
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-2">Subject</label>
+              <label className={`block text-sm font-medium ${themeClasses.text.secondary} mb-2`}>Subject</label>
               <select
                 value={filters.subject}
                 onChange={(e) => setFilters({...filters, subject: e.target.value})}
-                className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-blue-500 focus:border-blue-500"
+                className={`w-full px-3 py-2 ${themeClasses.surface} ${themeClasses.border} ${themeClasses.text.primary} rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500`}
                 disabled={!filters.branch}
               >
                 <option value="">All Subjects</option>
@@ -381,51 +382,51 @@ STU010,Excused`;
         </div>
 
         {/* Attendance Records */}
-        <div className="bg-white rounded-lg shadow-sm">
-          <div className="p-6 border-b border-gray-200">
-            <h2 className="text-lg font-semibold text-gray-900">Attendance Records</h2>
+        <div className={`${themeClasses.primaryCard} rounded-lg shadow-sm`}>
+          <div className={`p-6 border-b ${themeClasses.border}`}>
+            <h2 className={`text-lg font-semibold ${themeClasses.text.primary}`}>Attendance Records</h2>
           </div>
 
           {loading ? (
             <div className="p-8 text-center">
-              <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-blue-600 mx-auto"></div>
-              <p className="mt-2 text-gray-600">Loading attendance records...</p>
+              <div className={`animate-spin rounded-full h-8 w-8 border-b-2 ${themeClasses.border} mx-auto`}></div>
+              <p className={`mt-2 ${themeClasses.text.secondary}`}>Loading attendance records...</p>
             </div>
           ) : attendanceRecords.length === 0 ? (
             <div className="p-8 text-center">
-              <FileText size={48} className="mx-auto text-gray-400 mb-4" />
-              <p className="text-gray-600">No attendance records found</p>
+              <FileText size={48} className={`mx-auto ${themeClasses.text.muted} mb-4`} />
+              <p className={themeClasses.text.secondary}>No attendance records found</p>
             </div>
           ) : (
             <div className="overflow-x-auto">
               <table className="w-full">
-                <thead className="bg-gray-50">
+                <thead className={themeClasses.surfaceVariant}>
                   <tr>
-                    <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                    <th className={`px-6 py-3 text-left text-xs font-medium ${themeClasses.text.muted} uppercase tracking-wider`}>
                       Date & Time
                     </th>
-                    <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                    <th className={`px-6 py-3 text-left text-xs font-medium ${themeClasses.text.muted} uppercase tracking-wider`}>
                       Class Details
                     </th>
-                    <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                    <th className={`px-6 py-3 text-left text-xs font-medium ${themeClasses.text.muted} uppercase tracking-wider`}>
                       Statistics
                     </th>
-                    <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                    <th className={`px-6 py-3 text-left text-xs font-medium ${themeClasses.text.muted} uppercase tracking-wider`}>
                       Actions
                     </th>
                   </tr>
                 </thead>
-                <tbody className="bg-white divide-y divide-gray-200">
+                <tbody className={`${themeClasses.primaryCard} divide-y ${themeClasses.border}`}>
                   {attendanceRecords.map((record) => (
-                    <tr key={record._id} className="hover:bg-gray-50">
+                    <tr key={record._id} className={`hover:${themeClasses.surfaceVariant}`}>
                       <td className="px-6 py-4 whitespace-nowrap">
                         <div className="flex items-center">
-                          <Calendar className="h-5 w-5 text-gray-400 mr-2" />
+                          <Calendar className={`h-5 w-5 ${themeClasses.text.muted} mr-2`} />
                           <div>
-                            <div className="text-sm font-medium text-gray-900">
+                            <div className={`text-sm font-medium ${themeClasses.text.primary}`}>
                               {formatDate(record.date)}
                             </div>
-                            <div className="text-sm text-gray-500">
+                            <div className={`text-sm ${themeClasses.text.secondary}`}>
                               {formatTime(record.timeSlot.startTime)} - {formatTime(record.timeSlot.endTime)}
                             </div>
                           </div>
@@ -433,12 +434,12 @@ STU010,Excused`;
                       </td>
                       <td className="px-6 py-4">
                         <div className="flex items-center">
-                          <BookOpen className="h-5 w-5 text-gray-400 mr-2" />
+                          <BookOpen className={`h-5 w-5 ${themeClasses.text.muted} mr-2`} />
                           <div>
-                            <div className="text-sm font-medium text-gray-900">
+                            <div className={`text-sm font-medium ${themeClasses.text.primary}`}>
                               {record.classInfo.subject}
                             </div>
-                            <div className="text-sm text-gray-500">
+                            <div className={`text-sm ${themeClasses.text.secondary}`}>
                               {record.classInfo.className} - {record.classInfo.section} | Sem {record.classInfo.semester}
                             </div>
                           </div>
@@ -446,12 +447,12 @@ STU010,Excused`;
                       </td>
                       <td className="px-6 py-4">
                         <div className="flex items-center">
-                          <Users className="h-5 w-5 text-gray-400 mr-2" />
+                          <Users className={`h-5 w-5 ${themeClasses.text.muted} mr-2`} />
                           <div>
-                            <div className="text-sm font-medium text-gray-900">
+                            <div className={`text-sm font-medium ${themeClasses.text.primary}`}>
                               {record.statistics.attendancePercentage}% Present
                             </div>
-                            <div className="text-sm text-gray-500">
+                            <div className={`text-sm ${themeClasses.text.secondary}`}>
                               {record.statistics.presentCount}/{record.statistics.totalStudents} students
                             </div>
                           </div>
@@ -461,14 +462,14 @@ STU010,Excused`;
                         <div className="flex items-center gap-2">
                           <button
                             onClick={() => viewRecord(record)}
-                            className="text-blue-600 hover:text-blue-900 p-1"
+                            className={`${themeClasses.text.accent} hover:opacity-80 p-1`}
                             title="View Details"
                           >
                             <Eye size={16} />
                           </button>
                           <button
                             onClick={() => handleDelete(record._id)}
-                            className="text-red-600 hover:text-red-900 p-1"
+                            className={`${themeClasses.text.error} hover:opacity-80 p-1`}
                             title="Delete"
                           >
                             <Trash2 size={16} />
@@ -497,14 +498,14 @@ STU010,Excused`;
               initial={{ scale: 0.95, opacity: 0 }}
               animate={{ scale: 1, opacity: 1 }}
               exit={{ scale: 0.95, opacity: 0 }}
-              className="bg-white rounded-lg max-w-2xl w-full max-h-[90vh] overflow-y-auto"
+              className={`${themeClasses.primaryCard} rounded-lg max-w-2xl w-full max-h-[90vh] overflow-y-auto`}
             >
-              <div className="p-6 border-b border-gray-200">
+              <div className={`p-6 border-b ${themeClasses.border}`}>
                 <div className="flex items-center justify-between">
-                  <h2 className="text-xl font-semibold text-gray-900">Upload Attendance</h2>
+                  <h2 className={`text-xl font-semibold ${themeClasses.text.primary}`}>Upload Attendance</h2>
                   <button
                     onClick={() => setShowUploadModal(false)}
-                    className="text-gray-400 hover:text-gray-600"
+                    className={`${themeClasses.text.muted} hover:${themeClasses.text.secondary}`}
                   >
                     <X size={24} />
                   </button>
@@ -515,11 +516,11 @@ STU010,Excused`;
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                   {/* Class Information */}
                   <div className="md:col-span-2">
-                    <h3 className="text-lg font-medium text-gray-900 mb-4">Class Information</h3>
+                    <h3 className={`text-lg font-medium ${themeClasses.text.primary} mb-4`}>Class Information</h3>
                   </div>
 
                   <div>
-                    <label className="block text-sm font-medium text-gray-700 mb-2">
+                    <label className={`block text-sm font-medium ${themeClasses.text.secondary} mb-2`}>
                       Branch & Year *
                     </label>
                     <select
@@ -528,7 +529,7 @@ STU010,Excused`;
                       onChange={(e) => {
                         setUploadData({...uploadData, branch: e.target.value, subject: ''}); // Reset subject when branch changes
                       }}
-                      className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-blue-500 focus:border-blue-500"
+                      className={`w-full px-3 py-2 border ${themeClasses.border} ${themeClasses.surface} ${themeClasses.text.primary} rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500`}
                     >
                       <option value="">Select a branch</option>
                       {teacherBranches.slice(1).map(branch => (
@@ -540,14 +541,14 @@ STU010,Excused`;
                   </div>
 
                   <div>
-                    <label className="block text-sm font-medium text-gray-700 mb-2">
+                    <label className={`block text-sm font-medium ${themeClasses.text.secondary} mb-2`}>
                       Subject *
                     </label>
                     <select
                       required
                       value={uploadData.subject}
                       onChange={(e) => setUploadData({...uploadData, subject: e.target.value})}
-                      className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-blue-500 focus:border-blue-500"
+                      className={`w-full px-3 py-2 border ${themeClasses.border} ${themeClasses.surface} ${themeClasses.text.primary} rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500`}
                       disabled={!uploadData.branch}
                     >
                       <option value="">Select a subject</option>
@@ -560,7 +561,7 @@ STU010,Excused`;
                   </div>
 
                   <div>
-                    <label className="block text-sm font-medium text-gray-700 mb-2">
+                    <label className={`block text-sm font-medium ${themeClasses.text.secondary} mb-2`}>
                       Academic Year *
                     </label>
                     <input
@@ -568,13 +569,13 @@ STU010,Excused`;
                       required
                       value={uploadData.academicYear}
                       onChange={(e) => setUploadData({...uploadData, academicYear: e.target.value})}
-                      className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-blue-500 focus:border-blue-500"
+                      className={`w-full px-3 py-2 border ${themeClasses.border} ${themeClasses.surface} ${themeClasses.text.primary} rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500`}
                       placeholder="e.g., 2024-25"
                     />
                   </div>
 
                   <div>
-                    <label className="block text-sm font-medium text-gray-700 mb-2">
+                    <label className={`block text-sm font-medium ${themeClasses.text.secondary} mb-2`}>
                       Date *
                     </label>
                     <input
@@ -582,43 +583,43 @@ STU010,Excused`;
                       required
                       value={uploadData.date}
                       onChange={(e) => setUploadData({...uploadData, date: e.target.value})}
-                      className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-blue-500 focus:border-blue-500"
+                      className={`w-full px-3 py-2 border ${themeClasses.border} ${themeClasses.surface} ${themeClasses.text.primary} rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500`}
                     />
                   </div>
 
                   <div>
-                    <label className="block text-sm font-medium text-gray-700 mb-2">
+                    <label className={`block text-sm font-medium ${themeClasses.text.secondary} mb-2`}>
                       Start Time
                     </label>
                     <input
                       type="time"
                       value={uploadData.startTime}
                       onChange={(e) => setUploadData({...uploadData, startTime: e.target.value})}
-                      className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-blue-500 focus:border-blue-500"
+                      className={`w-full px-3 py-2 border ${themeClasses.border} ${themeClasses.surface} ${themeClasses.text.primary} rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500`}
                     />
                   </div>
 
                   <div>
-                    <label className="block text-sm font-medium text-gray-700 mb-2">
+                    <label className={`block text-sm font-medium ${themeClasses.text.secondary} mb-2`}>
                       End Time
                     </label>
                     <input
                       type="time"
                       value={uploadData.endTime}
                       onChange={(e) => setUploadData({...uploadData, endTime: e.target.value})}
-                      className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-blue-500 focus:border-blue-500"
+                      className={`w-full px-3 py-2 border ${themeClasses.border} ${themeClasses.surface} ${themeClasses.text.primary} rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500`}
                     />
                   </div>
 
                   {/* File Upload */}
                   <div className="md:col-span-2">
-                    <h3 className="text-lg font-medium text-gray-900 mb-4 mt-6">Upload File</h3>
-                    <div className="border-2 border-dashed border-gray-300 rounded-lg p-6">
+                    <h3 className={`text-lg font-medium ${themeClasses.text.primary} mb-4 mt-6`}>Upload File</h3>
+                    <div className={`border-2 border-dashed ${themeClasses.border} rounded-lg p-6`}>
                       <div className="text-center">
-                        <Upload className="mx-auto h-12 w-12 text-gray-400" />
+                        <Upload className={`mx-auto h-12 w-12 ${themeClasses.text.muted}`} />
                         <div className="mt-4">
                           <label htmlFor="file-upload" className="cursor-pointer">
-                            <span className="text-blue-600 hover:text-blue-500 font-medium">
+                            <span className={`${themeClasses.text.accent} hover:opacity-80 font-medium`}>
                               Upload a file
                             </span>
                             <input
@@ -630,13 +631,13 @@ STU010,Excused`;
                               onChange={handleFileChange}
                             />
                           </label>
-                          <p className="text-gray-500">or drag and drop</p>
+                          <p className={themeClasses.text.secondary}>or drag and drop</p>
                         </div>
-                        <p className="text-xs text-gray-500 mt-2">
+                        <p className={`text-xs ${themeClasses.text.muted} mt-2`}>
                           Excel (.xlsx, .xls) or CSV files up to 5MB
                         </p>
                         {selectedFile && (
-                          <div className="mt-4 text-sm text-gray-900">
+                          <div className={`mt-4 text-sm ${themeClasses.text.primary}`}>
                             Selected: {selectedFile.name}
                           </div>
                         )}
@@ -645,17 +646,17 @@ STU010,Excused`;
                   </div>
 
                   {/* Format Instructions */}
-                  <div className="md:col-span-2 bg-blue-50 rounded-lg p-4">
-                    <h4 className="font-medium text-blue-900 mb-2">File Format Requirements:</h4>
-                    <p className="text-sm text-blue-800 mb-2">
+                  <div className={`md:col-span-2 ${themeClasses.surface} rounded-lg p-4`}>
+                    <h4 className={`font-medium ${themeClasses.text.accent} mb-2`}>File Format Requirements:</h4>
+                    <p className={`text-sm ${themeClasses.text.secondary} mb-2`}>
                       Your Excel/CSV file should have this simple format:
                     </p>
-                    <ul className="text-sm text-blue-800 list-disc list-inside space-y-1 mb-3">
+                    <ul className={`text-sm ${themeClasses.text.secondary} list-disc list-inside space-y-1 mb-3`}>
                       <li><strong>First row:</strong> Date (optional) - e.g., "Date: 12/25/2024" or just "12/25/2024"</li>
                       <li><strong>Column A:</strong> Student IDs (SID) - e.g., STU001, STU002, etc.</li>
                       <li><strong>Column B:</strong> Attendance Status - Present/Absent/Late/Excused (or P/A/L/E, Y/N, 1/0)</li>
                     </ul>
-                    <div className="bg-white rounded p-3 text-xs text-gray-700 border">
+                    <div className={`${themeClasses.primaryCard} rounded p-3 text-xs ${themeClasses.text.secondary} border ${themeClasses.border}`}>
                       <div className="font-medium mb-1">Example format:</div>
                       <div>Date: 12/25/2024</div>
                       <div>STU001 | Present</div>
@@ -669,14 +670,14 @@ STU010,Excused`;
                   <button
                     type="button"
                     onClick={() => setShowUploadModal(false)}
-                    className="px-4 py-2 text-gray-700 bg-gray-100 rounded-lg hover:bg-gray-200 transition-colors"
+                    className={`px-4 py-2 ${themeClasses.button.secondary} rounded-lg transition-colors`}
                   >
                     Cancel
                   </button>
                   <button
                     type="submit"
                     disabled={uploading || !selectedFile}
-                    className="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 disabled:opacity-50 disabled:cursor-not-allowed transition-colors flex items-center gap-2"
+                    className={`px-4 py-2 ${themeClasses.button.primary} rounded-lg disabled:opacity-50 disabled:cursor-not-allowed transition-colors flex items-center gap-2`}
                   >
                     {uploading ? (
                       <>

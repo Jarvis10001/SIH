@@ -19,20 +19,6 @@ const navItems = [
   { name: "Queries", icon: "ri-question-answer-line", path: "/dashboard/queries" },
   { name: "Announcements", icon: "ri-megaphone-line", path: "/dashboard/events" },
   
-  // Faculty Section
-  { name: "Faculty", icon: "ri-group-line", path: "/dashboard/faculty" },
-  { name: "Courses", icon: "ri-book-line", path: "/dashboard/courses" },
-  { name: "Assignments", icon: "ri-file-list-3-line", path: "/dashboard/assignments" },
-  
-  // Teacher Section
-  { name: "Teacher Grades", icon: "ri-trophy-line", path: "/dashboard/teacher/grades" },
-  { name: "Teacher Schedule", icon: "ri-calendar-todo-line", path: "/dashboard/teacher/timetable" },
-  { name: "Teacher Resources", icon: "ri-folder-upload-line", path: "/dashboard/teacher/resources" },
-  
-  // Admin Section  
-  { name: "Admin Dashboard", icon: "ri-dashboard-3-line", path: "/dashboard/admin/dashboard" },
-  { name: "Admin Queries", icon: "ri-admin-line", path: "/dashboard/admin/queries" },
-  
   // System Section
   { name: "Reports", icon: "ri-file-chart-line", path: "/dashboard/reports" },
   { name: "Settings", icon: "ri-settings-line", path: "/dashboard/settings" },
@@ -173,85 +159,6 @@ const Sidebar = () => {
                       location.pathname === item.path
                         ? 'text-indigo-400'
                         : 'text-slate-400 group-hover:text-indigo-400'
-                    }`} />
-                    <span className={`text-sm font-medium whitespace-nowrap transition-all duration-300 md:duration-700 ${
-                      isOpen ? 'opacity-100 translate-x-0' : 'opacity-0 -translate-x-10'
-                    }`}>
-                      {item.name}
-                    </span>
-                  </Link>
-                ))}
-              </div>
-            </div>
-
-            {/* Teacher Section */}
-            <div>
-              {isOpen && (
-                <h3 className="text-xs font-semibold text-slate-400 uppercase tracking-wider mb-3 px-4">
-                  Teacher Tools
-                </h3>
-              )}
-              <div className="space-y-1">
-                {[
-                  { name: "Grade Management", icon: "ri-trophy-line", path: "/dashboard/teacher/grades" },
-                  { name: "My Timetable", icon: "ri-calendar-todo-line", path: "/dashboard/teacher/timetable" },
-                  { name: "Upload Resources", icon: "ri-folder-upload-line", path: "/dashboard/teacher/resources" },
-                ].map((item) => (
-                  <Link
-                    key={item.name}
-                    to={item.path}
-                    className={`flex items-center gap-3 px-4 py-2.5 rounded-xl transition-all duration-300 group
-                      ${location.pathname === item.path
-                        ? 'bg-gradient-to-r from-green-500/20 to-green-600/20 text-white shadow-lg border border-green-500/30' 
-                        : 'text-slate-300 hover:bg-gradient-to-r hover:from-green-500/10 hover:to-green-600/10 hover:text-white'
-                      }`}
-                  >
-                    <i className={`${item.icon} text-lg ${
-                      location.pathname === item.path
-                        ? 'text-green-400'
-                        : 'text-slate-400 group-hover:text-green-400'
-                    }`} />
-                    <span className={`text-sm font-medium whitespace-nowrap transition-all duration-300 md:duration-700 ${
-                      isOpen ? 'opacity-100 translate-x-0' : 'opacity-0 -translate-x-10'
-                    }`}>
-                      {item.name}
-                    </span>
-                  </Link>
-                ))}
-              </div>
-            </div>
-
-            {/* Admin Section */}
-            <div>
-              {isOpen && (
-                <h3 className="text-xs font-semibold text-slate-400 uppercase tracking-wider mb-3 px-4">
-                  Administration
-                </h3>
-              )}
-              <div className="space-y-1">
-                {[
-                  { name: "Admin Dashboard", icon: "ri-dashboard-3-line", path: "/dashboard/admin/dashboard" },
-                  { name: "Manage Queries", icon: "ri-admin-line", path: "/dashboard/admin/queries" },
-                  { name: "Students", icon: "ri-user-3-line", path: "/dashboard/students" },
-                  { name: "Faculty", icon: "ri-group-line", path: "/dashboard/faculty" },
-                  { name: "Courses", icon: "ri-book-line", path: "/dashboard/courses" },
-                  { name: "Assignments", icon: "ri-file-list-3-line", path: "/dashboard/assignments" },
-                  { name: "Reports", icon: "ri-file-chart-line", path: "/dashboard/reports" },
-                  { name: "Settings", icon: "ri-settings-line", path: "/dashboard/settings" },
-                ].map((item) => (
-                  <Link
-                    key={item.name}
-                    to={item.path}
-                    className={`flex items-center gap-3 px-4 py-2.5 rounded-xl transition-all duration-300 group
-                      ${location.pathname === item.path
-                        ? 'bg-gradient-to-r from-purple-500/20 to-purple-600/20 text-white shadow-lg border border-purple-500/30' 
-                        : 'text-slate-300 hover:bg-gradient-to-r hover:from-purple-500/10 hover:to-purple-600/10 hover:text-white'
-                      }`}
-                  >
-                    <i className={`${item.icon} text-lg ${
-                      location.pathname === item.path
-                        ? 'text-purple-400'
-                        : 'text-slate-400 group-hover:text-purple-400'
                     }`} />
                     <span className={`text-sm font-medium whitespace-nowrap transition-all duration-300 md:duration-700 ${
                       isOpen ? 'opacity-100 translate-x-0' : 'opacity-0 -translate-x-10'

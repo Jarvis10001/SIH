@@ -1,18 +1,19 @@
 import React, { useState, memo, useCallback } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
+import { themeClasses, iconClasses } from '../../styles/theme';
 
 // FormSection Component - moved outside to prevent recreation
 const FormSection = memo(({ icon, title, children }) => (
     <motion.div
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
-        className="bg-white/50 rounded-xl p-6 backdrop-blur-sm border border-gray-100 shadow-sm"
+        className={`${themeClasses.primaryCard} p-6 backdrop-blur-sm shadow-sm`}
     >
         <div className="flex items-center gap-4 mb-6">
-            <div className="h-10 w-10 rounded-xl bg-[#3B82F6]/10 flex items-center justify-center">
-                <i className={`${icon} text-xl text-[#3B82F6]`}></i>
+            <div className="h-10 w-10 rounded-xl bg-indigo-500/20 flex items-center justify-center">
+                <i className={`${icon} text-xl ${iconClasses.primary}`}></i>
             </div>
-            <h3 className="text-xl font-bold text-[#333333]">{title}</h3>
+            <h3 className={`text-xl font-bold ${themeClasses.text.primary}`}>{title}</h3>
         </div>
         {children}
     </motion.div>
@@ -36,8 +37,8 @@ const FormField = memo(({
     ...props 
 }) => (
     <div className="space-y-2">
-        <label className="text-[#333333] font-medium block">
-            {label} {required && <span className="text-red-500">*</span>}
+        <label className={`${themeClasses.text.primary} font-medium block`}>
+            {label} {required && <span className="text-red-400">*</span>}
         </label>
         {options ? (
             <select
@@ -76,7 +77,7 @@ const FormField = memo(({
             />
         )}
         {formErrors[name] && (
-            <p className="text-red-500 text-sm">{formErrors[name]}</p>
+            <p className="text-red-400 text-sm">{formErrors[name]}</p>
         )}
     </div>
 ));
@@ -86,33 +87,33 @@ FormField.displayName = 'FormField';
 // DocumentUpload Component - moved outside to prevent recreation
 const DocumentUpload = memo(({ label, fieldName, file, preview, onChange, required = false, accept = "image/*" }) => (
     <div className="space-y-2">
-        <label className="text-[#333333] font-medium block">
-            {label} {required && <span className="text-red-500">*</span>}
+        <label className={`${themeClasses.text.primary} font-medium block`}>
+            {label} {required && <span className="text-red-400">*</span>}
         </label>
         <div className="flex flex-col gap-4">
             <div className="flex items-center justify-center w-full">
                 <label className={`flex flex-col w-full h-32 border-2 border-dashed rounded-lg cursor-pointer 
-                    ${file ? 'border-[#3B82F6] bg-[#3B82F6]/5' : 'border-gray-300 bg-[#F8F9F4]'} 
-                    hover:bg-[#F1F3F1] transition-colors duration-300`}>
+                    ${file ? 'border-indigo-500 bg-indigo-500/10' : `border-gray-600 ${themeClasses.surface}`} 
+                    hover:bg-indigo-500/20 transition-colors duration-300`}>
                     <div className="flex flex-col items-center justify-center pt-5 pb-6">
                         {!file ? (
                             <>
-                                <svg className="w-8 h-8 mb-4 text-[#3B82F6]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <svg className={`w-8 h-8 mb-4 ${iconClasses.primary}`} fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" 
                                         d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12" />
                                 </svg>
-                                <p className="mb-2 text-sm text-[#666666]">
+                                <p className={`mb-2 text-sm ${themeClasses.text.secondary}`}>
                                     <span className="font-semibold">Click to upload</span> or drag and drop
                                 </p>
-                                <p className="text-xs text-[#999999]">PNG, JPG or PDF</p>
+                                <p className={`text-xs ${themeClasses.text.muted}`}>PNG, JPG or PDF</p>
                             </>
                         ) : (
                             <>
-                                <svg className="w-8 h-8 mb-4 text-[#3B82F6]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <svg className={`w-8 h-8 mb-4 ${iconClasses.primary}`} fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
                                 </svg>
-                                <p className="text-sm text-[#3B82F6] font-medium">{file.name}</p>
-                                <p className="text-xs text-[#666666]">Click to change file</p>
+                                <p className={`text-sm ${iconClasses.primary} font-medium`}>{file.name}</p>
+                                <p className={`text-xs ${themeClasses.text.secondary}`}>Click to change file</p>
                             </>
                         )}
                     </div>
@@ -146,20 +147,20 @@ const ClerkForm = ({
 
     const inputClasses = `
         w-full p-4 rounded-xl 
-        bg-[#F8F9F4] border-2 border-transparent
-        focus:border-[#3B82F6]
-        focus:ring-4 focus:ring-[#3B82F6]/10 
-        focus:bg-white
-        hover:border-[#3B82F6]/30
+        bg-gray-700 border-2 border-slate-600
+        focus:border-indigo-500
+        focus:ring-4 focus:ring-indigo-500/10 
+        focus:bg-gray-600
+        hover:border-indigo-500/50
         transition-all duration-300 ease-in-out
-        text-[#333333] placeholder-[#6C757D]/60
-        focus:placeholder-[#3B82F6]/50
-        focus:shadow-lg focus:shadow-[#3B82F6]/5
+        ${themeClasses.text.primary} placeholder-slate-400
+        focus:placeholder-indigo-400/50
+        focus:shadow-lg focus:shadow-indigo-500/10
         outline-none
     `;
 
     const selectClasses = inputClasses + ` appearance-none bg-[url('data:image/svg+xml;charset=US-ASCII,${encodeURIComponent(
-        `<svg width="20" height="20" fill="none" stroke="%233B82F6" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>`
+        `<svg width="20" height="20" fill="none" stroke="%236366f1" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>`
     )}')] bg-[length:20px_20px] bg-no-repeat bg-[center_right_1rem] pr-12`;
 
     const steps = [
@@ -682,7 +683,7 @@ const ClerkForm = ({
                                                     checked={clerkForm.systemAccess?.modules?.includes(module.id) || false}
                                                     onChange={() => handleModuleToggle(module.id)}
                                                 />
-                                                <span className="text-sm text-gray-700">{module.label}</span>
+                                                <span className={`text-sm ${themeClasses.text.primary}`}>{module.label}</span>
                                             </label>
                                         ))}
                                     </div>
@@ -731,7 +732,7 @@ const ClerkForm = ({
                                         checked={clerkForm.isActive !== false}
                                         onChange={(e) => handleDirectChange('isActive', e.target.checked)}
                                     />
-                                    <label htmlFor="isActive" className="text-sm text-gray-700">
+                                    <label htmlFor="isActive" className={`text-sm ${themeClasses.text.primary}`}>
                                         Account is active
                                     </label>
                                 </div>
@@ -761,7 +762,7 @@ const ClerkForm = ({
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
-            className="fixed inset-0 bg-black/50 flex items-center justify-center p-4 z-50 overflow-y-auto"
+            className="fixed inset-0 bg-black/60 backdrop-blur-sm flex items-center justify-center p-4 z-50 overflow-y-auto"
             onClick={onCancel}
         >
             <motion.div
@@ -769,49 +770,49 @@ const ClerkForm = ({
                 animate={{ opacity: 1, scale: 1 }}
                 exit={{ opacity: 0, scale: 0.95 }}
                 onClick={(e) => e.stopPropagation()}
-                className="bg-white rounded-2xl w-full max-w-4xl max-h-[90vh] overflow-hidden shadow-2xl"
+                className={`${themeClasses.primaryCard} rounded-2xl w-full max-w-4xl max-h-[90vh] overflow-hidden shadow-2xl`}
             >
                 {/* Header */}
-                <div className="relative h-32 bg-gradient-to-r from-[#3B82F6]/20 to-[#2563EB]/20">
+                <div className="relative h-32 bg-gradient-to-r from-indigo-600/20 to-indigo-700/20">
                     <div className="absolute inset-0 px-8 py-6">
                         <div className="flex justify-between items-center">
                             <div>
-                                <h2 className="text-2xl font-bold text-[#333333] mb-1">
+                                <h2 className={`text-2xl font-bold ${themeClasses.text.primary} mb-1`}>
                                     {editingClerk ? 'Edit Clerk' : 'Add New Clerk'}
                                 </h2>
-                                <p className="text-[#6C757D] text-sm">
+                                <p className={`${themeClasses.text.secondary} text-sm`}>
                                     Please fill in all the required information carefully
                                 </p>
                             </div>
                             <button
                                 type="button"
                                 onClick={onCancel}
-                                className="h-12 w-12 bg-white/20 backdrop-blur-md rounded-xl flex items-center justify-center hover:bg-white/30 transition-colors"
+                                className="h-12 w-12 bg-gray-700/50 backdrop-blur-md rounded-xl flex items-center justify-center hover:bg-gray-600/50 transition-colors"
                             >
-                                <i className="ri-close-line text-2xl text-[#333333]"></i>
+                                <i className={`ri-close-line text-2xl ${themeClasses.text.primary}`}></i>
                             </button>
                         </div>
                     </div>
                 </div>
 
                 {/* Step Indicator */}
-                <div className="px-8 py-4 bg-gray-50 border-b">
+                <div className={`px-8 py-4 ${themeClasses.surface} border-b ${themeClasses.border}`}>
                     <div className="flex justify-between items-center">
                         {steps.map((step) => (
                             <div key={step.number} className="flex items-center">
                                 <div className={`flex items-center gap-3 ${
                                     step.number === currentStep 
-                                        ? 'text-[#3B82F6]' 
+                                        ? iconClasses.primary 
                                         : step.number < currentStep 
-                                        ? 'text-[#3B82F6]' 
-                                        : 'text-gray-400'
+                                        ? iconClasses.primary 
+                                        : themeClasses.text.muted
                                 }`}>
                                     <div className={`w-8 h-8 rounded-full flex items-center justify-center text-sm font-semibold ${
                                         step.number === currentStep 
-                                            ? 'bg-[#3B82F6] text-white' 
+                                            ? 'bg-indigo-500 text-white' 
                                             : step.number < currentStep 
-                                            ? 'bg-[#3B82F6] text-white' 
-                                            : 'bg-gray-200 text-gray-500'
+                                            ? 'bg-indigo-500 text-white' 
+                                            : 'bg-gray-600 text-slate-400'
                                     }`}>
                                         {step.number < currentStep ? (
                                             <i className="ri-check-line"></i>
@@ -823,7 +824,7 @@ const ClerkForm = ({
                                 </div>
                                 {step.number < steps.length && (
                                     <div className={`w-8 h-0.5 mx-4 ${
-                                        step.number < currentStep ? 'bg-[#3B82F6]' : 'bg-gray-200'
+                                        step.number < currentStep ? 'bg-indigo-500' : 'bg-gray-600'
                                     }`}></div>
                                 )}
                             </div>
@@ -837,7 +838,7 @@ const ClerkForm = ({
                         <motion.div
                             initial={{ opacity: 0, y: -10 }}
                             animate={{ opacity: 1, y: 0 }}
-                            className="bg-red-50 border border-red-200 text-red-700 px-4 py-3 rounded-xl mb-6"
+                            className="bg-red-500/10 border border-red-500/30 text-red-400 px-4 py-3 rounded-xl mb-6"
                         >
                             <div className="flex items-center gap-2">
                                 <i className="ri-error-warning-line"></i>
@@ -852,11 +853,11 @@ const ClerkForm = ({
                         </AnimatePresence>
 
                         {/* Navigation Buttons */}
-                        <div className="flex justify-between items-center pt-6 border-t border-gray-200">
+                        <div className={`flex justify-between items-center pt-6 border-t ${themeClasses.border}`}>
                             <button
                                 type="button"
                                 onClick={currentStep === 1 ? onCancel : prevStep}
-                                className="flex items-center gap-2 px-6 py-3 border border-gray-300 rounded-xl text-gray-700 font-medium hover:bg-gray-50 transition-colors"
+                                className={`flex items-center gap-2 px-6 py-3 border ${themeClasses.border} rounded-xl ${themeClasses.text.secondary} font-medium hover:bg-gray-700 transition-colors`}
                             >
                                 <i className="ri-arrow-left-line"></i>
                                 {currentStep === 1 ? 'Cancel' : 'Previous'}
@@ -866,7 +867,7 @@ const ClerkForm = ({
                                 <button
                                     type="button"
                                     onClick={nextStep}
-                                    className="flex items-center gap-2 px-6 py-3 bg-[#3B82F6] text-white rounded-xl font-medium hover:bg-[#2563EB] transition-colors"
+                                    className="flex items-center gap-2 px-6 py-3 bg-indigo-600 text-white rounded-xl font-medium hover:bg-indigo-700 transition-colors"
                                 >
                                     Next
                                     <i className="ri-arrow-right-line"></i>
@@ -875,7 +876,7 @@ const ClerkForm = ({
                                 <button
                                     type="submit"
                                     disabled={loading}
-                                    className="flex items-center gap-2 px-6 py-3 bg-[#3B82F6] text-white rounded-xl font-medium hover:bg-[#2563EB] transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+                                    className="flex items-center gap-2 px-6 py-3 bg-indigo-600 text-white rounded-xl font-medium hover:bg-indigo-700 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
                                 >
                                     {loading ? (
                                         <>

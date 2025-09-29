@@ -252,22 +252,22 @@ const TeacherDashboardHome = () => {
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ delay: 0.2 }}
-        className="bg-white rounded-xl p-6 shadow-sm border border-gray-200"
+        className={`${themeClasses.primaryCard} rounded-xl p-6 shadow-sm border ${themeClasses.border}`}
       >
-        <h2 className="text-lg font-semibold text-gray-800 mb-4">Quick Actions</h2>
+        <h2 className={`text-lg font-semibold ${themeClasses.text.primary} mb-4`}>Quick Actions</h2>
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
           {quickActions.map((action, index) => (
             <Link
               key={index}
               to={action.link}
-              className="p-4 rounded-xl bg-gradient-to-br from-blue-50 to-blue-100 hover:from-blue-100 hover:to-blue-200 transition-all duration-300 text-center"
+              className={`p-4 rounded-xl ${themeClasses.surface} hover:${themeClasses.surfaceVariant} border ${themeClasses.border} transition-all duration-300 text-center`}
             >
               <div className="text-center">
-                <div className="w-12 h-12 bg-gradient-to-br from-[#3B82F6]/20 to-[#06B6D4]/20 rounded-xl flex items-center justify-center mx-auto mb-3 group-hover:scale-110 transition-transform duration-300">
-                  <i className={`${action.icon} text-[#3B82F6] text-xl`}></i>
+                <div className={`w-12 h-12 bg-indigo-500/20 rounded-xl flex items-center justify-center mx-auto mb-3 group-hover:scale-110 transition-transform duration-300`}>
+                  <i className={`${action.icon} ${themeClasses.text.accent} text-xl`}></i>
                 </div>
-                <h3 className="font-medium text-[#3B82F6] mb-1">{action.title}</h3>
-                <p className="text-sm text-gray-600">{action.description}</p>
+                <h3 className={`font-medium ${themeClasses.text.accent} mb-1`}>{action.title}</h3>
+                <p className={`text-sm ${themeClasses.text.secondary}`}>{action.description}</p>
               </div>
             </Link>
           ))}
@@ -280,28 +280,28 @@ const TeacherDashboardHome = () => {
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.3 }}
-          className="bg-white rounded-xl p-6 shadow-sm border border-gray-200"
+          className={`${themeClasses.primaryCard} rounded-xl p-6 shadow-sm border ${themeClasses.border}`}
         >
           <div className="flex items-center justify-between mb-4">
-            <h2 className="text-lg font-semibold text-gray-800">Today's Schedule</h2>
+            <h2 className={`text-lg font-semibold ${themeClasses.text.primary}`}>Today's Schedule</h2>
             <Link
               to="/teacher/dashboard/schedule"
-              className="text-[#3B82F6] hover:text-[#06B6D4] text-sm font-medium transition-colors"
+              className={`${themeClasses.text.accent} hover:opacity-80 text-sm font-medium transition-colors`}
             >
               View All
             </Link>
           </div>
           <div className="space-y-4">
             {upcomingClasses.map((class_item) => (
-              <div key={class_item.id} className="flex items-center justify-between p-4 bg-gradient-to-br from-[#3B82F6]/5 to-[#06B6D4]/5 rounded-lg hover:from-[#3B82F6]/10 hover:to-[#06B6D4]/10 transition-colors">
+              <div key={class_item.id} className={`flex items-center justify-between p-4 ${themeClasses.surface} rounded-lg hover:${themeClasses.surfaceVariant} transition-colors`}>
                 <div>
-                  <h3 className="font-semibold text-gray-800">{class_item.subject}</h3>
-                  <p className="text-sm text-gray-600">{class_item.branch} • {class_item.room}</p>
-                  <p className="text-sm text-gray-500">{class_item.students} students</p>
+                  <h3 className={`font-semibold ${themeClasses.text.primary}`}>{class_item.subject}</h3>
+                  <p className={`text-sm ${themeClasses.text.secondary}`}>{class_item.branch} • {class_item.room}</p>
+                  <p className={`text-sm ${themeClasses.text.muted}`}>{class_item.students} students</p>
                 </div>
                 <div className="text-right">
-                  <p className="text-sm font-medium text-gray-800">{class_item.time}</p>
-                  <button className="text-[#3B82F6] hover:text-[#06B6D4] text-sm font-medium transition-colors">
+                  <p className={`text-sm font-medium ${themeClasses.text.primary}`}>{class_item.time}</p>
+                  <button className={`${themeClasses.text.accent} hover:opacity-80 text-sm font-medium transition-colors`}>
                     Take Attendance
                   </button>
                 </div>
@@ -315,19 +315,19 @@ const TeacherDashboardHome = () => {
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.4 }}
-          className="bg-white rounded-xl p-6 shadow-sm border border-gray-200"
+          className={`${themeClasses.primaryCard} rounded-xl p-6 shadow-sm border ${themeClasses.border}`}
         >
-          <h2 className="text-lg font-semibold text-gray-800 mb-4">Recent Activities</h2>
+          <h2 className={`text-lg font-semibold ${themeClasses.text.primary} mb-4`}>Recent Activities</h2>
           <div className="space-y-4">
             {recentActivities.map((activity) => (
-              <div key={activity.id} className="flex items-start gap-3 p-3 rounded-lg hover:bg-gray-50 transition-colors">
-                <div className="w-10 h-10 rounded-full bg-gradient-to-br from-[#3B82F6]/20 to-[#06B6D4]/20 flex items-center justify-center">
-                  <i className={`${activity.icon} text-[#3B82F6]`}></i>
+              <div key={activity.id} className={`flex items-start gap-3 p-3 rounded-lg hover:${themeClasses.surfaceVariant} transition-colors`}>
+                <div className={`w-10 h-10 rounded-full bg-indigo-500/20 flex items-center justify-center`}>
+                  <i className={`${activity.icon} ${themeClasses.text.accent}`}></i>
                 </div>
                 <div className="flex-1">
-                  <h4 className="font-medium text-gray-800 text-sm">{activity.title}</h4>
-                  <p className="text-gray-600 text-xs mt-1">{activity.description}</p>
-                  <p className="text-gray-400 text-xs mt-1">{activity.time}</p>
+                  <h4 className={`font-medium ${themeClasses.text.primary} text-sm`}>{activity.title}</h4>
+                  <p className={`${themeClasses.text.secondary} text-xs mt-1`}>{activity.description}</p>
+                  <p className={`${themeClasses.text.muted} text-xs mt-1`}>{activity.time}</p>
                 </div>
               </div>
             ))}
@@ -340,21 +340,21 @@ const TeacherDashboardHome = () => {
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ delay: 0.5 }}
-        className="bg-white rounded-xl p-6 shadow-sm border border-gray-200"
+        className={`${themeClasses.primaryCard} rounded-xl p-6 shadow-sm border ${themeClasses.border}`}
       >
-        <h2 className="text-lg font-semibold text-gray-800 mb-4">This Week Overview</h2>
+        <h2 className={`text-lg font-semibold ${themeClasses.text.primary} mb-4`}>This Week Overview</h2>
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-          <div className="text-center p-4 bg-gradient-to-br from-blue-50 to-blue-100 rounded-lg">
-            <div className="text-2xl font-bold text-blue-600">24</div>
-            <div className="text-sm text-blue-600 font-medium">Classes Conducted</div>
+          <div className={`text-center p-4 ${themeClasses.surface} rounded-lg`}>
+            <div className={`text-2xl font-bold ${themeClasses.text.accent}`}>24</div>
+            <div className={`text-sm ${themeClasses.text.accent} font-medium`}>Classes Conducted</div>
           </div>
-          <div className="text-center p-4 bg-gradient-to-br from-cyan-50 to-cyan-100 rounded-lg">
-            <div className="text-2xl font-bold text-cyan-600">89%</div>
-            <div className="text-sm text-cyan-600 font-medium">Average Attendance</div>
+          <div className={`text-center p-4 ${themeClasses.surface} rounded-lg`}>
+            <div className={`text-2xl font-bold ${themeClasses.text.accent}`}>89%</div>
+            <div className={`text-sm ${themeClasses.text.accent} font-medium`}>Average Attendance</div>
           </div>
-          <div className="text-center p-4 bg-gradient-to-br from-blue-50 to-cyan-50 rounded-lg">
-            <div className="text-2xl font-bold text-blue-600">18</div>
-            <div className="text-sm text-blue-600 font-medium">Assignments Graded</div>
+          <div className={`text-center p-4 ${themeClasses.surface} rounded-lg`}>
+            <div className={`text-2xl font-bold ${themeClasses.text.accent}`}>18</div>
+            <div className={`text-sm ${themeClasses.text.accent} font-medium`}>Assignments Graded</div>
           </div>
         </div>
       </motion.div>

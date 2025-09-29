@@ -258,112 +258,114 @@ const PaymentPage = () => {
 
     if (paymentStatus && paymentStatus.status === 'completed') {
         return (
-            <div className="max-w-4xl mx-auto my-10 px-4 min-h-screen bg-gradient-to-br from-[#3B82F6]/5 via-white to-[#06B6D4]/5">
-                <motion.div
-                    initial={{ opacity: 0, scale: 0.9 }}
-                    animate={{ opacity: 1, scale: 1 }}
-                    className="bg-white rounded-2xl shadow-xl border border-gray-100 overflow-hidden"
-                >
-                    {/* Success Header */}
-                    <div className="relative h-32 bg-gradient-to-r from-blue-500/20 to-blue-600/20">
-                        <div className="absolute inset-0 px-8 py-6">
-                            <div className="flex justify-between items-center">
-                                <div>
-                                    <h2 className="text-2xl font-bold text-[#333333] mb-1">
-                                        Payment Successful!
-                                    </h2>
-                                    <p className="text-[#6C757D] text-sm">
-                                        Your admission fee has been paid successfully
-                                    </p>
-                                </div>
-                                <div className="h-12 w-12 bg-blue-100 rounded-xl flex items-center justify-center">
-                                    <i className="ri-check-line text-2xl text-blue-600"></i>
+            <div className={`${themeClasses.pageBackground} min-h-screen py-10`}>
+                <div className="max-w-4xl mx-auto px-4">
+                    <motion.div
+                        initial={{ opacity: 0, scale: 0.9 }}
+                        animate={{ opacity: 1, scale: 1 }}
+                        className={`${themeClasses.primaryCard} rounded-2xl shadow-xl border ${themeClasses.border} overflow-hidden`}
+                    >
+                        {/* Success Header */}
+                        <div className="relative h-32 bg-gradient-to-r from-indigo-600/30 to-indigo-700/30">
+                            <div className="absolute inset-0 px-8 py-6">
+                                <div className="flex justify-between items-center">
+                                    <div>
+                                        <h2 className={`text-2xl font-bold ${themeClasses.text.primary} mb-1`}>
+                                            Payment Successful!
+                                        </h2>
+                                        <p className={`${themeClasses.text.secondary} text-sm`}>
+                                            Your admission fee has been paid successfully
+                                        </p>
+                                    </div>
+                                    <div className={`h-12 w-12 bg-indigo-500/20 rounded-xl flex items-center justify-center`}>
+                                        <i className={`ri-check-line text-2xl ${themeClasses.text.success}`}></i>
+                                    </div>
                                 </div>
                             </div>
                         </div>
-                    </div>
 
-                    <div className="p-8">
-                        <div className="text-center mb-8">
-                            <div className="w-20 h-20 bg-blue-100 rounded-full flex items-center justify-center mx-auto mb-4">
-                                <i className="ri-check-line text-3xl text-blue-600"></i>
+                        <div className="p-8">
+                            <div className="text-center mb-8">
+                                <div className={`w-20 h-20 bg-indigo-500/20 rounded-full flex items-center justify-center mx-auto mb-4`}>
+                                    <i className={`ri-check-line text-3xl ${themeClasses.text.success}`}></i>
+                                </div>
+                                <h3 className={`text-2xl font-bold ${themeClasses.text.primary} mb-2`}>Admission Confirmed!</h3>
+                                <p className={themeClasses.text.secondary}>
+                                    Your payment has been processed and your admission is now confirmed.
+                                </p>
                             </div>
-                            <h3 className="text-2xl font-bold text-[#333333] mb-2">Admission Confirmed!</h3>
-                            <p className="text-[#6C757D]">
-                                Your payment has been processed and your admission is now confirmed.
-                            </p>
-                        </div>
 
-                        {/* Payment Details */}
-                        <div className="bg-[#F8F9F4] rounded-xl p-6 mb-6">
-                            <h4 className="text-lg font-semibold text-[#333333] mb-4">Payment Details</h4>
-                            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                                <div>
-                                    <p className="text-sm text-[#6C757D]">Payment ID</p>
-                                    <p className="font-medium text-[#333333]">{paymentStatus.paymentId}</p>
-                                </div>
-                                <div>
-                                    <p className="text-sm text-[#6C757D]">Order ID</p>
-                                    <p className="font-medium text-[#333333]">{paymentStatus.orderId}</p>
-                                </div>
-                                <div>
-                                    <p className="text-sm text-[#6C757D]">Amount Paid</p>
-                                    <p className="font-medium text-[#333333]">₹{paymentStatus.amount?.toLocaleString()}</p>
-                                </div>
-                                <div>
-                                    <p className="text-sm text-[#6C757D]">Payment Date</p>
-                                    <p className="font-medium text-[#333333]">
-                                        {new Date(paymentStatus.paidAt).toLocaleDateString('en-IN', {
-                                            year: 'numeric',
-                                            month: 'long',
-                                            day: 'numeric',
-                                            hour: '2-digit',
-                                            minute: '2-digit'
-                                        })}
-                                    </p>
-                                </div>
-                            </div>
-                            
-                            {/* Student Details */}
-                            <div className="mt-6 pt-6 border-t border-gray-200">
-                                <h5 className="text-md font-semibold text-[#333333] mb-3">Student Details</h5>
+                            {/* Payment Details */}
+                            <div className={`${themeClasses.surface} rounded-xl p-6 mb-6`}>
+                                <h4 className={`text-lg font-semibold ${themeClasses.text.primary} mb-4`}>Payment Details</h4>
                                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                                     <div>
-                                        <p className="text-sm text-[#6C757D]">Student Name</p>
-                                        <p className="font-medium text-[#333333]">{admissionData?.personalInfo?.name}</p>
+                                        <p className={`text-sm ${themeClasses.text.muted}`}>Payment ID</p>
+                                        <p className={`font-medium ${themeClasses.text.primary}`}>{paymentStatus.paymentId}</p>
                                     </div>
                                     <div>
-                                        <p className="text-sm text-[#6C757D]">Course</p>
-                                        <p className="font-medium text-[#333333]">{admissionData?.academicInfo?.course}</p>
+                                        <p className={`text-sm ${themeClasses.text.muted}`}>Order ID</p>
+                                        <p className={`font-medium ${themeClasses.text.primary}`}>{paymentStatus.orderId}</p>
                                     </div>
                                     <div>
-                                        <p className="text-sm text-[#6C757D]">Branch</p>
-                                        <p className="font-medium text-[#333333]">{admissionData?.academicInfo?.branch}</p>
+                                        <p className={`text-sm ${themeClasses.text.muted}`}>Amount Paid</p>
+                                        <p className={`font-medium ${themeClasses.text.primary}`}>₹{paymentStatus.amount?.toLocaleString()}</p>
                                     </div>
                                     <div>
-                                        <p className="text-sm text-[#6C757D]">Application Number</p>
-                                        <p className="font-medium text-[#333333]">{admissionData?.applicationNumber}</p>
+                                        <p className={`text-sm ${themeClasses.text.muted}`}>Payment Date</p>
+                                        <p className={`font-medium ${themeClasses.text.primary}`}>
+                                            {new Date(paymentStatus.paidAt).toLocaleDateString('en-IN', {
+                                                year: 'numeric',
+                                                month: 'long',
+                                                day: 'numeric',
+                                                hour: '2-digit',
+                                                minute: '2-digit'
+                                            })}
+                                        </p>
+                                    </div>
+                                </div>
+                                
+                                {/* Student Details */}
+                                <div className={`mt-6 pt-6 border-t ${themeClasses.border}`}>
+                                    <h5 className={`text-md font-semibold ${themeClasses.text.primary} mb-3`}>Student Details</h5>
+                                    <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                                        <div>
+                                            <p className={`text-sm ${themeClasses.text.muted}`}>Student Name</p>
+                                            <p className={`font-medium ${themeClasses.text.primary}`}>{admissionData?.personalInfo?.name}</p>
+                                        </div>
+                                        <div>
+                                            <p className={`text-sm ${themeClasses.text.muted}`}>Course</p>
+                                            <p className={`font-medium ${themeClasses.text.primary}`}>{admissionData?.academicInfo?.course}</p>
+                                        </div>
+                                        <div>
+                                            <p className={`text-sm ${themeClasses.text.muted}`}>Branch</p>
+                                            <p className={`font-medium ${themeClasses.text.primary}`}>{admissionData?.academicInfo?.branch}</p>
+                                        </div>
+                                        <div>
+                                            <p className={`text-sm ${themeClasses.text.muted}`}>Application Number</p>
+                                            <p className={`font-medium ${themeClasses.text.primary}`}>{admissionData?.applicationNumber}</p>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
-                        </div>
 
-                        <div className="flex gap-4">
-                            <button
-                                onClick={() => navigate('/dashboard')}
-                                className="flex-1 px-6 py-3 bg-[#3B82F6] text-white rounded-xl font-semibold hover:bg-[#2563EB] transition-colors"
-                            >
-                                Go to Dashboard
-                            </button>
-                            <button
-                                onClick={() => window.print()}
-                                className="px-6 py-3 border-2 border-[#3B82F6] text-[#3B82F6] rounded-xl font-semibold hover:bg-[#3B82F6]/10 transition-colors"
-                            >
-                                Print Receipt
-                            </button>
+                            <div className="flex gap-4">
+                                <button
+                                    onClick={() => navigate('/dashboard')}
+                                    className={`flex-1 ${themeClasses.button.primary} px-6 py-3 rounded-xl font-semibold transition-colors`}
+                                >
+                                    Go to Dashboard
+                                </button>
+                                <button
+                                    onClick={() => window.print()}
+                                    className={`px-6 py-3 ${themeClasses.button.secondary} rounded-xl font-semibold transition-colors`}
+                                >
+                                    Print Receipt
+                                </button>
+                            </div>
                         </div>
-                    </div>
-                </motion.div>
+                    </motion.div>
+                </div>
             </div>
         );
     }

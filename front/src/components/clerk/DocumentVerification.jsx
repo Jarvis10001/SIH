@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import axios from 'axios';
+import { themeClasses, iconClasses } from '../../styles/theme';
 
 const DocumentVerification = () => {
     const [applications, setApplications] = useState([]);
@@ -104,15 +105,15 @@ const DocumentVerification = () => {
     const getStatusColor = (status) => {
         switch (status) {
             case 'pending':
-                return 'bg-yellow-100 text-yellow-800 border-yellow-200';
+                return `${themeClasses.surface} ${themeClasses.text.warning} border border-yellow-500/30`;
             case 'verified':
-                return 'bg-blue-100 text-blue-800 border-blue-200';
+                return `${themeClasses.surface} ${themeClasses.text.success} border border-green-500/30`;
             case 'rejected':
-                return 'bg-red-100 text-red-800 border-red-200';
+                return `${themeClasses.surface} ${themeClasses.text.error} border border-red-500/30`;
             case 'not_uploaded':
-                return 'bg-gray-100 text-gray-800 border-gray-200';
+                return `${themeClasses.surface} ${themeClasses.text.muted} border ${themeClasses.border}`;
             default:
-                return 'bg-gray-100 text-gray-800 border-gray-200';
+                return `${themeClasses.surface} ${themeClasses.text.muted} border ${themeClasses.border}`;
         }
     };
 
@@ -149,7 +150,7 @@ const DocumentVerification = () => {
                 key={documentType}
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
-                className="bg-white rounded-xl border border-gray-200 shadow-sm hover:shadow-md transition-all duration-300"
+                className={`${themeClasses.primaryCard} rounded-xl border ${themeClasses.border} shadow-sm hover:shadow-md transition-all duration-300`}
             >
                 <div className="p-6">
                     <div className="flex items-start justify-between mb-4">
@@ -158,7 +159,7 @@ const DocumentVerification = () => {
                                 <i className={`${getStatusIcon(status)} text-lg`}></i>
                             </div>
                             <div>
-                                <h4 className="font-semibold text-gray-900">{documentDisplayNames[documentType]}</h4>
+                                <h4 className={`font-semibold ${themeClasses.text.primary}`}>{documentDisplayNames[documentType]}</h4>
                                 <span className={`inline-flex px-2 py-1 text-xs font-medium rounded-full border ${getStatusColor(status)}`}>
                                     {status === 'not_uploaded' ? 'Not Uploaded' : status.charAt(0).toUpperCase() + status.slice(1)}
                                 </span>
@@ -169,19 +170,19 @@ const DocumentVerification = () => {
                     {isUploaded && (
                         <>
                             <div className="space-y-2 mb-4">
-                                <div className="text-sm text-gray-600">
+                                <div className={`text-sm ${themeClasses.text.secondary}`}>
                                     <span className="font-medium">File:</span> {documentData.originalName}
                                 </div>
-                                <div className="text-sm text-gray-600">
+                                <div className={`text-sm ${themeClasses.text.secondary}`}>
                                     <span className="font-medium">Uploaded:</span> {new Date(documentData.uploadedAt).toLocaleString()}
                                 </div>
                                 {documentData.verificationNotes && (
-                                    <div className="text-sm text-gray-600">
+                                    <div className={`text-sm ${themeClasses.text.secondary}`}>
                                         <span className="font-medium">Notes:</span> {documentData.verificationNotes}
                                     </div>
                                 )}
                                 {documentData.verifiedAt && (
-                                    <div className="text-sm text-gray-600">
+                                    <div className={`text-sm ${themeClasses.text.secondary}`}>
                                         <span className="font-medium">Verified:</span> {new Date(documentData.verifiedAt).toLocaleString()}
                                     </div>
                                 )}
@@ -190,7 +191,7 @@ const DocumentVerification = () => {
                             <div className="flex space-x-2">
                                 <button
                                     onClick={() => window.open(documentData.url, '_blank')}
-                                    className="flex-1 bg-blue-100 text-blue-700 py-2 px-3 rounded-lg hover:bg-blue-200 transition-colors text-sm font-medium"
+                                    className={`flex-1 ${themeClasses.button.secondary} py-2 px-3 rounded-lg transition-colors text-sm font-medium`}
                                 >
                                     <i className="ri-eye-line mr-1"></i>
                                     View
@@ -200,7 +201,7 @@ const DocumentVerification = () => {
                                     <>
                                         <button
                                             onClick={() => openVerificationModal(documentType, applicationDocuments._id)}
-                                            className="flex-1 bg-blue-100 text-blue-700 py-2 px-3 rounded-lg hover:bg-blue-200 transition-colors text-sm font-medium"
+                                            className="flex-1 bg-green-500/20 text-green-400 py-2 px-3 rounded-lg hover:bg-green-500/30 transition-colors text-sm font-medium"
                                         >
                                             <i className="ri-check-line mr-1"></i>
                                             Verify
@@ -210,7 +211,7 @@ const DocumentVerification = () => {
                                                 openVerificationModal(documentType, applicationDocuments._id);
                                                 setVerificationNotes('Document does not meet requirements. Please upload a clear, valid document.');
                                             }}
-                                            className="flex-1 bg-red-100 text-red-700 py-2 px-3 rounded-lg hover:bg-red-200 transition-colors text-sm font-medium"
+                                            className="flex-1 bg-red-500/20 text-red-400 py-2 px-3 rounded-lg hover:bg-red-500/30 transition-colors text-sm font-medium"
                                         >
                                             <i className="ri-close-line mr-1"></i>
                                             Reject
@@ -221,7 +222,7 @@ const DocumentVerification = () => {
                                 {status === 'rejected' && (
                                     <button
                                         onClick={() => openVerificationModal(documentType, applicationDocuments._id)}
-                                        className="flex-1 bg-blue-100 text-blue-700 py-2 px-3 rounded-lg hover:bg-blue-200 transition-colors text-sm font-medium"
+                                        className="flex-1 bg-green-500/20 text-green-400 py-2 px-3 rounded-lg hover:bg-green-500/30 transition-colors text-sm font-medium"
                                     >
                                         <i className="ri-check-line mr-1"></i>
                                         Re-verify
@@ -233,8 +234,8 @@ const DocumentVerification = () => {
 
                     {!isUploaded && (
                         <div className="text-center py-4">
-                            <i className="ri-upload-cloud-line text-3xl text-gray-400 mb-2"></i>
-                            <p className="text-gray-500 text-sm">Document not uploaded</p>
+                            <i className={`ri-upload-cloud-line text-3xl ${themeClasses.text.muted} mb-2`}></i>
+                            <p className={`${themeClasses.text.secondary} text-sm`}>Document not uploaded</p>
                         </div>
                     )}
                 </div>
@@ -243,10 +244,10 @@ const DocumentVerification = () => {
     };
 
     const renderApplicationsList = () => (
-        <div className="bg-white rounded-2xl shadow-lg border border-gray-100 overflow-hidden">
-            <div className="p-6 border-b border-gray-200">
+        <div className={`${themeClasses.primaryCard} rounded-2xl shadow-lg border ${themeClasses.border} overflow-hidden`}>
+            <div className={`p-6 border-b ${themeClasses.border}`}>
                 <div className="flex items-center justify-between mb-4">
-                    <h3 className="text-xl font-semibold text-gray-900">Document Verification</h3>
+                    <h3 className={`text-xl font-semibold ${themeClasses.text.primary}`}>Document Verification</h3>
                     <div className="flex space-x-2">
                         {['pending', 'verified', 'rejected'].map((statusFilter) => (
                             <button
@@ -254,8 +255,8 @@ const DocumentVerification = () => {
                                 onClick={() => setFilter(statusFilter)}
                                 className={`px-4 py-2 rounded-lg font-medium transition-colors ${
                                     filter === statusFilter
-                                        ? 'bg-[#3B82F6] text-white'
-                                        : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
+                                        ? themeClasses.button.primary
+                                        : `${themeClasses.button.secondary} hover:${themeClasses.surfaceVariant}`
                                 }`}
                             >
                                 {statusFilter.charAt(0).toUpperCase() + statusFilter.slice(1)}
@@ -267,29 +268,29 @@ const DocumentVerification = () => {
 
             {loading ? (
                 <div className="p-8 text-center">
-                    <i className="ri-loader-4-line animate-spin text-2xl text-gray-400 mb-2"></i>
-                    <p className="text-gray-600">Loading applications...</p>
+                    <i className={`ri-loader-4-line animate-spin text-2xl ${themeClasses.text.muted} mb-2`}></i>
+                    <p className={themeClasses.text.secondary}>Loading applications...</p>
                 </div>
             ) : applications.length === 0 ? (
                 <div className="p-8 text-center">
-                    <i className="ri-file-list-3-line text-4xl text-gray-300 mb-4"></i>
-                    <p className="text-gray-600 text-lg font-medium mb-2">No applications found</p>
-                    <p className="text-gray-500">No applications match the selected filter</p>
+                    <i className={`ri-file-list-3-line text-4xl ${themeClasses.text.muted} mb-4`}></i>
+                    <p className={`${themeClasses.text.secondary} text-lg font-medium mb-2`}>No applications found</p>
+                    <p className={themeClasses.text.muted}>No applications match the selected filter</p>
                 </div>
             ) : (
                 <div className="overflow-x-auto">
                     <table className="w-full">
-                        <thead className="bg-gray-50">
+                        <thead className={themeClasses.surfaceVariant}>
                             <tr>
-                                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Student</th>
-                                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Application</th>
-                                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Course</th>
-                                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Status</th>
-                                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Submitted</th>
-                                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Actions</th>
+                                <th className={`px-6 py-3 text-left text-xs font-medium ${themeClasses.text.muted} uppercase tracking-wider`}>Student</th>
+                                <th className={`px-6 py-3 text-left text-xs font-medium ${themeClasses.text.muted} uppercase tracking-wider`}>Application</th>
+                                <th className={`px-6 py-3 text-left text-xs font-medium ${themeClasses.text.muted} uppercase tracking-wider`}>Course</th>
+                                <th className={`px-6 py-3 text-left text-xs font-medium ${themeClasses.text.muted} uppercase tracking-wider`}>Status</th>
+                                <th className={`px-6 py-3 text-left text-xs font-medium ${themeClasses.text.muted} uppercase tracking-wider`}>Submitted</th>
+                                <th className={`px-6 py-3 text-left text-xs font-medium ${themeClasses.text.muted} uppercase tracking-wider`}>Actions</th>
                             </tr>
                         </thead>
-                        <tbody className="bg-white divide-y divide-gray-200">
+                        <tbody className={`${themeClasses.primaryCard} divide-y ${themeClasses.border}`}>
                             {applications.map((application) => (
                                 <motion.tr
                                     key={application._id}
@@ -447,23 +448,23 @@ const DocumentVerification = () => {
                             initial={{ opacity: 0, scale: 0.9 }}
                             animate={{ opacity: 1, scale: 1 }}
                             exit={{ opacity: 0, scale: 0.9 }}
-                            className="bg-white rounded-2xl shadow-2xl max-w-md w-full"
+                            className={`${themeClasses.primaryCard} rounded-2xl shadow-2xl max-w-md w-full`}
                         >
                             <div className="p-6">
-                                <h3 className="text-xl font-semibold text-gray-900 mb-4">
+                                <h3 className={`text-xl font-semibold ${themeClasses.text.primary} mb-4`}>
                                     Verify {documentDisplayNames[verificationModal.document]}
                                 </h3>
                                 
                                 <div className="space-y-4">
                                     <div>
-                                        <label className="block text-sm font-medium text-gray-700 mb-2">
+                                        <label className={`block text-sm font-medium ${themeClasses.text.secondary} mb-2`}>
                                             Verification Notes
                                         </label>
                                         <textarea
                                             value={verificationNotes}
                                             onChange={(e) => setVerificationNotes(e.target.value)}
                                             rows={4}
-                                            className="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#3B82F6] focus:border-transparent"
+                                            className={`w-full p-3 border ${themeClasses.border} ${themeClasses.surface} ${themeClasses.text.primary} rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-transparent`}
                                             placeholder="Add notes about the document verification..."
                                         />
                                     </div>
@@ -471,7 +472,7 @@ const DocumentVerification = () => {
                                     <div className="flex space-x-3">
                                         <button
                                             onClick={() => handleVerifyDocument('verified')}
-                                            className="flex-1 bg-blue-600 text-white py-2 px-4 rounded-lg hover:bg-blue-700 transition-colors font-medium"
+                                            className="flex-1 bg-green-600 text-white py-2 px-4 rounded-lg hover:bg-green-700 transition-colors font-medium"
                                         >
                                             <i className="ri-check-line mr-2"></i>
                                             Verify
@@ -490,7 +491,7 @@ const DocumentVerification = () => {
                                             setVerificationModal({ open: false, document: null, application: null });
                                             setVerificationNotes('');
                                         }}
-                                        className="w-full bg-gray-100 text-gray-700 py-2 px-4 rounded-lg hover:bg-gray-200 transition-colors font-medium"
+                                        className={`w-full ${themeClasses.button.secondary} py-2 px-4 rounded-lg transition-colors font-medium`}
                                     >
                                         Cancel
                                     </button>

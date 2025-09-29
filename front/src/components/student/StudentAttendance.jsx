@@ -197,15 +197,15 @@ const StudentAttendance = () => {
   const getStatusColor = (status) => {
     switch (status) {
       case 'Present':
-        return 'bg-green-100 text-green-800 border-green-200';
+        return `${themeClasses.surface} ${themeClasses.text.success} border border-green-500/30`;
       case 'Absent':
-        return 'bg-red-100 text-red-800 border-red-200';
+        return `${themeClasses.surface} ${themeClasses.text.error} border border-red-500/30`;
       case 'Late':
-        return 'bg-yellow-100 text-yellow-800 border-yellow-200';
+        return `${themeClasses.surface} ${themeClasses.text.warning} border border-yellow-500/30`;
       case 'Excused':
-        return 'bg-blue-100 text-blue-800 border-blue-200';
+        return `${themeClasses.surface} ${themeClasses.text.accent} border border-indigo-500/30`;
       default:
-        return 'bg-gray-100 text-gray-800 border-gray-200';
+        return `${themeClasses.surface} ${themeClasses.text.muted} border ${themeClasses.border}`;
     }
   };
 
@@ -213,23 +213,23 @@ const StudentAttendance = () => {
   const getStatusIcon = (status) => {
     switch (status) {
       case 'Present':
-        return <CheckCircle size={16} className="text-green-600" />;
+        return <CheckCircle size={16} className={themeClasses.text.success} />;
       case 'Absent':
-        return <XCircle size={16} className="text-red-600" />;
+        return <XCircle size={16} className={themeClasses.text.error} />;
       case 'Late':
-        return <ClockIcon size={16} className="text-yellow-600" />;
+        return <ClockIcon size={16} className={themeClasses.text.warning} />;
       case 'Excused':
-        return <AlertCircle size={16} className="text-blue-600" />;
+        return <AlertCircle size={16} className={themeClasses.text.accent} />;
       default:
-        return <AlertCircle size={16} className="text-gray-600" />;
+        return <AlertCircle size={16} className={themeClasses.text.muted} />;
     }
   };
 
   // Get percentage color
   const getPercentageColor = (percentage) => {
-    if (percentage >= 85) return 'text-green-600';
-    if (percentage >= 75) return 'text-yellow-600';
-    return 'text-red-600';
+    if (percentage >= 85) return themeClasses.text.success;
+    if (percentage >= 75) return themeClasses.text.warning;
+    return themeClasses.text.error;
   };
 
   return (
@@ -332,15 +332,15 @@ const StudentAttendance = () => {
         )}
 
         {/* Filters */}
-        <div className="bg-white rounded-lg shadow-sm p-6 mb-6">
-          <h2 className="text-lg font-semibold text-gray-900 mb-4">Filters</h2>
+        <div className={`${themeClasses.primaryCard} rounded-lg shadow-sm p-6 mb-6`}>
+          <h2 className={`text-lg font-semibold ${themeClasses.text.primary} mb-4`}>Filters</h2>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-4">
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-2">Academic Year</label>
+              <label className={`block text-sm font-medium ${themeClasses.text.secondary} mb-2`}>Academic Year</label>
               <select
                 value={filters.academicYear}
                 onChange={(e) => setFilters({...filters, academicYear: e.target.value})}
-                className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-blue-500 focus:border-blue-500"
+                className={`w-full px-3 py-2 border ${themeClasses.border} ${themeClasses.surface} ${themeClasses.text.primary} rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500`}
               >
                 <option value="2024-2025">2024-2025</option>
                 <option value="2023-2024">2023-2024</option>
@@ -348,11 +348,11 @@ const StudentAttendance = () => {
               </select>
             </div>
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-2">Semester</label>
+              <label className={`block text-sm font-medium ${themeClasses.text.secondary} mb-2`}>Semester</label>
               <select
                 value={filters.semester}
                 onChange={(e) => setFilters({...filters, semester: e.target.value})}
-                className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-blue-500 focus:border-blue-500"
+                className={`w-full px-3 py-2 border ${themeClasses.border} ${themeClasses.surface} ${themeClasses.text.primary} rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500`}
               >
                 <option value="">All Semesters</option>
                 {[1,2,3,4,5,6,7,8].map(sem => (
@@ -361,31 +361,31 @@ const StudentAttendance = () => {
               </select>
             </div>
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-2">Subject</label>
+              <label className={`block text-sm font-medium ${themeClasses.text.secondary} mb-2`}>Subject</label>
               <input
                 type="text"
                 placeholder="Filter by subject"
                 value={filters.subject}
                 onChange={(e) => setFilters({...filters, subject: e.target.value})}
-                className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-blue-500 focus:border-blue-500"
+                className={`w-full px-3 py-2 border ${themeClasses.border} ${themeClasses.surface} ${themeClasses.text.primary} rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500`}
               />
             </div>
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-2">Start Date</label>
+              <label className={`block text-sm font-medium ${themeClasses.text.secondary} mb-2`}>Start Date</label>
               <input
                 type="date"
                 value={filters.startDate}
                 onChange={(e) => setFilters({...filters, startDate: e.target.value})}
-                className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-blue-500 focus:border-blue-500"
+                className={`w-full px-3 py-2 border ${themeClasses.border} ${themeClasses.surface} ${themeClasses.text.primary} rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500`}
               />
             </div>
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-2">End Date</label>
+              <label className={`block text-sm font-medium ${themeClasses.text.secondary} mb-2`}>End Date</label>
               <input
                 type="date"
                 value={filters.endDate}
                 onChange={(e) => setFilters({...filters, endDate: e.target.value})}
-                className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-blue-500 focus:border-blue-500"
+                className={`w-full px-3 py-2 border ${themeClasses.border} ${themeClasses.surface} ${themeClasses.text.primary} rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500`}
               />
             </div>
           </div>
@@ -511,14 +511,14 @@ const StudentAttendance = () => {
               initial={{ scale: 0.95, opacity: 0 }}
               animate={{ scale: 1, opacity: 1 }}
               exit={{ scale: 0.95, opacity: 0 }}
-              className="bg-white rounded-lg max-w-2xl w-full max-h-[90vh] overflow-y-auto"
+              className={`${themeClasses.primaryCard} rounded-lg max-w-2xl w-full max-h-[90vh] overflow-y-auto`}
             >
-              <div className="p-6 border-b border-gray-200">
+              <div className={`p-6 border-b ${themeClasses.border}`}>
                 <div className="flex items-center justify-between">
-                  <h2 className="text-xl font-semibold text-gray-900">Class Details</h2>
+                  <h2 className={`text-xl font-semibold ${themeClasses.text.primary}`}>Class Details</h2>
                   <button
                     onClick={() => setShowDetailModal(false)}
-                    className="text-gray-400 hover:text-gray-600"
+                    className={`${themeClasses.text.muted} hover:${themeClasses.text.secondary}`}
                   >
                     ×
                   </button>
